@@ -163,10 +163,6 @@
 /* Tab View */
 
 @media (min-width: 700px) and (max-width: 1200px) {
-  .login-container {
-    background-color: var(--green);
-  }
-
   .logo-container {
     display: none;
   }

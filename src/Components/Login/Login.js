@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Login.css";
 
 export default function Login(props) {
+  const [isLogin, setIsLogin] = useState(true);
+
   function handleLogin(event) {
-    // alert("Hello");
     event.preventDefault();
 
     const user = {
@@ -11,9 +12,49 @@ export default function Login(props) {
       password: document.querySelector(".login-password").value,
     };
 
-    // console.log(user);
-    const token = "GaganIsKing";
-    props.setUser(token);
+    fetch("http://localhost:5000/login", {
+      method: "POST",
+      body: JSON.stringify({
+        user: user,
+      }),
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        // console.log(data);
+        const authToken = data.authToken;
+        localStorage.setItem("authToken", authToken);
+        props.setUser(data.authToken);
+      });
+  }
+
+  function handleSignup(event) {
+    event.preventDefault();
+
+    const user = {
+      username: document.querySelector(".signup-username").value,
+      useremail: document.querySelector(".signup-useremail").value,
+      password: document.querySelector(".signup-password").value,
+    };
+
+    fetch("http://localhost:5000/signup", {
+      method: "POST",
+      body: JSON.stringify({
+        user: user,
+      }),
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        // console.log(data.authToken);
+        const authToken = data.authToken;
+        localStorage.setItem("authToken", authToken);
+        props.setUser(authToken);
+      });
   }
 
   return (
@@ -36,41 +77,100 @@ export default function Login(props) {
           <div className="greet-container">
             <div className="greet-message">
               <h1>Hello,</h1>
-              <h1>Welcome back!</h1>
+              {isLogin ? (
+                <h1>Welcome back!</h1>
+              ) : (
+                <h1>Welcome at Closet Fashion</h1>
+              )}
             </div>
             <img className="user-img" src="images/man.png" alt="User-Image" />
           </div>
-          <form className="form-box" onSubmit={handleLogin}>
-            <div className="form-item">
-              <input
-                type="text"
-                name="username"
-                className="login-useremail"
-                placeholder="Username or Useremail"
-              />
-            </div>
-            <div className="form-item">
-              <input
-                type="password"
-                name="password"
-                className="login-password"
-                placeholder="Password"
-              />
-            </div>
-            <div className="extra-form-items">
-              <div>
-                <input type="checkbox" name="" />
-                Remember me
+
+          {isLogin ? (
+            <div>
+              <form className="form-box" onSubmit={handleLogin}>
+                <div className="form-item">
+                  <input
+                    type="text"
+                    name="useremail"
+                    className="login-useremail"
+                    placeholder="Useremail"
+                  />
+                </div>
+                <div className="form-item">
+                  <input
+                    type="password"
+                    name="password"
+                    className="login-password"
+                    placeholder="Password"
+                  />
+                </div>
+                <div className="extra-form-items">
+                  <div>
+                    <input type="checkbox" name="" />
+                    Remember me
+                  </div>
+                  <div>Forgot Password?</div>
+                </div>
+                <div className="form-btn">
+                  <button onClick={handleLogin}>Login</button>
+                </div>
+              </form>
+              <div className="signup-info">
+                Don't have an account {"  "}
+                <span
+                  onClick={() => {
+                    setIsLogin(false);
+                  }}
+                >
+                  Click here!
+                </span>
               </div>
-              <div>Forgot Password?</div>
             </div>
-            <div className="form-btn">
-              <button onClick={handleLogin}>Login</button>
+          ) : (
+            <div>
+              <form className="form-box" onSubmit={handleSignup}>
+                <div className="form-item">
+                  <input
+                    type="text"
+                    name="username"
+                    className="signup-username"
+                    placeholder="Username"
+                  />
+                </div>
+                <div className="form-item">
+                  <input
+                    type="email"
+                    name="useremail"
+                    className="signup-useremail"
+                    placeholder="Useremail"
+                  />
+                </div>
+                <div className="form-item">
+                  <input
+                    type="password"
+                    name="password"
+                    className="signup-password"
+                    placeholder="Password"
+                  />
+                </div>
+                <div className="form-btn">
+                  <button onClick={handleSignup}>Create Account</button>
+                </div>
+              </form>
+              <div className="signup-info">
+                Already have an account {"  "}
+                <span
+                  onClick={() => {
+                    setIsLogin(true);
+                  }}
+                >
+                  Click here!
+                </span>
+              </div>
             </div>
-          </form>
-          <div className="signup-info">
-            Don't have an account <span>Click here!</span>
-          </div>
+          )}
+
           <div className="social-media-icon-box">
             <div className="social-media-icon">
               <img src="images/search.png" alt="social-media-icon" />

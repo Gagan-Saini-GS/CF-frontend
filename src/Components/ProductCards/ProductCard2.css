@@ -1,0 +1,59 @@
+.pc2-container {
+  width: 90%;
+  margin: 20px auto;
+  display: flex;
+  border: 2px solid var(--blue);
+  padding: 25px;
+}
+
+.pc2-info-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.pc2-img-box {
+  width: 30%;
+  margin-right: 20px;
+}
+
+.pc2-img-box img {
+  display: block;
+  width: 90%;
+  margin: auto;
+  border-radius: 10px;
+}
+
+.pc2-info-item {
+  margin: 0px 10px 10px;
+}
+
+.pc2-name {
+  font-size: 3.25rem;
+  font-weight: 600;
+}
+
+.pc2-desc {
+  font-size: 1.25rem;
+}
+
+.pc2-price {
+  font-size: 2.25rem;
+  color: var(--green);
+}
+
+.pc2-info-container {
+  display: flex;
+  width: 10%;
+}
+
+.pc2-company,
+.pc2-category {
+  background-color: var(--black);
+  color: var(--white);
+  font-size: 1.25rem;
+  border-radius: 5px;
+  padding: 5px 15px 6px;
+  text-transform: uppercase;
+  margin-right: 20px;
+}

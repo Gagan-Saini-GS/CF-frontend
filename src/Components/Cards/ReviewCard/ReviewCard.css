@@ -1,0 +1,31 @@
+.review {
+  width: 30%;
+  color: var(--yellow);
+  background-color: var(--black);
+  min-width: 28%;
+  margin-right: 2%;
+  padding: 20px;
+  border-radius: 10px;
+  position: relative;
+  height: 200px;
+}
+
+.review-author {
+  text-align: right;
+  font-size: 1.75rem;
+  position: absolute;
+  bottom: 15px;
+  right: 45px;
+}
+
+@media (min-width: 700px) and (max-width: 1200px) {
+  .review {
+    min-width: 45%;
+  }
+}
+
+@media (min-width: 300px) and (max-width: 700px) {
+  .review {
+    min-width: 80%;
+  }
+}

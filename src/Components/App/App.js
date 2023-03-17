@@ -1,19 +1,61 @@
 import "./App.css";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
 
+import { useEffect, useState } from "react";
 import Login from "../Login/Login";
-import { useState } from "react";
+import Home from "../Home/Home";
+import SellerAccount from "../Seller/SellerAccount/SellerAccount";
+import Profile from "../Profile/Profile";
+import UpdateProfile from "../UpdateProfile/UpdateProfile";
+import UploadProduct from "../UploadProduct/UploadProduct";
+import ProductList from "../ProductList/ProductList";
+import ProductPage from "../ProductPage/ProductPage";
+import Cart from "../Cart/Cart";
+import BuyNow from "../BuyNow/BuyNow";
 
 function App() {
   const [authToken, setAuthToken] = useState("");
 
+  useEffect(() => {
+    const token = localStorage.getItem("authToken");
+    // console.log(token);
+    setAuthToken(token);
+  }, []);
+
   function setUser(token) {
+    // console.log(token);
     setAuthToken(token);
   }
 
   return (
-    <div className="app-container">
-      {authToken !== "" ? <div>hello</div> : <Login setUser={setUser} />}
-    </div>
+    <Router>
+      <div className="app-container">
+        {authToken === "" || authToken === null || authToken === undefined ? (
+          <Login setUser={setUser} />
+        ) : (
+          <Routes>
+            <Route path="/" element={<Navigate to="/home" />} />
+            <Route path="/home" element={<Home />} />
+            <Route path="/my-profile" element={<Profile />} />
+            <Route path="/become-seller" element={<SellerAccount />} />
+            <Route
+              path="/my-profile/update-profile"
+              element={<UpdateProfile />}
+            />
+            <Route path="/upload-product" element={<UploadProduct />} />
+            <Route path={"/products/:filter"} element={<ProductList />} />
+            <Route path={"/product/:productID"} element={<ProductPage />} />
+            <Route path={"/product/buynow/:productID"} element={<BuyNow />} />
+            <Route path={"/cart"} element={<Cart />} />
+          </Routes>
+        )}
+      </div>
+    </Router>
   );
 }
 

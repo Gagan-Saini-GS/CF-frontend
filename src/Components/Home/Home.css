@@ -1,0 +1,45 @@
+.recently-viewed-container {
+  background-color: var(--yellow);
+  color: var(--black);
+  padding: 35px 10px;
+  margin: 0px;
+}
+
+.recently-viewed-container h2 {
+  margin: 0 0 10px;
+  padding: 0;
+}
+
+.recent-box {
+  display: flex;
+  /* justify-content: space-between; */
+  overflow-x: scroll;
+  height: 350px;
+}
+
+/* .recent-box a {
+  min-width: 15%;
+} */
+
+.top-trends-container {
+  padding: 35px 10px;
+}
+
+.top-trends-container h2 {
+  margin: 0 0 10px;
+  padding: 0;
+}
+
+.top-trend-box {
+  display: flex;
+  /* justify-content: space-between; */
+  overflow-x: scroll;
+  height: 350px;
+}
+
+.product-card-link {
+  min-width: 20%;
+  height: 100%;
+  text-decoration: none;
+  color: var(--black);
+}

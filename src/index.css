@@ -19,3 +19,61 @@ code {
   --green: #48d198;
   --yellow: #efc863;
 }
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+.background-effect {
+  position: relative;
+  z-index: 1;
+  color: var(--white);
+  transition: all 300ms ease-in-out;
+  padding: 5px;
+  margin: 5px 0px;
+}
+
+.background-effect::before {
+  content: "";
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
+  transform: scaleY(0);
+  transform-origin: 50%;
+  background-color: var(--white);
+  z-index: -1;
+  transition: all 300ms ease-in-out;
+}
+
+.background-effect:hover {
+  color: var(--black);
+}
+
+.background-effect:hover::before {
+  transform: scaleY(1);
+}
+
+.hero-heading {
+  background-image: linear-gradient(
+    108deg,
+    var(--blue) 2%,
+    var(--green) 40%,
+    var(--black) 77%,
+    var(--yellow) 91%
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Gucci Jacket G-98 is a green shade rare gucci jacket which is very famous for it's cool looks and this can be paired with any shirt or t-shirt. */
+/* Black nike hoodie with great comfort and looks. */
+/* The OP-7 means One Piece 7 is the best t-shirt with for fans of one piece and specially for luffy fans. */

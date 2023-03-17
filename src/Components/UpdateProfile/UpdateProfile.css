@@ -1,0 +1,30 @@
+.update-profile-container {
+  width: 40%;
+  margin: 25px auto;
+  border: 2px solid var(--blue);
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.update-profile-item {
+  width: 90%;
+  margin: auto;
+  padding: 5px;
+}
+
+.update-profile-item p {
+  margin: 10px 0px;
+  width: 40%;
+  font-size: 1.75rem;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.4);
+}
+
+.update-profile-item input {
+  width: 100%;
+  padding: 5px;
+  font-size: 1.5rem;
+  background-color: #d9d9d9;
+  border: none;
+  outline: none;
+  border-radius: 5px;
+}

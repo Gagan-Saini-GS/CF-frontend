@@ -1,0 +1,97 @@
+.upload-product-container {
+  background-color: var(--white);
+  color: var(--black);
+  margin: 0;
+  padding: 50px;
+}
+
+.upload-heading {
+  border-bottom: 2px solid rgba(30, 30, 30, 0.5);
+  margin: 0;
+  padding: 5px 0px;
+  width: 35%;
+}
+
+.upload-product-form {
+  display: flex;
+}
+
+.upf-box {
+  width: 50%;
+}
+
+.preview-img-container {
+  margin: 10px 0px;
+  width: 75%;
+}
+
+.preview-img-container img {
+  width: 100%;
+}
+
+.upload-product-form-item {
+  margin: 20px 0px;
+}
+
+.upload-product-form-item h3 {
+  border-bottom: 2px solid rgba(30, 30, 30, 0.25);
+  margin: 0px 0px 10px;
+  padding: 2px 0px;
+  width: 25%;
+}
+
+.upload-product-form-item input {
+  background-color: #d9d9d9;
+  border: none;
+  border-radius: 5px;
+  font-size: 1.5rem;
+  outline: none;
+  padding: 5px;
+  width: 74%;
+}
+
+.upload-product-form-item select {
+  background-color: #d9d9d9;
+  border: none;
+  border-radius: 10px;
+  font-size: 1.5rem;
+  padding: 5px;
+  outline: none;
+  width: 75%;
+}
+
+.size-container {
+  width: 75%;
+}
+
+.size-chart-box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.size-box {
+  width: 20%;
+  display: flex;
+}
+
+.size-box input {
+  padding: 2px;
+  width: 25%;
+  margin: 0px 10px 0px 0px;
+}
+
+.size-box span {
+  font-size: 1.5rem;
+}
+
+.upload-product-btn-container button {
+  background-color: var(--yellow);
+  color: var(--black);
+  font-size: 2rem;
+  border-radius: 10px;
+  border: 2px solid var(--black);
+  width: 75%;
+  padding: 5px;
+  margin-top: 25px;
+}

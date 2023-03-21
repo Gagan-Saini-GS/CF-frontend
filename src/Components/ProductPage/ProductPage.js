@@ -8,8 +8,8 @@ import { Link, useParams } from "react-router-dom";
 
 export default function ProductPage() {
   const params = useParams();
-  // const [reviews, setReviews] = useState([1, 2, 3, 4, 5]);
-  // const [faqs, setFAQs] = useState([1, 2, 3, 4, 5]);
+  const [reviews, setReviews] = useState([]);
+  const [faqs, setFAQs] = useState();
   const [product, setProduct] = useState({});
   const [writeReview, setWriteReview] = useState(false);
   const [askQuestion, setAskQuestion] = useState(false);
@@ -22,8 +22,10 @@ export default function ProductPage() {
         productID: productID,
       })
       .then((response) => {
-        console.log(response.data.foundProduct);
+        // console.log(response.data.foundProduct);
         setProduct(response.data.foundProduct);
+        setReviews(response.data.foundProduct.reviews);
+        setFAQs(response.data.foundProduct.questions);
         // checkSize();
       })
       .catch((err) => {
@@ -51,6 +53,7 @@ export default function ProductPage() {
       })
       .then((response) => {
         console.log(response.data);
+        setReviews(response.data);
       })
       .catch((err) => {
         console.log(err);
@@ -74,6 +77,7 @@ export default function ProductPage() {
       })
       .then((response) => {
         console.log(response.data);
+        setFAQs(response.data);
       })
       .catch((err) => {
         console.log(err);
@@ -95,6 +99,8 @@ export default function ProductPage() {
       .catch((err) => {
         console.log(err);
       });
+
+    alert("Item added in your cart");
   }
 
   function buyNow() {
@@ -191,8 +197,8 @@ export default function ProductPage() {
               </div>
             </div>
           )}
-          {product.reviews !== undefined &&
-            product.reviews.map((review, index) => {
+          {reviews !== undefined &&
+            reviews.map((review, index) => {
               return <ReviewCard key={index} review={review} />;
             })}
         </div>
@@ -227,8 +233,8 @@ export default function ProductPage() {
             </div>
           )}
 
-          {product.questions !== undefined &&
-            product.questions.map((question, index) => {
+          {faqs !== undefined &&
+            faqs.map((question, index) => {
               return <FAQCard key={index} question={question} />;
             })}
         </div>

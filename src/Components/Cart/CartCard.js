@@ -10,18 +10,20 @@ export default function CartCard(props) {
   const [quantity, setQuantity] = useState(1);
 
   function quantityChange(price) {
-    // console.log("quantity change called");
     props.quantityChange(price);
   }
 
   function removeProduct() {
+    // const temp = product.price;
+    // console.log(product);
     axios
       .post("http://localhost:5000/remove-item", {
         productID: product._id,
         authToken: localStorage.getItem("authToken"),
       })
       .then((response) => {
-        console.log(response.data.status);
+        // console.log(response.data);
+        props.removeCartProduct(response.data);
       })
       .catch((err) => {
         console.log(err);
@@ -38,38 +40,61 @@ export default function CartCard(props) {
           <div>Quantity</div>
           <div className="quantity-item">
             <button
-              onClick={() => {
-                setQuantity((prev) => {
-                  if (prev > 1) {
-                    quantityChange(-product.price);
-                    return prev - 1;
-                  } else {
-                    alert("Quantity can't be less than 1.");
-                    return prev;
-                  }
-                });
+              onClick={async () => {
+                let flag = false;
+
+                const x = async () => {
+                  setQuantity((prev) => {
+                    if (prev > 1) {
+                      flag = true;
+                      return prev - 1;
+                    } else {
+                      alert("Quantity can't be less than 1.");
+                      return prev;
+                    }
+                  });
+                };
+
+                // This line is just to wait for complete the task x.
+                const y = await x();
+
+                if (flag) {
+                  const temp = -1 * product.price;
+                  quantityChange(temp);
+                }
               }}
             >
               -
             </button>
             {quantity}
             <button
-              onClick={() => {
-                setQuantity((prev) => {
-                  if (prev >= 10) {
-                    alert("You can order maximum 10 product at a time.");
-                    return prev;
-                  } else {
-                    quantityChange(product.price);
-                    return prev + 1;
-                  }
-                });
+              onClick={async () => {
+                let flag = false;
+                const x = async () => {
+                  setQuantity((prev) => {
+                    if (prev >= 10) {
+                      alert("You can order maximum 10 product at a time.");
+                      return prev;
+                    } else {
+                      flag = true;
+                      return prev + 1;
+                    }
+                  });
+                };
+
+                // This line is just to wait for complete the task x.
+                const y = await x();
+
+                if (flag) {
+                  quantityChange(product.price);
+                }
               }}
             >
               +
             </button>
           </div>
         </div>
+
         <div className="remove" onClick={removeProduct}>
           <img src="images/bin.png" alt="" />
         </div>

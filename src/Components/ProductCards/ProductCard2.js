@@ -3,7 +3,7 @@ import "./ProductCard2.css";
 import { useState } from "react";
 
 export default function ProductCard2(props) {
-  const [product, setProduct] = useState(props.product);
+  const product = props.product;
   const [productID, setProductID] = useState("");
   function showProduct() {
     setProductID(props.product._id);

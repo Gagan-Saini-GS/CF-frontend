@@ -17,13 +17,17 @@ export default function Cart() {
         authToken: localStorage.getItem("authToken"),
       })
       .then((response) => {
-        console.log(response.data.products);
+        // console.log(response.data.products);
         setCartProducts(response.data.products);
       })
       .catch((err) => {
         console.log(err);
       });
   }, []);
+
+  function removeCartProduct(arr) {
+    setCartProducts(arr);
+  }
 
   function quantityChange(price) {
     setTotalPrice((prev) => {
@@ -59,6 +63,7 @@ export default function Cart() {
                   key={index}
                   product={product}
                   quantityChange={quantityChange}
+                  removeCartProduct={removeCartProduct}
                 />
               );
             })}

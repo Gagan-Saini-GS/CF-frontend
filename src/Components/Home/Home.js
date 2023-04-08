@@ -82,7 +82,7 @@ export default function Home() {
           </div>
         </div>
         <div className="top-trends-container">
-          <h2>Gucci Products</h2>
+          <h2>All Products</h2>
           <div className="top-trend-box">
             {allProducts.map((product, index) => {
               return (
@@ -99,7 +99,6 @@ export default function Home() {
         </div>
       </div>
       {/* )} */}
-      <Footer />
     </div>
   );
 }

@@ -17,6 +17,7 @@ import ProductList from "../ProductList/ProductList";
 import ProductPage from "../ProductPage/ProductPage";
 import Cart from "../Cart/Cart";
 import BuyNow from "../BuyNow/BuyNow";
+import Footer from "../Footer/Footer";
 
 function App() {
   const [authToken, setAuthToken] = useState("");
@@ -55,6 +56,7 @@ function App() {
           </Routes>
         )}
       </div>
+      <Footer />
     </Router>
   );
 }

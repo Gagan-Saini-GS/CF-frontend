@@ -16,8 +16,10 @@ export default function ProductCard2(props) {
       </div>
       <div className="pc2-info-box">
         <div className="pc2-info-item pc2-name">{product.name}</div>
-        <div className="pc2-info-item pc2-desc">{product.description}</div>
         <div className="pc2-info-item pc2-price">{product.price}/-</div>
+        <div className="pc2-info-item pc2-desc">
+          {product.description.slice(0, 100) + "..."}
+        </div>
         <div className="pc2-info-container">
           <div className="pc2-info-item  pc2-company">{product.company}</div>
           <div className="pc2-info-item pc2-category">{product.category}</div>

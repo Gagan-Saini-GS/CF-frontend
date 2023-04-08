@@ -1,0 +1,16 @@
+.star {
+  display: inline;
+  font-size: 50px;
+}
+
+.star:hover {
+  cursor: pointer;
+}
+
+.on {
+  color: var(--yellow);
+}
+
+.off {
+  color: dimgray;
+}

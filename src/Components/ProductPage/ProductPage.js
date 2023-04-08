@@ -5,6 +5,7 @@ import ReviewCard from "../Cards/ReviewCard/ReviewCard";
 import FAQCard from "../Cards/FAQCard/FAQCard";
 import axios from "axios";
 import { Link, useParams } from "react-router-dom";
+import StarRating from "../StarRating/StarRating";
 
 export default function ProductPage() {
   const params = useParams();
@@ -13,6 +14,7 @@ export default function ProductPage() {
   const [product, setProduct] = useState({});
   const [writeReview, setWriteReview] = useState(false);
   const [askQuestion, setAskQuestion] = useState(false);
+  const [stars, setStars] = useState(0);
   let availableSizes = new Map([]);
   const productID = params.productID;
 
@@ -43,12 +45,12 @@ export default function ProductPage() {
 
   function submitReview() {
     const reviewContent = document.querySelector(".review-form textarea").value;
-    // console.log(reivewContent);
 
     axios
       .post("http://localhost:5000/set-product-review", {
         productID: productID,
         reviewContent: reviewContent,
+        starCount: stars,
         authToken: localStorage.getItem("authToken"),
       })
       .then((response) => {
@@ -106,6 +108,10 @@ export default function ProductPage() {
   function buyNow() {
     console.log("Buy Now");
     // alert("Buy Now");
+  }
+
+  function setStarCount(index) {
+    setStars(index + 1);
   }
 
   return (
@@ -193,6 +199,7 @@ export default function ProductPage() {
               <h3>Share Your Experience</h3>
               <div className="review-form">
                 <textarea placeholder="Write a review"></textarea>
+                <StarRating setStarCount={setStarCount} />
                 <button onClick={submitReview}>Submit</button>
               </div>
             </div>
@@ -239,7 +246,6 @@ export default function ProductPage() {
             })}
         </div>
       </div>
-      <Footer />
     </div>
   );
 }

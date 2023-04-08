@@ -10,13 +10,21 @@
   height: 200px;
 }
 
-.review-author {
-  text-align: right;
-  font-size: 1.75rem;
+.review-card-bottom {
+  display: flex;
+  justify-content: space-between;
   position: absolute;
   bottom: 15px;
-  right: 45px;
+  font-size: 1.75rem;
+  width: 90%;
 }
+/* 
+.product-rating {
+
+}
+
+.review-author {
+} */
 
 @media (min-width: 700px) and (max-width: 1200px) {
   .review {

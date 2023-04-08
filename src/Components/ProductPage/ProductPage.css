@@ -189,19 +189,28 @@ textarea {
 
 .review-form textarea {
   width: 97%;
-  height: 125px;
+  height: 77px;
   background-color: #f3f3f3;
   padding: 5px;
 }
 
+.review-form .review-star {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid;
+}
+
 .review-form {
   width: 90%;
-  margin: 20px auto;
+  margin: 8px auto;
 }
 
 .review-form button,
 .faq-form button {
   width: 30%;
+  display: block;
+  margin: 0px auto;
   border: 2px solid var(--black);
   border-radius: 3px;
   padding: 5px;

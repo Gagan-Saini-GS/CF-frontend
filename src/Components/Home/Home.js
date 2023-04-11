@@ -4,7 +4,7 @@ import "./Home.css";
 import Navbar from "../Navbar/Navbar";
 import Banner from "../Banner/Banner";
 import ProductCard1 from "../ProductCards/ProductCard1";
-import Footer from "../Footer/Footer";
+// import Footer from "../Footer/Footer";
 // import ProductPage from "../ProductPage/ProductPage";
 import axios from "axios";
 import { Link } from "react-router-dom";

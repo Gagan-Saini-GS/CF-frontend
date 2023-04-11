@@ -14,6 +14,7 @@ import Profile from "../Profile/Profile";
 import UpdateProfile from "../UpdateProfile/UpdateProfile";
 import UploadProduct from "../UploadProduct/UploadProduct";
 import ProductList from "../ProductList/ProductList";
+import SearchProductList from "../ProductList/SearchProductList";
 import ProductPage from "../ProductPage/ProductPage";
 import Cart from "../Cart/Cart";
 import BuyNow from "../BuyNow/BuyNow";
@@ -50,6 +51,10 @@ function App() {
             />
             <Route path="/upload-product" element={<UploadProduct />} />
             <Route path={"/products/:filter"} element={<ProductList />} />
+            <Route
+              path={"/products/search-results/:query"}
+              element={<SearchProductList />}
+            />
             <Route path={"/product/:productID"} element={<ProductPage />} />
             <Route path={"/product/buynow/:productID"} element={<BuyNow />} />
             <Route path={"/cart"} element={<Cart />} />

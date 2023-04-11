@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import "./Cart.css";
 import Navbar from "../Navbar/Navbar";
 import CartCard from "./CartCard";
-import Footer from "../Footer/Footer";
 
 export default function Cart() {
   const [cartProduct, setCartProducts] = useState([]);
@@ -90,7 +89,6 @@ export default function Cart() {
           </div>
         </div>
       </div>
-      <Footer />
     </div>
   );
 }

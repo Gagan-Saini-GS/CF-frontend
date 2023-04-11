@@ -1,39 +1,33 @@
 import React, { useEffect, useState } from "react";
 import "./ProductList.css";
 
-import axios from "axios";
 import { Link, useParams } from "react-router-dom";
 import ProductCard2 from "../ProductCards/ProductCard2";
-import checkNumber from "../../Assets/checkNumber";
+import axios from "axios";
 
-export default function ProductList() {
+export default function SearchProductList() {
+  const [products, setProducts] = useState();
   const params = useParams();
-  const filter = params.filter;
-  const ans = checkNumber(filter);
-  const [products, setProducts] = useState([]);
-  let filterText = filter.toUpperCase();
-
-  if (typeof ans === "number") {
-    filterText = "Under " + ans;
-  }
+  const query = params.query;
 
   useEffect(() => {
     axios
-      .post("http://localhost:5000/filtered-products", {
-        filter: filter,
+      .post("http://localhost:5000/search-product", {
+        searchQuery: query,
       })
       .then((response) => {
+        // console.log(response.data);
         setProducts(response.data);
       })
       .catch((err) => {
         console.log(err);
       });
-  }, [filter]);
+  }, [query]);
 
   return (
     <div>
       <div className="filter-text-parent">
-        <h1 className="filter-text">Showing results for {filterText}</h1>
+        <h1 className="filter-text">Showing results for {query}</h1>
       </div>
       <div className="product-list-container">
         {products !== undefined &&

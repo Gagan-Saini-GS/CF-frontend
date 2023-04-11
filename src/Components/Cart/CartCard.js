@@ -6,7 +6,6 @@ import axios from "axios";
 
 export default function CartCard(props) {
   const product = props.product;
-  // console.log(product);
   const [quantity, setQuantity] = useState(1);
 
   function quantityChange(price) {

@@ -1,3 +1,15 @@
+.filter-text-parent {
+  background-color: var(--white);
+  width: 100%;
+}
+
+.filter-text {
+  width: 92%;
+  margin: 0 auto;
+  padding: 5px 0px;
+  border-bottom: 2px solid var(--blue);
+}
+
 .product-list-container {
   background-color: var(--white);
   width: 100%;
@@ -11,5 +23,4 @@
 .product-list-container .product-card-link {
   width: 45%;
   height: max-content;
-  /* max-height: 100px; */
 }

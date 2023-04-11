@@ -13,6 +13,7 @@
   width: 90%;
   margin: auto;
   display: flex;
+  justify-content: space-between;
   padding: 10px 0px;
 }
 
@@ -41,20 +42,18 @@
 }
 
 .remove {
-  padding: 5px;
+  padding: 5px 0px;
   border-radius: 5px;
-  width: 10%;
-  /* background-color: red;  */
+  width: 5%;
   border: 2px solid red;
   display: flex;
   justify-content: center;
   align-items: center;
   transition: all 0.25s;
-  margin: 0px 40px;
 }
 
 .remove img {
-  width: 30%;
+  width: 60%;
   display: block;
   margin: auto;
 }

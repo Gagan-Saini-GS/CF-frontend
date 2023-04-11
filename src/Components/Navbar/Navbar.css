@@ -1,12 +1,17 @@
+.outer-nav-container {
+  position: sticky;
+  top: 0px;
+  z-index: 100;
+}
+
 .nav-container {
   color: var(--white);
   background-color: var(--blue);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  position: sticky;
-  top: 0px;
-  z-index: 100;
+  /* position: relative; */
+  /* z-index: 200; */
 }
 
 .logo-container {
@@ -16,13 +21,60 @@
   align-items: center;
 }
 
-.logo-container img {
-  width: 100%;
+.logo-img-container {
+  width: 20%;
+}
+
+.logo-img {
+  width: 50%;
   border-radius: 50%;
+}
+
+.logo-container-item {
+  width: 80%;
+  display: flex;
+  align-items: center;
+}
+
+.logo-input-item {
+  width: 90%;
+}
+
+.search-product-input {
+  width: 100%;
+  padding: 5px;
+  font-size: 1.25rem;
+  outline: none;
+  border: 1px solid var(--black);
+  border-right: none;
+  border-radius: 5px;
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px;
+  background-color: var(--white);
+}
+
+.logo-search-btn-item {
+  font-size: 1.25rem;
+  width: 10%;
+  border: 1px solid var(--black);
+  border-left: none;
+  padding: 2px;
+  background-color: var(--white);
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+.search-img {
+  width: 100%;
+  position: relative;
+  top: 2px;
+  right: 5px;
+  cursor: pointer;
 }
 
 .menu-container {
   width: 25%;
+  z-index: 20;
 }
 
 .menu-container ul {
@@ -42,35 +94,12 @@
   align-items: center;
 }
 
-.profile-container-item {
-  width: 90%;
-}
-
-.profile-container-item input {
-  margin: 0px 10px;
-  padding: 5px;
-  font-size: 1.25rem;
-  border-radius: 5px;
-  outline: none;
-  border: 1px solid var(--black);
-}
-
 .profile-item {
   width: 100%;
 }
 
 .profile-item img {
   width: 40%;
-}
-
-.hidden-category-box {
-  display: none;
-  width: 75%;
-  margin: auto;
-  position: absolute;
-  top: 54px;
-  background-color: var(--blue);
-  text-align: center;
 }
 
 .menu-item {
@@ -80,12 +109,31 @@
   transition: all 200ms;
 }
 
+.hidden-category-box {
+  display: none;
+  width: 75%;
+  margin: auto;
+  position: absolute;
+  top: 54px;
+  /* top: -320px; */
+  background-color: var(--blue);
+  text-align: center;
+  /* transition: all 2s;
+  transform: translateY(0px);
+  z-index: 2;
+  border: 2px solid; */
+}
+
 .menu-item:hover ~ .hidden-category-box {
   display: block;
+  /* transform: translateY(374px); */
+  /* transform: translateY(150px); */
 }
 
 .hidden-category-box:hover {
   display: block;
+  /* transform: translateY(374px); */
+  /* transform: translateY(150px); */
 }
 
 .category-box {

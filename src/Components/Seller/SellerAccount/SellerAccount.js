@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
 import "./SellerAccount.css";
+import swal from "sweetalert";
 
 export default function SellerAccount() {
   function becomeSeller() {
@@ -21,9 +22,11 @@ export default function SellerAccount() {
         document.querySelector(".sellerPhoneNumber").value = "";
         document.querySelector(".sellerPANCardNumber").value = "";
         document.querySelector(".sellerGSTNumber").value = "";
+        swal("Thanks!", "You become a seller now", "success");
       })
       .catch((err) => {
         console.log(err);
+        swal("Oops!", "Something is wrong", "error");
       });
   }
 

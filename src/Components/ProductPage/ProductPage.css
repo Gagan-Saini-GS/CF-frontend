@@ -168,6 +168,10 @@ textarea {
   padding: 5px 20px;
 }
 
+.write-or-ask-plus {
+  display: none;
+}
+
 .reviews-container {
   display: flex;
   /* justify-content: space-between; */
@@ -182,7 +186,7 @@ textarea {
 }
 
 .write-review-container h3 {
-  width: 60%;
+  width: 70%;
   margin: 0px 5%;
   border-bottom: 2px solid var(--black);
 }
@@ -204,6 +208,11 @@ textarea {
 .review-form {
   width: 90%;
   margin: 8px auto;
+}
+
+.review-form .star-rating {
+  width: 65%;
+  margin: 2px auto;
 }
 
 .review-form button,
@@ -237,7 +246,7 @@ textarea {
   height: 72px;
 }
 
-@media (min-width: 700px) and (max-width: 1200px) {
+@media (min-width: 600px) and (max-width: 1200px) {
   .product-detail-container {
     padding: 0px 5%;
   }
@@ -257,9 +266,26 @@ textarea {
     width: 90%;
     margin: 20px auto;
   }
+
+  .product-review-heading h2 {
+    font-size: 1.25rem;
+  }
+
+  .write-review-container {
+    min-width: 60%;
+  }
+
+  .write-review-container h3 {
+    width: 70%;
+    font-size: 1rem;
+  }
 }
 
-@media (min-width: 300px) and (max-width: 700px) {
+/* Different for Product Detail & Description Container */
+@media (min-width: 600px) and (max-width: 900px) {
+}
+
+@media (min-width: 300px) and (max-width: 600px) {
   .product-detail-container {
     flex-direction: column;
   }
@@ -267,20 +293,20 @@ textarea {
   .product-info-container {
     font-size: 2rem;
     position: relative;
-    top: 250px;
+    top: 120px;
   }
 
   .product-img-container {
     position: relative;
     top: 135px;
-    width: 65%;
+    width: 95%;
   }
 
   .product-side-container {
     position: relative;
-    top: 50px;
+    top: 150px;
     color: var(--black);
-    width: 50%;
+    width: 70%;
   }
 
   .product-description-container {
@@ -295,5 +321,54 @@ textarea {
   .product-details {
     width: 90%;
     margin: 20px auto;
+  }
+
+  .product-review-heading h2 {
+    font-size: 1.25rem;
+  }
+
+  .write-or-ask {
+    display: none;
+  }
+
+  .write-or-ask-plus {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0px;
+    width: 30px;
+    background-color: var(--black);
+    color: var(--yellow);
+    border-radius: 50%;
+  }
+
+  .write-or-ask-plus span {
+    font-size: 1.5rem;
+    position: relative;
+    top: -2px;
+  }
+
+  .write-review-container {
+    min-width: 85%;
+  }
+
+  .write-review-container h3 {
+    width: 80%;
+    font-size: 1rem;
+  }
+
+  .review-form .star-rating {
+    width: 90%;
+  }
+}
+
+/* Common For both views */
+@media (min-width: 300px) and (max-width: 1200px) {
+  .review-form button {
+    width: 50%;
+  }
+
+  .faq-form button {
+    width: 50%;
   }
 }

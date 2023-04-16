@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import "./BuyNow.css";
+import swal from "sweetalert";
 
 export default function BuyNow() {
   const params = useParams();
@@ -26,7 +27,7 @@ export default function BuyNow() {
   }, []);
 
   function checkout() {
-    alert("Sorry, but we don't delivering products yet!");
+    swal("Sorry!", "We don't start delivering products yet!", "info");
   }
 
   return (

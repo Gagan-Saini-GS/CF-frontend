@@ -12,7 +12,8 @@ export default function Navbar() {
     localStorage.removeItem("authToken");
   }
 
-  function search() {
+  function search(event) {
+    event.preventDefault();
     const x = document.querySelector(".search-product-input").value;
     setSearchQuery(x);
     setSearchFlag(true);
@@ -37,21 +38,23 @@ export default function Navbar() {
             </div>
             <div className="logo-container-item">
               <div className="logo-input-item">
-                <input
-                  type="search"
-                  className="search-product-input"
-                  name="product-search"
-                  placeholder="Search"
-                />
+                <form onSubmit={search}>
+                  <input
+                    type="search"
+                    className="search-product-input"
+                    name="product-search"
+                    placeholder="Search"
+                  />
+                </form>
               </div>
-              <div className="logo-search-btn-item">
+              {/* <div className="logo-search-btn-item">
                 <img
                   src="images/searchGlass.png"
                   alt="search"
                   className="search-img"
                   onClick={search}
                 />
-              </div>
+              </div> */}
             </div>
           </div>
           <div className="menu-container">
@@ -124,16 +127,25 @@ export default function Navbar() {
                 </div>
               </div>
             </ul>
+            <div className="menu-bars">
+              <div className="menu-bar-item"></div>
+              <div className="menu-bar-item"></div>
+              <div className="menu-bar-item"></div>
+            </div>
           </div>
           <div className="profile-container">
             <div className="profile-item">
               <Link to={"/cart"}>
-                <img className="cart-img" src="images/carts.png" alt="" />
+                <img
+                  className="profile-item-img cart-img"
+                  src="images/carts.png"
+                  alt=""
+                />
               </Link>
             </div>
             <div className="profile-item">
               <img
-                className="user-img"
+                className="profile-item-img user-img"
                 src="images/user.png"
                 alt=""
                 onClick={() => {

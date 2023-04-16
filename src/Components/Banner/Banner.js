@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import "./Banner.css";
 
 export default function Banner() {
@@ -18,12 +18,12 @@ export default function Banner() {
       banner.setAttribute("src", banners[i]);
     }, 5000);
   }
-  changeBanner();
+  // changeBanner();
 
   return (
     <div className="banner-container">
       <div className="banner-box">
-        <img className="banner" src={banners[0]} alt="Banner" />
+        <img className="banner" src={banners[2]} alt="Banner" />
       </div>
     </div>
   );

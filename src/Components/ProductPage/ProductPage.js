@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import "./ProductPage.css";
-import Footer from "../Footer/Footer";
 import ReviewCard from "../Cards/ReviewCard/ReviewCard";
 import FAQCard from "../Cards/FAQCard/FAQCard";
 import axios from "axios";
 import { Link, useParams } from "react-router-dom";
 import StarRating from "../StarRating/StarRating";
+import swal from "sweetalert";
 
 export default function ProductPage() {
   const params = useParams();
@@ -21,6 +21,7 @@ export default function ProductPage() {
   useEffect(() => {
     axios
       .post("http://localhost:5000/get-product-with-id", {
+        authToken: localStorage.getItem("authToken"),
         productID: productID,
       })
       .then((response) => {
@@ -54,14 +55,15 @@ export default function ProductPage() {
         authToken: localStorage.getItem("authToken"),
       })
       .then((response) => {
-        console.log(response.data);
+        // console.log(response.data);
         setReviews(response.data);
+        swal("Thanks", "Your review added successfully", "success");
       })
       .catch((err) => {
         console.log(err);
+        swal("Oops!", "Look's like something is wrong", "error");
       });
 
-    alert("Your review added successfully");
     setWriteReview(false);
   }
 
@@ -78,14 +80,18 @@ export default function ProductPage() {
         authToken: localStorage.getItem("authToken"),
       })
       .then((response) => {
-        console.log(response.data);
+        // console.log(response.data);
+        swal(
+          "Thanks",
+          "Your question is added successfully you get your soon",
+          "success"
+        );
         setFAQs(response.data);
       })
       .catch((err) => {
         console.log(err);
+        swal("Oops!", "Look's like something is wrong", "error");
       });
-
-    alert("Your question is submitted you get your answer very soon.");
     setAskQuestion(false);
   }
 
@@ -96,13 +102,15 @@ export default function ProductPage() {
         authToken: localStorage.getItem("authToken"),
       })
       .then((response) => {
-        console.log(response);
+        // console.log(response);
+        swal("Congrats!", "Item added into your cart", "success");
       })
       .catch((err) => {
         console.log(err);
+        swal("Oops!", err, "error");
       });
 
-    alert("Item added in your cart");
+    // alert("Item added in your cart");
   }
 
   function buyNow() {
@@ -192,6 +200,14 @@ export default function ProductPage() {
           >
             Write A Review
           </h2>
+          <h2
+            className="write-or-ask-plus"
+            onClick={() => {
+              setWriteReview(true);
+            }}
+          >
+            <span>+</span>
+          </h2>
         </div>
         <div className="reviews-container">
           {writeReview && (
@@ -220,6 +236,14 @@ export default function ProductPage() {
             }}
           >
             Ask A Question
+          </h2>
+          <h2
+            className="write-or-ask-plus"
+            onClick={() => {
+              setAskQuestion(true);
+            }}
+          >
+            <span>+</span>
           </h2>
         </div>
         <div className="reviews-container">

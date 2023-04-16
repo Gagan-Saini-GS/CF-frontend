@@ -1,5 +1,6 @@
 .buy-now-container {
   display: flex;
+  padding-bottom: 100px;
 }
 
 .buy-now-item {

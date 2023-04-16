@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useState } from "react";
 import "./UpdateProfile.css";
+import swal from "sweetalert";
 
 export default function UpdateProfile() {
   // Changing image into base64
@@ -44,10 +45,10 @@ export default function UpdateProfile() {
       })
       .then((response) => {
         if (response.status === 200) {
-          alert("Profile Update");
-          console.log(response.ans);
+          swal("Done!", "Your profile is updated", "success");
+          console.log(response);
         } else {
-          alert("Error Try Again");
+          swal("Oops!", "Something went wrong, try again", "error");
         }
       })
       .catch((err) => {

@@ -1,5 +1,5 @@
 .faq {
-  width: 28%;
+  width: 30%;
   color: var(--yellow);
   background-color: var(--black);
   min-width: 28%;
@@ -15,17 +15,25 @@
   font-size: 1.75rem;
   position: absolute;
   bottom: 15px;
-  right: 45px;
+  right: 20px;
 }
 
-@media (min-width: 700px) and (max-width: 1200px) {
+@media (min-width: 600px) and (max-width: 1200px) {
   .faq {
-    min-width: 45%;
+    min-width: 60%;
   }
 }
 
-@media (min-width: 300px) and (max-width: 700px) {
+@media (min-width: 300px) and (max-width: 600px) {
   .faq {
-    min-width: 80%;
+    min-width: 86%;
+  }
+}
+
+/* Common Area for both Mobile and Tab View */
+@media (min-width: 300px) and (max-width: 1200px) {
+  .faq-author {
+    font-size: 1.5rem;
+    right: 10px;
   }
 }

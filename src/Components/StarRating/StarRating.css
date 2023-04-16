@@ -1,3 +1,10 @@
+.star-rating {
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
 .star {
   display: inline;
   font-size: 50px;

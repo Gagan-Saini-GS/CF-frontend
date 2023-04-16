@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./Login.css";
+import swal from "sweetalert";
 
 export default function Login(props) {
   const [isLogin, setIsLogin] = useState(true);
@@ -23,10 +24,14 @@ export default function Login(props) {
     })
       .then((response) => response.json())
       .then((data) => {
-        // console.log(data);
         const authToken = data.authToken;
         localStorage.setItem("authToken", authToken);
-        props.setUser(data.authToken);
+        // props.setUser(data.authToken);
+        swal("Congrats!", "Your are loged in", "success");
+      })
+      .catch((err) => {
+        console.log(err);
+        swal("Oops!", "Something went wrong", "error");
       });
   }
 
@@ -53,7 +58,12 @@ export default function Login(props) {
         // console.log(data.authToken);
         const authToken = data.authToken;
         localStorage.setItem("authToken", authToken);
-        props.setUser(authToken);
+        // props.setUser(authToken);
+        swal("Welcome!", "Your account is created", "success");
+      })
+      .catch((err) => {
+        console.log(err);
+        swal("Oops!", "Something went wrong", "error");
       });
   }
 

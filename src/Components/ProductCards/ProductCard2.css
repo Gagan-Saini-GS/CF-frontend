@@ -40,6 +40,7 @@
 
 .pc2-desc {
   font-size: 1.25rem;
+  opacity: 0.9;
 }
 
 .pc2-price {
@@ -70,4 +71,82 @@
 .cart-card-container .pc2-img-box img {
   width: 80%;
   margin: 0px;
+}
+
+/* Landspace View */
+@media (min-width: 900px) and (max-width: 1250px) {
+  .pc2-container {
+    flex-direction: column;
+    padding: 10px;
+  }
+
+  .pc2-img-box {
+    width: 90%;
+    margin: auto;
+  }
+
+  .pc2-info-box {
+    width: 90%;
+    margin: 10px auto;
+  }
+
+  .pc2-name,
+  .pc2-price {
+    font-size: 1.5rem;
+    text-align: center;
+  }
+
+  .pc2-info-container {
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+  }
+
+  .pc2-info-item {
+    margin: 0px 0px 5px;
+  }
+
+  .pc2-category,
+  .pc2-company {
+    padding: 5px 10px;
+  }
+}
+
+/* Mobile View */
+@media (min-width: 300px) and (max-width: 600px) {
+  .pc2-container {
+    flex-direction: column;
+    padding: 10px;
+  }
+
+  .pc2-img-box {
+    width: 90%;
+    margin: auto;
+  }
+
+  .pc2-info-box {
+    width: 90%;
+    margin: 10px auto;
+  }
+
+  .pc2-name,
+  .pc2-price {
+    font-size: 1.5em;
+    text-align: center;
+  }
+
+  .pc2-info-container {
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+  }
+
+  .pc2-info-item {
+    margin: 0px 0px 5px;
+  }
+
+  .pc2-category,
+  .pc2-company {
+    padding: 5px 10px;
+  }
 }

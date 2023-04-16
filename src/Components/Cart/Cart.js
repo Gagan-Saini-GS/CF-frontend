@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import "./Cart.css";
 import Navbar from "../Navbar/Navbar";
 import CartCard from "./CartCard";
+import swal from "sweetalert";
 
 export default function Cart() {
   const [cartProduct, setCartProducts] = useState([]);
@@ -25,6 +26,9 @@ export default function Cart() {
   }, []);
 
   function removeCartProduct(arr) {
+    // add warning swap here
+    // The below code is not finished yet
+    // swal("Warning!", "Product will be deleted from your cart", "warning");
     setCartProducts(arr);
   }
 

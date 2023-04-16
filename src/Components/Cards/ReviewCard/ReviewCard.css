@@ -18,22 +18,22 @@
   font-size: 1.75rem;
   width: 90%;
 }
-/* 
-.product-rating {
 
-}
-
-.review-author {
-} */
-
-@media (min-width: 700px) and (max-width: 1200px) {
+@media (min-width: 600px) and (max-width: 1200px) {
   .review {
-    min-width: 45%;
+    min-width: 60%;
   }
 }
 
-@media (min-width: 300px) and (max-width: 700px) {
+@media (min-width: 300px) and (max-width: 600px) {
   .review {
-    min-width: 80%;
+    min-width: 86%;
+  }
+}
+
+/* Common Area for both Mobile and Tab View */
+@media (min-width: 300px) and (max-width: 1200px) {
+  .review-card-bottom {
+    font-size: 1.5rem;
   }
 }

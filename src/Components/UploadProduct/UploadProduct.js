@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import uploadImage from "../../Assets/imgChange";
 import "./UploadProduct.css";
 import axios from "axios";
+import swal from "sweetalert";
 
 export default function UploadProduct() {
   const [imgSrc, setImgSrc] = useState("images/not found.jpg");
@@ -27,13 +28,16 @@ export default function UploadProduct() {
 
     axios
       .post("http://localhost:5000/upload-product", {
+        authToken: localStorage.getItem("authToken"),
         product: product,
       })
       .then((response) => {
         console.log(response.data);
+        swal("Thanks", "Your Product is submitted!", "success");
       })
       .catch((err) => {
         console.log(err);
+        swal("Oops", "Something went wrong", "error");
       });
   }
 
@@ -67,18 +71,18 @@ export default function UploadProduct() {
           <div className="upload-product-form-item">
             <h3>Price</h3>
             <input
-              type="text"
+              type="number"
               className="price"
               placeholder="Price of product"
             />
           </div>
           <div className="upload-product-form-item">
             <h3>Description</h3>
-            <input
-              type="text"
+            <textarea
               className="description"
+              rows="5"
               placeholder="Description of product"
-            />
+            ></textarea>
           </div>
           <div className="upload-product-form-item">
             <h3>Company</h3>

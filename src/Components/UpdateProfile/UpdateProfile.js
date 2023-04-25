@@ -1,11 +1,17 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./UpdateProfile.css";
 import swal from "sweetalert";
 
 export default function UpdateProfile() {
   // Changing image into base64
   const [imgSrc, setImgSrc] = useState("");
+  // const [user, setUser] = useState({
+  //   imgSrc: "",
+  //   phonenumber: "",
+  //   address: "",
+  //   website: "",
+  // });
 
   async function uploadImage(event) {
     const file = event.target.files[0];
@@ -29,6 +35,20 @@ export default function UpdateProfile() {
     });
   }
 
+  // useEffect(() => {
+  //   axios
+  //     .post("http://localhost:5000/user-details", {
+  //       authToken: localStorage.getItem("authToken"),
+  //     })
+  //     .then((response) => {
+  //       console.log(response);
+  //       setUser(response.data.foundUser);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // }, []);
+
   function updateProfile() {
     const user = {
       userProfileImg: imgSrc,
@@ -47,11 +67,14 @@ export default function UpdateProfile() {
         if (response.status === 200) {
           swal("Done!", "Your profile is updated", "success");
           console.log(response);
+
+          // Redirect to my-profile page
         } else {
           swal("Oops!", "Something went wrong, try again", "error");
         }
       })
       .catch((err) => {
+        swal("Oops!", "Something went wrong, try again", "error");
         console.log(err);
       });
   }
@@ -92,13 +115,13 @@ export default function UpdateProfile() {
       </div>
       <div className="update-profile-item">
         <p>Address</p>
-        <input type="text" className="address" placeholder="Address" />
+        <textarea rows="4" className="address" placeholder="Address"></textarea>
       </div>
       <div className="update-profile-item">
         <p>Website link</p>
         <input type="text" className="website" placeholder="Website Link" />
       </div>
-      <div>
+      <div className="update-profile-item">
         <button onClick={updateProfile}>Save</button>
       </div>
     </form>

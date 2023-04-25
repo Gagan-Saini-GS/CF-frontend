@@ -64,15 +64,6 @@
   margin-right: 20px;
 }
 
-.cart-card-container .pc2-img-box {
-  width: 35%;
-}
-
-.cart-card-container .pc2-img-box img {
-  width: 80%;
-  margin: 0px;
-}
-
 /* Landspace View */
 @media (min-width: 900px) and (max-width: 1250px) {
   .pc2-container {
@@ -139,14 +130,20 @@
     width: 100%;
     display: flex;
     justify-content: space-evenly;
+    margin: 5px 0px;
   }
 
   .pc2-info-item {
     margin: 0px 0px 5px;
   }
 
+  .pc2-desc {
+    font-size: 1rem;
+  }
+
   .pc2-category,
   .pc2-company {
     padding: 5px 10px;
+    font-size: 1rem;
   }
 }

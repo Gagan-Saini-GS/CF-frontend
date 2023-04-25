@@ -12,16 +12,12 @@
 }
 
 .user-img-container {
-  width: 35%;
-}
-
-.user-img-container div {
-  width: 50%;
-  /* margin: auto; */
+  width: 30%;
+  margin: 0px auto;
 }
 
 .user-img-container img {
-  width: 100%;
+  width: 70%;
   border-radius: 15px;
 }
 
@@ -59,11 +55,18 @@
   width: 25%;
   font-weight: 600;
   margin: 0;
+  font-size: 1.5rem;
 }
 
 .user-data {
   width: 75%;
   margin: 0;
+  font-size: 1.5rem;
+}
+
+.user-data a {
+  text-decoration: none;
+  color: var(--yellow);
 }
 
 .user-orders-container {
@@ -120,4 +123,85 @@
 .order-detail-item {
   margin: 0;
   width: 30%;
+}
+
+@media (min-width: 900px) and (max-width: 1250px) {
+  .user-img-container {
+    width: 35%;
+    margin: 0;
+  }
+
+  .user-img-container img {
+    width: 60%;
+  }
+}
+
+@media (min-width: 600px) and (max-width: 900px) {
+  .user-img-container {
+    width: 40%;
+    margin: 0px;
+    margin-top: 10px;
+  }
+
+  .user-data-type {
+    width: 40%;
+    font-size: 1.25rem;
+  }
+
+  .user-data {
+    width: 60%;
+    font-size: 1.25rem;
+  }
+}
+
+@media (min-width: 300px) and (max-width: 600px) {
+  .user-info-container {
+    flex-direction: column;
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
+  }
+
+  .user-img-container {
+    width: 50%;
+    margin: 0px;
+    margin-top: 10px;
+  }
+
+  .user-img-container img {
+    width: 100%;
+  }
+
+  .user-details-container {
+    width: 90%;
+  }
+
+  .user-name-box h2 {
+    font-size: 1.5rem;
+  }
+
+  .user-detail-item {
+    font-size: 1rem;
+  }
+
+  .user-data-type {
+    width: 35%;
+    font-size: 1rem;
+  }
+
+  .user-data {
+    width: 65%;
+    font-size: 1rem;
+  }
+
+  .user-orders-container {
+    width: 98%;
+    margin: 0px;
+    margin-top: 20px;
+    padding: 0px 1%;
+  }
+
+  .not-found-img {
+    width: 80%;
+  }
 }

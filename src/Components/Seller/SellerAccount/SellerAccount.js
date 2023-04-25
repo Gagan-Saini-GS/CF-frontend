@@ -5,7 +5,6 @@ import swal from "sweetalert";
 
 export default function SellerAccount() {
   function becomeSeller() {
-    console.log("Hello from frontend");
     axios
       .post("http://localhost:5000/become-seller", {
         sellerEmail: document.querySelector(".sellerEmail").value,
@@ -13,8 +12,8 @@ export default function SellerAccount() {
         sellerPANCardNumber: document.querySelector(".sellerPANCardNumber")
           .value,
         sellerGSTNumber: document.querySelector(".sellerGSTNumber").value,
-        "Content-type": "application/json; charset=UTF-8",
         authToken: localStorage.getItem("authToken"),
+        "Content-type": "application/json; charset=UTF-8",
       })
       .then((response) => {
         console.log(response.data);

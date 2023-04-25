@@ -67,11 +67,13 @@
 @media (min-width: 300px) and (max-width: 700px) {
   .footer-container {
     flex-direction: column;
+    padding: 5px;
   }
 
   .footer-item {
     width: 80%;
     margin: auto;
+    padding: 0px;
   }
 
   .footer-item-details {

@@ -65,7 +65,7 @@ export default function CartCard(props) {
             >
               -
             </button>
-            {quantity}
+            <span className="quantity-number">{quantity}</span>
             <button
               onClick={async () => {
                 let flag = false;

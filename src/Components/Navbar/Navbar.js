@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./Navbar.css";
+import "./Navbar2.css";
 
 import { Link, Navigate } from "react-router-dom";
 
@@ -17,6 +18,73 @@ export default function Navbar() {
     const x = document.querySelector(".search-product-input").value;
     setSearchQuery(x);
     setSearchFlag(true);
+  }
+
+  window.addEventListener("resize", function () {
+    // Worst code segment in closet fashion
+    // Fix this with right and efficient code
+    const menuContainerList = document.querySelector(".menu-container-list");
+    const hidden = document.querySelector(".hidden-category-box");
+    const box = document.querySelector(".category-box");
+    const heading = document.querySelectorAll(".category-heading");
+    const item = document.querySelectorAll(".category-type p");
+    const subitem = document.querySelectorAll(".category-sub-item");
+    if (window.innerWidth >= 1150) {
+      menuContainerList.style.display = "flex";
+      hidden.style.width = "75%";
+      hidden.style.margin = "0px auto";
+      box.style.padding = "5px 50px";
+      for (let i = 0; i < heading.length; i++) {
+        heading[i].style.fontSize = "1.5rem";
+      }
+      for (let i = 0; i < item.length; i++) {
+        item[i].style.fontSize = "1.5rem";
+      }
+      for (let i = 0; i < subitem.length; i++) {
+        subitem[i].style.margin = "5px";
+      }
+    } else {
+      menuContainerList.style.display = "none";
+    }
+  });
+
+  function showMenu() {
+    // Worst code segment in closet fashion
+    // Fix this with right and efficient code
+    const temp = document.querySelector(".menu-container-list");
+    const hidden = document.querySelector(".hidden-category-box");
+    const heading = document.querySelectorAll(".category-heading");
+    const item = document.querySelectorAll(".category-type p");
+    const subitem = document.querySelectorAll(".category-sub-item");
+    const categoryBox = document.querySelector(".category-box");
+    if (temp.style.display === "flex") {
+      temp.style.display = "none";
+      hidden.style.width = "50%";
+      temp.classList.remove("show-menu-bar");
+      for (let i = 0; i < heading.length; i++) {
+        heading[i].style.fontSize = "1.5rem";
+      }
+      for (let i = 0; i < item.length; i++) {
+        item[i].style.fontSize = "1.5rem";
+      }
+      for (let i = 0; i < subitem.length; i++) {
+        subitem[i].style.margin = "5px";
+      }
+    } else {
+      temp.style.display = "flex";
+      temp.classList.add("show-menu-bar");
+      hidden.style.width = "100%";
+      categoryBox.style.padding = "5px 0px";
+      for (let i = 0; i < heading.length; i++) {
+        heading[i].style.fontSize = "1rem";
+      }
+      for (let i = 0; i < item.length; i++) {
+        item[i].style.fontSize = "1rem";
+      }
+      for (let i = 0; i < subitem.length; i++) {
+        subitem[i].style.margin = "0px";
+      }
+    }
   }
 
   return (
@@ -47,18 +115,15 @@ export default function Navbar() {
                   />
                 </form>
               </div>
-              {/* <div className="logo-search-btn-item">
-                <img
-                  src="images/searchGlass.png"
-                  alt="search"
-                  className="search-img"
-                  onClick={search}
-                />
-              </div> */}
             </div>
           </div>
           <div className="menu-container">
-            <ul>
+            <div className="menu-bars" onClick={showMenu}>
+              <div className="menu-bar-item"></div>
+              <div className="menu-bar-item"></div>
+              <div className="menu-bar-item"></div>
+            </div>
+            <ul className="menu-container-list">
               <li className="menu-item">Men</li>
               <li className="menu-item">Women</li>
               <li className="menu-item">Kid's</li>
@@ -85,7 +150,7 @@ export default function Navbar() {
                     </div>
                   </div>
                   <div className="category-sub-item">
-                    <h2 className="category-heading">Shop By Brand</h2>
+                    <h2 className="category-heading">Top Brands</h2>
                     <div className="category-type">
                       <Link to={"/products/nike"}>
                         <p className="background-effect">Nike</p>
@@ -105,10 +170,10 @@ export default function Navbar() {
                     </div>
                   </div>
                   <div className="category-sub-item">
-                    <h2 className="category-heading">Shop By Price</h2>
+                    <h2 className="category-heading">Under Price</h2>
                     <div className="category-type">
                       <Link to={"/products/799"}>
-                        <p className="background-effect">Under 799/</p>
+                        <p className="background-effect">Under 799/-</p>
                       </Link>
                       <Link to={"/products/1299"}>
                         <p className="background-effect">Under 1299/-</p>
@@ -127,11 +192,6 @@ export default function Navbar() {
                 </div>
               </div>
             </ul>
-            <div className="menu-bars">
-              <div className="menu-bar-item"></div>
-              <div className="menu-bar-item"></div>
-              <div className="menu-bar-item"></div>
-            </div>
           </div>
           <div className="profile-container">
             <div className="profile-item">

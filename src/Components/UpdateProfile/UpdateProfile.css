@@ -19,6 +19,15 @@
   border-bottom: 2px solid rgba(0, 0, 0, 0.4);
 }
 
+.update-profile-item .user-profile-img {
+  display: block;
+  width: 50%;
+  height: 16rem;
+  margin: 5px auto;
+  border-radius: 50%;
+  border: 2px solid var(--blue);
+}
+
 .update-profile-item input {
   width: 100%;
   padding: 5px;

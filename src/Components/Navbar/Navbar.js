@@ -3,6 +3,7 @@ import "./Navbar.css";
 import "./Navbar2.css";
 
 import { Link, Navigate } from "react-router-dom";
+import swal from "sweetalert";
 
 export default function Navbar() {
   const [showProfileMenu, setShowProfileMenu] = useState(false);
@@ -10,7 +11,19 @@ export default function Navbar() {
   const [searchQuery, setSearchQuery] = useState("");
 
   function logout() {
-    localStorage.removeItem("authToken");
+    swal("Warning!", "You will be loged out", "warning", {
+      buttons: {
+        cancel: true,
+        confirm: true,
+      },
+    }).then((confirm) => {
+      if (confirm) {
+        localStorage.removeItem("authToken");
+        window.location.replace("http://localhost:3000/logout");
+      } else {
+        console.log("You are not loged out");
+      }
+    });
   }
 
   function search(event) {
@@ -24,6 +37,8 @@ export default function Navbar() {
     // Worst code segment in closet fashion
     // Fix this with right and efficient code
     const menuContainerList = document.querySelector(".menu-container-list");
+    // console.log(menuContainerList);
+
     const hidden = document.querySelector(".hidden-category-box");
     const box = document.querySelector(".category-box");
     const heading = document.querySelectorAll(".category-heading");
@@ -270,7 +285,7 @@ export default function Navbar() {
                   className="profile-menu-item background-effect"
                   onClick={logout}
                 >
-                  <Link to="/logout" className="profile-menu-item-link">
+                  <Link to="" className="profile-menu-item-link">
                     <img
                       className="profile-menu-icon"
                       src="images/logout.png"

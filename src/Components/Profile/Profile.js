@@ -21,7 +21,7 @@ export default function Profile() {
         authToken: localStorage.getItem("authToken"),
       })
       .then((response) => {
-        console.log(response.data.foundUser);
+        // console.log(response.data.foundUser);
         setUser(response.data.foundUser);
       })
       .catch((err) => {
@@ -35,7 +35,14 @@ export default function Profile() {
       <section className="user-info-container">
         <div className="user-img-container">
           {/* <div> */}
-          <img src={user.userProfileImg} alt="" />
+          <img
+            src={
+              user.userProfileImg === ""
+                ? "images/man.png"
+                : user.userProfileImg
+            }
+            alt=""
+          />
           {/* </div> */}
         </div>
         <div className="user-details-container">

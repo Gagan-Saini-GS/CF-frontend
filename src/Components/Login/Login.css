@@ -73,7 +73,7 @@
 }
 
 .form-item input {
-  width: 97%;
+  width: 96%;
   background-color: #d9d9d9;
   padding: 10px;
   font-size: 1.75rem;
@@ -223,6 +223,10 @@
   .form-container {
     width: 90%;
     margin: auto;
+  }
+
+  .form-item input {
+    font-size: 1.5rem;
   }
 
   .bottom-logo-circle {

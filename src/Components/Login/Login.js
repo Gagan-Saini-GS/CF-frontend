@@ -3,7 +3,7 @@ import "./Login.css";
 import swal from "sweetalert";
 
 export default function Login(props) {
-  const [isLogin, setIsLogin] = useState(true);
+  const [showLogin, setShowLogin] = useState(true);
 
   function handleLogin(event) {
     event.preventDefault();
@@ -27,7 +27,9 @@ export default function Login(props) {
         const authToken = data.authToken;
         localStorage.setItem("authToken", authToken);
         // props.setUser(data.authToken);
-        swal("Congrats!", "Your are loged in", "success");
+        swal("Congrats!", "Your are loged in", "success").then(() => {
+          window.location.replace("http://localhost:3000/home");
+        });
       })
       .catch((err) => {
         console.log(err);
@@ -59,7 +61,9 @@ export default function Login(props) {
         const authToken = data.authToken;
         localStorage.setItem("authToken", authToken);
         // props.setUser(authToken);
-        swal("Welcome!", "Your account is created", "success");
+        swal("Welcome!", "Your account is created", "success").then(() => {
+          window.location.replace("http://localhost:3000/home");
+        });
       })
       .catch((err) => {
         console.log(err);
@@ -87,7 +91,7 @@ export default function Login(props) {
           <div className="greet-container">
             <div className="greet-message">
               <h1>Hello,</h1>
-              {isLogin ? (
+              {showLogin ? (
                 <h1>Welcome back!</h1>
               ) : (
                 <h1>Welcome at Closet Fashion</h1>
@@ -96,7 +100,7 @@ export default function Login(props) {
             <img className="user-img" src="images/man.png" alt="User-Image" />
           </div>
 
-          {isLogin ? (
+          {showLogin ? (
             <div>
               <form className="form-box" onSubmit={handleLogin}>
                 <div className="form-item">
@@ -130,7 +134,7 @@ export default function Login(props) {
                 Don't have an account {"  "}
                 <span
                   onClick={() => {
-                    setIsLogin(false);
+                    setShowLogin(false);
                   }}
                 >
                   Click here!
@@ -172,7 +176,7 @@ export default function Login(props) {
                 Already have an account {"  "}
                 <span
                   onClick={() => {
-                    setIsLogin(true);
+                    setShowLogin(true);
                   }}
                 >
                   Click here!

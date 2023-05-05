@@ -18,11 +18,11 @@
   padding-left: 50px;
 }
 
-.form-item {
+.seller-account-container .form-item {
   margin: 15px 0px;
 }
 
-.form-item input {
+.seller-account-container .form-item input {
   width: 60%;
   margin: auto;
 }

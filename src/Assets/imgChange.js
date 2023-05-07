@@ -1,8 +1,15 @@
 async function uploadImage(event) {
-  const file = event.target.files[0];
-  const base64 = await convertIntoBase64(file);
+  // const file = event.target.files[0];
+  const files = event.target.files;
+  let ans = [];
 
-  return base64;
+  for (let i = 0; i < files.length; i++) {
+    const base64 = await convertIntoBase64(files[i]);
+    ans.push(base64);
+  }
+
+  return ans;
+  // return base64;
 }
 
 function convertIntoBase64(file) {

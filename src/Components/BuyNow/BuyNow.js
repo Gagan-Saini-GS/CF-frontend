@@ -9,6 +9,7 @@ export default function BuyNow() {
   // console.log(params.productID);
   const [user, setUser] = useState();
   const [product, setProduct] = useState();
+  const [imgIndex, setImgIndex] = useState(0);
 
   useEffect(() => {
     axios
@@ -27,7 +28,20 @@ export default function BuyNow() {
   }, []);
 
   function checkout() {
-    swal("Sorry!", "We don't start delivering products yet!", "info");
+    axios
+      .post("http://localhost:5000/checkout-product", {
+        authToken: localStorage.getItem("authToken"),
+        productID: params.productID,
+      })
+      .then((response) => {
+        console.log(response);
+        swal(
+          "Congrats!",
+          "The item is added into your order list and delivered soon when we start delivering the products.",
+          "success"
+        );
+      });
+    // swal("Sorry!", "We don't start delivering products yet!", "info");
   }
 
   return (
@@ -36,7 +50,29 @@ export default function BuyNow() {
         {product !== undefined && (
           <div className="product-container">
             <div className="product-img-box">
-              <img src={product.productImg} alt="" />
+              {/* <img src={product.productImg[]} alt="" /> */}
+
+              <img src={product.productImg[imgIndex]} alt="" />
+              <div className="img-btn-container">
+                <button
+                  onClick={() => {
+                    if (imgIndex >= 1) {
+                      setImgIndex(imgIndex - 1);
+                    }
+                  }}
+                >
+                  Prev
+                </button>
+                <button
+                  onClick={() => {
+                    if (imgIndex < product.productImg.length - 1) {
+                      setImgIndex(imgIndex + 1);
+                    }
+                  }}
+                >
+                  Next
+                </button>
+              </div>
             </div>
             <div className="product-info-container">
               <div className="product-info-item">{product.name}</div>

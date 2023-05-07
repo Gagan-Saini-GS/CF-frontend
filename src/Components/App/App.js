@@ -51,6 +51,7 @@ function App() {
               {/* <Route path="/logout" element={<Navigate to="/home" />} /> */}
               <Route path="/home" element={<Home />} />
               <Route path="/my-profile" element={<Profile />} />
+              <Route path="/my-orders" element={<Profile />} />
               <Route path="/become-seller" element={<SellerAccount />} />
               <Route
                 path="/my-profile/update-profile"

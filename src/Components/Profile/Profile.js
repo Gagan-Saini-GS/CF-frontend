@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./Profile.css";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import ProductCard1 from "../ProductCards/ProductCard1";
 
 export default function Profile() {
   const [user, setUser] = useState({
@@ -21,7 +22,7 @@ export default function Profile() {
         authToken: localStorage.getItem("authToken"),
       })
       .then((response) => {
-        // console.log(response.data.foundUser);
+        console.log(response.data.foundUser);
         setUser(response.data.foundUser);
       })
       .catch((err) => {
@@ -94,24 +95,21 @@ export default function Profile() {
               <img src="images/not found.jpg" alt="" />
             </div>
           ) : (
-            <>
-              <div className="order-table-heading">
-                <p className="order-heading-item">Product Name</p>
-                <p className="order-heading-item">Price</p>
-                <p className="order-heading-item">Delivery Date</p>
-              </div>
+            <div>
               <div className="order-details-container">
-                {user.orders.map((order, orderID) => {
+                {user.orders.map((product, productIndex) => {
                   return (
-                    <div className="order-details" key={orderID}>
-                      <p className="order-detail-item">{order.productName}</p>
-                      <p className="order-detail-item">{order.price}</p>
-                      <p className="order-detail-item">{order.deliveryDate}</p>
-                    </div>
+                    <Link
+                      className="product-card-link"
+                      key={productIndex}
+                      to={"/product/" + product._id}
+                    >
+                      <ProductCard1 product={product} />
+                    </Link>
                   );
                 })}
               </div>
-            </>
+            </div>
           )}
         </div>
       </section>

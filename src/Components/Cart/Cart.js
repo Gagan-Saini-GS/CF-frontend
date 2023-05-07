@@ -72,21 +72,23 @@ export default function Cart() {
             })}
         </div>
         <div className="side-card">
-          <div className="side-card-item">
-            <div>Subtotal</div>
-            <div>{totalPrice} /-</div>
-          </div>
-          <div className="side-card-item">
-            <div>Delivery Charge</div>
-            <div>{delivery} /-</div>
-          </div>
-          <div className="side-card-item">
-            <div>Discount</div>
-            <div>{discount} /-</div>
-          </div>
-          <div className="side-card-item">
-            <div>Total</div>
-            <div>{totalPrice + delivery - discount} /-</div>
+          <div>
+            <div className="side-card-item">
+              <div>Subtotal</div>
+              <div>{totalPrice} /-</div>
+            </div>
+            <div className="side-card-item">
+              <div>Delivery Charge</div>
+              <div>{delivery} /-</div>
+            </div>
+            <div className="side-card-item">
+              <div>Discount</div>
+              <div>{discount} /-</div>
+            </div>
+            <div className="side-card-item">
+              <div>Total</div>
+              <div>{totalPrice + delivery - discount} /-</div>
+            </div>
           </div>
           <div className="side-card-button">
             <button>Check Out</button>

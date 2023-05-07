@@ -12,7 +12,7 @@ export default function ProductCard1(props) {
   return (
     <div className="pc1-container" onClick={showProduct}>
       <div className="product-img-box">
-        <img src={product.productImg} alt="" />
+        <img src={product.productImg[0]} alt="" />
       </div>
       <div className="product-info-box">
         <div className="product-info-item">{product.name}</div>

@@ -82,26 +82,16 @@
   margin: auto;
   position: absolute;
   top: 100%;
-  /* top: 54px; */
-  /* top: -320px; */
   background-color: var(--blue);
   text-align: center;
-  /* transition: all 2s;
-  transform: translateY(0px);
-  z-index: 2;
-  border: 2px solid; */
 }
 
 .menu-item:hover ~ .hidden-category-box {
   display: block;
-  /* transform: translateY(374px); */
-  /* transform: translateY(150px); */
 }
 
 .hidden-category-box:hover {
   display: block;
-  /* transform: translateY(374px); */
-  /* transform: translateY(150px); */
 }
 
 .category-box {

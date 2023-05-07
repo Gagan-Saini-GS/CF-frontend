@@ -17,6 +17,7 @@ export default function ProductPage() {
   const [stars, setStars] = useState(0);
   let availableSizes = new Map([]);
   const productID = params.productID;
+  const [imgIndex, setImgIndex] = useState(0);
 
   useEffect(() => {
     axios
@@ -25,7 +26,7 @@ export default function ProductPage() {
         productID: productID,
       })
       .then((response) => {
-        // console.log(response.data.foundProduct);
+        console.log(response.data.foundProduct);
         setProduct(response.data.foundProduct);
         setReviews(response.data.foundProduct.reviews);
         setFAQs(response.data.foundProduct.questions);
@@ -130,7 +131,35 @@ export default function ProductPage() {
           <div className="product-price">{product.price}/-</div>
         </div>
         <div className="product-img-container">
-          <img src={product.productImg} alt="" />
+          {product.productImg !== undefined && (
+            <div>
+              <img
+                className="product-img"
+                src={product.productImg[imgIndex]}
+                alt=""
+              />
+              <div className="img-btn-container">
+                <button
+                  onClick={() => {
+                    if (imgIndex >= 1) {
+                      setImgIndex(imgIndex - 1);
+                    }
+                  }}
+                >
+                  Prev
+                </button>
+                <button
+                  onClick={() => {
+                    if (imgIndex < product.productImg.length - 1) {
+                      setImgIndex(imgIndex + 1);
+                    }
+                  }}
+                >
+                  Next
+                </button>
+              </div>
+            </div>
+          )}
         </div>
         <div className="product-side-container">
           <div className="product-size-container">

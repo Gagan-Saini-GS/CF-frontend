@@ -63,6 +63,19 @@ export default function Navbar() {
     }
   });
 
+  document.addEventListener("click", (event) => {
+    const temp = document.querySelector(".user-img");
+    // console.log(temp);
+    // console.log(event.target);
+
+    if (temp === event.target) {
+      // console.log("Same");
+      setShowProfileMenu(true);
+    } else {
+      setShowProfileMenu(false);
+    }
+  });
+
   function showMenu() {
     // Worst code segment in closet fashion
     // Fix this with right and efficient code
@@ -224,7 +237,8 @@ export default function Navbar() {
                 src="images/user.png"
                 alt=""
                 onClick={() => {
-                  setShowProfileMenu(!showProfileMenu);
+                  setShowProfileMenu(true);
+                  // setShowProfileMenu(!showProfileMenu);
                 }}
               />
             </div>
@@ -252,7 +266,10 @@ export default function Navbar() {
                   </Link>
                 </div>
                 <div className="profile-menu-item background-effect">
-                  <Link to="/edit-profile" className="profile-menu-item-link">
+                  <Link
+                    to="/my-profile/update-profile"
+                    className="profile-menu-item-link"
+                  >
                     <img
                       className="profile-menu-icon"
                       src="images/pencil.png"

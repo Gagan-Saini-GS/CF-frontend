@@ -6,7 +6,8 @@ import swal from "sweetalert";
 import { Link } from "react-router-dom";
 
 export default function UploadProduct() {
-  const [imgSrc, setImgSrc] = useState("images/not found.jpg");
+  const [imgSrc, setImgSrc] = useState(["images/not found.jpg"]);
+  const [imgIndex, setImgIndex] = useState(0);
   const [isSeller, setSeller] = useState(false);
 
   useEffect(() => {
@@ -15,7 +16,7 @@ export default function UploadProduct() {
         authToken: localStorage.getItem("authToken"),
       })
       .then((response) => {
-        console.log(response.data);
+        // console.log(response.data);
         setSeller(response.data.foundUser.isSeller);
       })
       .catch((err) => {
@@ -74,7 +75,35 @@ export default function UploadProduct() {
                 }}
               />
               <div className="preview-img-container">
-                <img src={imgSrc} alt="" />
+                <img src={imgSrc[imgIndex]} alt="" />
+                <div className="img-btn-container">
+                  <button
+                    onClick={() => {
+                      if (imgIndex >= 1) {
+                        setImgIndex(imgIndex - 1);
+                      }
+                    }}
+                  >
+                    Prev
+                  </button>
+                  <button
+                    onClick={() => {
+                      if (imgIndex < imgSrc.length - 1) {
+                        setImgIndex(imgIndex + 1);
+                      }
+                    }}
+                  >
+                    Next
+                  </button>
+                </div>
+              </div>
+              <div className="upload-product-form-item">
+                <h3>Description</h3>
+                <textarea
+                  className="description"
+                  rows="5"
+                  placeholder="As always great desgin and quality..."
+                ></textarea>
               </div>
             </div>
             <div className="upf-box">
@@ -83,25 +112,21 @@ export default function UploadProduct() {
                 <input
                   type="text"
                   className="name"
-                  placeholder="Name of the Product"
+                  placeholder="CF 902-special"
                 />
               </div>
               <div className="upload-product-form-item">
                 <h3>Price</h3>
-                <input
-                  type="number"
-                  className="price"
-                  placeholder="Price of product"
-                />
+                <input type="number" className="price" placeholder="17999" />
               </div>
-              <div className="upload-product-form-item">
+              {/* <div className="upload-product-form-item">
                 <h3>Description</h3>
                 <textarea
                   className="description"
                   rows="5"
                   placeholder="Description of product"
                 ></textarea>
-              </div>
+              </div> */}
               <div className="upload-product-form-item">
                 <h3>Company</h3>
                 <select name="company" className="company">
@@ -121,6 +146,14 @@ export default function UploadProduct() {
                   <option value="Shoes">Shoes</option>
                   <option value="Hoodies">Hoodies</option>
                   <option value="Others">Others</option>
+                </select>
+              </div>
+              <div className="upload-product-form-item">
+                <h3>Gender</h3>
+                <select name="category" className="category">
+                  <option value="Men">Men</option>
+                  <option value="Women">Women</option>
+                  <option value="kid">Kid</option>
                 </select>
               </div>
               <div className="upload-product-form-item size-container">

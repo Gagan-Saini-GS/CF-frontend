@@ -35,7 +35,7 @@ export default function CartCard(props) {
         <ProductCard2 product={product} />
       </Link>
       <div className="cart-product-extra">
-        <div className="quantity">
+        {/* <div className="quantity">
           <div>Quantity</div>
           <div className="quantity-item">
             <button
@@ -92,8 +92,14 @@ export default function CartCard(props) {
               +
             </button>
           </div>
-        </div>
+        </div> */}
 
+        <Link
+          className="buy-now-btn-link"
+          to={"/product/buynow/" + product._id}
+        >
+          <div className="buy-now-btn">Buy Now</div>
+        </Link>
         <div className="remove" onClick={removeProduct}>
           <img src="images/bin.png" alt="" />
         </div>

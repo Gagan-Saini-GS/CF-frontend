@@ -12,7 +12,7 @@ export default function ProductCard2(props) {
   return (
     <div className="pc2-container" onClick={showProduct}>
       <div className="pc2-img-box">
-        <img src={product.productImg} alt="" />
+        <img src={product.productImg[0]} alt="" />
       </div>
       <div className="pc2-info-box">
         <div className="pc2-info-item pc2-name">{product.name}</div>

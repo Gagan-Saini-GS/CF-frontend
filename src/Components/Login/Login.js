@@ -185,7 +185,7 @@ export default function Login(props) {
             </div>
           )}
 
-          <div className="social-media-icon-box">
+          {/* <div className="social-media-icon-box">
             <div className="social-media-icon">
               <img src="images/search.png" alt="social-media-icon" />
             </div>
@@ -195,7 +195,7 @@ export default function Login(props) {
             <div className="social-media-icon">
               <img src="images/twitter.png" alt="social-media-icon" />
             </div>
-          </div>
+          </div> */}
         </div>
         <div className="bottom-logo-circle">
           <div>

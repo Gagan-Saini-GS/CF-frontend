@@ -5,9 +5,9 @@ export default function Banner() {
   // Later this banners arr should be controlled by Admin
   // He will be able to add and remove banners as per his need.
   const banners = [
-    "images/Banner 1.png",
-    "images/Banner 2.png",
     "images/Banner 3.png",
+    "images/Banner 4.png",
+    "images/Banner 5.png",
   ];
 
   function changeBanner() {
@@ -18,12 +18,12 @@ export default function Banner() {
       banner.setAttribute("src", banners[i]);
     }, 5000);
   }
-  // changeBanner();
+  changeBanner();
 
   return (
     <div className="banner-container">
       <div className="banner-box">
-        <img className="banner" src={banners[2]} alt="Banner" />
+        <img className="banner" src={banners[0]} alt="Banner" />
       </div>
     </div>
   );

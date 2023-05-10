@@ -4,29 +4,11 @@ import "./Home.css";
 import Navbar from "../Navbar/Navbar";
 import Banner from "../Banner/Banner";
 import ProductCard1 from "../ProductCards/ProductCard1";
-// import Footer from "../Footer/Footer";
-// import ProductPage from "../ProductPage/ProductPage";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
 export default function Home() {
   const [allProducts, setAllProducts] = useState([]);
-  // const [productShow, setProductShow] = useState(false);
-  // const [productID, setProductID] = useState("");
-
-  // const [product, setProduct] = useState({
-  //   name: "Jordan 1 Retro High OG",
-  //   price: "14717",
-  //   productImg: "images/shoe2.png",
-  // });
-
-  // function showProduct(id) {
-  //   setProductShow(true);
-  //   setProductID(id);
-  //   // setProduct(resultProduct);
-  // }
-
-  // const [arr, setArr] = useState([1, 2, 3, 4, 5, 8, 8, 8, 8, 8]);
 
   useEffect(() => {
     axios
@@ -42,9 +24,6 @@ export default function Home() {
 
   return (
     <div className="home-container">
-      {/* {productShow ? (
-        <ProductPage productID={productID} />
-      ) : ( */}
       <div>
         <Navbar />
         <Banner />

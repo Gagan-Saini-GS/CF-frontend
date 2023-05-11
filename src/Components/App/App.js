@@ -41,6 +41,7 @@ function App() {
           <div>
             <Routes>
               <Route path="/" element={<Navigate to="/logout" />} />
+              <Route path="/home" element={<Home />} />
               <Route path="/logout" element={<Login setUser={setUser} />} />
             </Routes>
           </div>
@@ -50,7 +51,6 @@ function App() {
             <div>Hello</div>
             <Routes>
               <Route path="/" element={<Navigate to="/home" />} />
-              {/* <Route path="/logout" element={<Navigate to="/home" />} /> */}
               <Route path="/home" element={<Home />} />
               <Route path="/my-profile" element={<Profile />} />
               <Route path="/my-orders" element={<Profile />} />

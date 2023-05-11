@@ -28,7 +28,7 @@ export default function Login(props) {
         localStorage.setItem("authToken", authToken);
         // props.setUser(data.authToken);
         swal("Congrats!", "Your are loged in", "success").then(() => {
-          window.location.replace("https://closet-fashion.onrender.com/home");
+          window.location.replace("https://closet-fashion.onrender.com/");
         });
       })
       .catch((err) => {
@@ -62,7 +62,7 @@ export default function Login(props) {
         localStorage.setItem("authToken", authToken);
         // props.setUser(authToken);
         swal("Welcome!", "Your account is created", "success").then(() => {
-          window.location.replace("https://closet-fashion.onrender.com/home");
+          window.location.replace("https://closet-fashion.onrender.com/");
         });
       })
       .catch((err) => {

@@ -12,7 +12,7 @@ export default function UploadProduct() {
 
   useEffect(() => {
     axios
-      .post("http://localhost:5000/user-details", {
+      .post("https://cf-backend-1cic.onrender.com/user-details", {
         authToken: localStorage.getItem("authToken"),
       })
       .then((response) => {
@@ -44,7 +44,7 @@ export default function UploadProduct() {
     };
 
     axios
-      .post("http://localhost:5000/upload-product", {
+      .post("https://cf-backend-1cic.onrender.com/upload-product", {
         authToken: localStorage.getItem("authToken"),
         product: product,
       })

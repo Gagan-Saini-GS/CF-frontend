@@ -12,7 +12,7 @@ export default function SearchProductList() {
 
   useEffect(() => {
     axios
-      .post("http://localhost:5000/search-product", {
+      .post("https://cf-backend-1cic.onrender.com/search-product", {
         searchQuery: query,
       })
       .then((response) => {

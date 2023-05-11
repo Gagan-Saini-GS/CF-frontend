@@ -21,7 +21,7 @@ export default function ProductPage() {
 
   useEffect(() => {
     axios
-      .post("http://localhost:5000/get-product-with-id", {
+      .post("https://cf-backend-1cic.onrender.com/get-product-with-id", {
         authToken: localStorage.getItem("authToken"),
         productID: productID,
       })
@@ -49,7 +49,7 @@ export default function ProductPage() {
     const reviewContent = document.querySelector(".review-form textarea").value;
 
     axios
-      .post("http://localhost:5000/set-product-review", {
+      .post("https://cf-backend-1cic.onrender.com/set-product-review", {
         productID: productID,
         reviewContent: reviewContent,
         starCount: stars,
@@ -74,7 +74,7 @@ export default function ProductPage() {
     // console.log(reivewContent);
 
     axios
-      .post("http://localhost:5000/ask-product-question", {
+      .post("https://cf-backend-1cic.onrender.com/ask-product-question", {
         productID: productID,
         question: question,
         answer: answer,
@@ -98,7 +98,7 @@ export default function ProductPage() {
 
   function addToCart() {
     axios
-      .post("http://localhost:5000/add-to-cart", {
+      .post("https://cf-backend-1cic.onrender.com/add-to-cart", {
         productID: productID,
         authToken: localStorage.getItem("authToken"),
       })

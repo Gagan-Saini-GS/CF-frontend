@@ -13,7 +13,7 @@ export default function Cart() {
 
   useEffect(() => {
     axios
-      .post("http://localhost:5000/access-cart-items", {
+      .post("https://cf-backend-1cic.onrender.com/access-cart-items", {
         authToken: localStorage.getItem("authToken"),
       })
       .then((response) => {

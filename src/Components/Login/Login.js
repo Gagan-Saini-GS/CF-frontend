@@ -13,7 +13,7 @@ export default function Login(props) {
       password: document.querySelector(".login-password").value,
     };
 
-    fetch("http://localhost:5000/login", {
+    fetch("https://cf-backend-1cic.onrender.com/login", {
       method: "POST",
       body: JSON.stringify({
         user: user,
@@ -46,7 +46,7 @@ export default function Login(props) {
       password: document.querySelector(".signup-password").value,
     };
 
-    fetch("http://localhost:5000/signup", {
+    fetch("https://cf-backend-1cic.onrender.com/signup", {
       method: "POST",
       body: JSON.stringify({
         user: user,

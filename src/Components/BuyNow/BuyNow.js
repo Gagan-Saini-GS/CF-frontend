@@ -13,7 +13,7 @@ export default function BuyNow() {
 
   useEffect(() => {
     axios
-      .post("http://localhost:5000/buy-product", {
+      .post("https://cf-backend-1cic.onrender.com/buy-product", {
         authToken: localStorage.getItem("authToken"),
         productID: params.productID,
       })
@@ -29,7 +29,7 @@ export default function BuyNow() {
 
   function checkout() {
     axios
-      .post("http://localhost:5000/checkout-product", {
+      .post("https://cf-backend-1cic.onrender.com/checkout-product", {
         authToken: localStorage.getItem("authToken"),
         productID: params.productID,
       })

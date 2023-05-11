@@ -6,7 +6,7 @@ import swal from "sweetalert";
 export default function SellerAccount() {
   function becomeSeller() {
     axios
-      .post("http://localhost:5000/become-seller", {
+      .post("https://cf-backend-1cic.onrender.com/become-seller", {
         sellerEmail: document.querySelector(".sellerEmail").value,
         sellerPhoneNumber: document.querySelector(".sellerPhoneNumber").value,
         sellerPANCardNumber: document.querySelector(".sellerPANCardNumber")

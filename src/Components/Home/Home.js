@@ -12,7 +12,7 @@ export default function Home() {
 
   useEffect(() => {
     axios
-      .post("http://localhost:5000/get-all-products")
+      .post("https://cf-backend-1cic.onrender.com/get-all-products")
       .then((resposnse) => {
         // console.log(resposnse.data);
         setAllProducts(resposnse.data);

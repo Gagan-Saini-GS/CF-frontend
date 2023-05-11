@@ -16,7 +16,7 @@ export default function CartCard(props) {
     // const temp = product.price;
     // console.log(product);
     axios
-      .post("http://localhost:5000/remove-item", {
+      .post("https://cf-backend-1cic.onrender.com/remove-item", {
         productID: product._id,
         authToken: localStorage.getItem("authToken"),
       })

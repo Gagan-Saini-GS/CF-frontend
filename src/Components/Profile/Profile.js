@@ -17,7 +17,7 @@ export default function Profile() {
 
   useEffect(() => {
     axios
-      .post("http://localhost:5000/user-details", {
+      .post("https://cf-backend-1cic.onrender.com/user-details", {
         "Content-type": "application/json; charset=UTF-8",
         authToken: localStorage.getItem("authToken"),
       })

@@ -19,7 +19,7 @@ export default function ProductList() {
 
   useEffect(() => {
     axios
-      .post("http://localhost:5000/filtered-products", {
+      .post("https://cf-backend-1cic.onrender.com/filtered-products", {
         filter: filter,
       })
       .then((response) => {

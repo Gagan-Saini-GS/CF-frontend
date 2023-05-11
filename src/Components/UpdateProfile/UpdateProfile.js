@@ -36,7 +36,7 @@ export default function UpdateProfile() {
 
   useEffect(() => {
     axios
-      .post("http://localhost:5000/user-details", {
+      .post("https://cf-backend-1cic.onrender.com/user-details", {
         authToken: localStorage.getItem("authToken"),
       })
       .then((response) => {
@@ -67,7 +67,7 @@ export default function UpdateProfile() {
 
     console.log(user);
     axios
-      .patch("http://localhost:5000/update-profile", {
+      .patch("https://cf-backend-1cic.onrender.com/update-profile", {
         user: currentData,
         authToken: localStorage.getItem("authToken"),
       })

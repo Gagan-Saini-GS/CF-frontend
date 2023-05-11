@@ -18,7 +18,7 @@ export default function Banner() {
       banner.setAttribute("src", banners[i]);
     }, 5000);
   }
-  changeBanner();
+  // changeBanner();
 
   return (
     <div className="banner-container">

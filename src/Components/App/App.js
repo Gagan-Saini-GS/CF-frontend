@@ -49,26 +49,31 @@ function App() {
           // <Login setUser={setUser} />
           <div>
             <div>Hello</div>
-            <Routes>
-              <Route path="/" element={<Navigate to="/home" />} />
-              <Route path="/home" element={<Home />} />
-              <Route path="/my-profile" element={<Profile />} />
-              <Route path="/my-orders" element={<Profile />} />
-              <Route path="/become-seller" element={<SellerAccount />} />
-              <Route
-                path="/my-profile/update-profile"
-                element={<UpdateProfile />}
-              />
-              <Route path="/upload-product" element={<UploadProduct />} />
-              <Route path={"/products/:filter"} element={<ProductList />} />
-              <Route
-                path={"/products/search-results/:query"}
-                element={<SearchProductList />}
-              />
-              <Route path={"/product/:productID"} element={<ProductPage />} />
-              <Route path={"/product/buynow/:productID"} element={<BuyNow />} />
-              <Route path={"/cart"} element={<Cart />} />
-            </Routes>
+            <div>
+              <Routes>
+                <Route path="/" element={<Navigate to="/home" />} />
+                <Route path="/home" element={<Home />} />
+                <Route path="/my-profile" element={<Profile />} />
+                <Route path="/my-orders" element={<Profile />} />
+                <Route path="/become-seller" element={<SellerAccount />} />
+                <Route
+                  path="/my-profile/update-profile"
+                  element={<UpdateProfile />}
+                />
+                <Route path="/upload-product" element={<UploadProduct />} />
+                <Route path={"/products/:filter"} element={<ProductList />} />
+                <Route
+                  path={"/products/search-results/:query"}
+                  element={<SearchProductList />}
+                />
+                <Route path={"/product/:productID"} element={<ProductPage />} />
+                <Route
+                  path={"/product/buynow/:productID"}
+                  element={<BuyNow />}
+                />
+                <Route path={"/cart"} element={<Cart />} />
+              </Routes>
+            </div>
             <Footer />
           </div>
         )}

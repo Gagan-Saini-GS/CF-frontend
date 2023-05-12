@@ -74,7 +74,9 @@ export default function UpdateProfile() {
       .then((response) => {
         if (response.status === 200) {
           swal("Done!", "Your profile is updated", "success").then(() => {
-            window.location.replace("http://localhost:3000/my-profile");
+            window.location.replace(
+              "https://closet-fashion.onrender.com/my-profile"
+            );
           });
           // console.log(response);
 

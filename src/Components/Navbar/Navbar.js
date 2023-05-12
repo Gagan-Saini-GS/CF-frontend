@@ -19,7 +19,7 @@ export default function Navbar() {
     }).then((confirm) => {
       if (confirm) {
         localStorage.removeItem("authToken");
-        window.location.replace("http://localhost:3000/logout");
+        window.location.replace("https://closet-fashion.onrender.com/logout");
       } else {
         console.log("You are not loged out");
       }

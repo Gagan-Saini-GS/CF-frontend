@@ -40,12 +40,13 @@ function App() {
         {authToken === "" || authToken === null || authToken === undefined ? (
           <div>
             <Routes>
-              <Route path="/" element={<Navigate to="/logout" />} />
+              {/* <Route path="/" element={<Navigate to="/logout" />} /> */}
               <Route path="/logout" element={<Login setUser={setUser} />} />
             </Routes>
           </div>
         ) : (
           <div>
+            {console.log(authToken)}
             <Routes>
               <Route path="/" element={<Navigate to="/home" />} />
               <Route path="/home" element={<Home />} />

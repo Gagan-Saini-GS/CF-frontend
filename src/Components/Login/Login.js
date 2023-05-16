@@ -29,7 +29,7 @@ export default function Login(props) {
         // props.setUser(data.authToken);
         swal("Congrats!", "Your are loged in", "success").then(() => {
           // window.location.replace("http://localhost:3000/#/home");
-          // window.location.replace("https://closet-fashion.onrender.com/#/");
+          window.location.replace("https://closet-fashion.onrender.com/#/");
         });
       })
       .catch((err) => {

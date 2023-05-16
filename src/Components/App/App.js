@@ -40,7 +40,9 @@ function App() {
           <div>
             {console.log(authToken)}
             <Routes>
-              {/* <Route path="/" element={<Navigate to="/logout" />} /> */}
+              <Route path="/" element={<Navigate to="/logout" />} />
+              {/* <Route path="/" element={<div>Hello</div>} /> */}
+              {/* <Route path="/logout" element={<div>Login</div>} /> */}
               <Route path="/logout" element={<Login setUser={setUser} />} />
               {console.log(authToken)}
             </Routes>

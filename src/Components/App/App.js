@@ -38,18 +38,18 @@ function App() {
       <div className="app-container">
         {authToken === undefined || authToken === null || authToken === "" ? (
           <div>
-            {console.log(authToken)}
+            {/* {console.log(authToken)} */}
             <Routes>
               <Route path="/" element={<Navigate to="/logout" />} />
               {/* <Route path="/" element={<div>Hello</div>} /> */}
               {/* <Route path="/logout" element={<div>Login</div>} /> */}
               <Route path="/logout" element={<Login setUser={setUser} />} />
-              {console.log(authToken)}
+              {/* {console.log(authToken)} */}
             </Routes>
           </div>
         ) : (
           <div>
-            {console.log(authToken)}
+            {/* {console.log(authToken)} */}
             <Routes>
               <Route path="/" element={<Navigate to="/home" />} />
               <Route path="/home" element={<Home />} />

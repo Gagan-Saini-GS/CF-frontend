@@ -1,6 +1,6 @@
 import "./App.css";
 import {
-  BrowserRouter as Router,
+  HashRouter as Router,
   Routes,
   Route,
   Navigate,
@@ -25,19 +25,18 @@ function App() {
 
   useEffect(() => {
     const token = localStorage.getItem("authToken");
-    // console.log(token);
+    console.log(token);
     setAuthToken(token);
   }, []);
 
   function setUser(token) {
-    // console.log(token);
     setAuthToken(token);
   }
 
   return (
     <Router>
       <div className="app-container">
-        {authToken === "" || authToken === null || authToken === undefined ? (
+        {authToken === undefined || authToken === null || authToken === "" ? (
           <div>
             <Routes>
               {/* <Route path="/" element={<Navigate to="/logout" />} /> */}

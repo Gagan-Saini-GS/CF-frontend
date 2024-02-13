@@ -1,17 +1,19 @@
 import React, { useState } from "react";
 import "./Login.css";
 import swal from "sweetalert";
+import { useNavigate } from "react-router-dom";
 
 export default function Login(props) {
+  const navigate = useNavigate();
   const [showLogin, setShowLogin] = useState(true);
 
-  function handleLogin(event) {
-    event.preventDefault();
+  const [user, setUser] = useState({
+    useremail: "",
+    password: "",
+  });
 
-    const user = {
-      useremail: document.querySelector(".login-useremail").value,
-      password: document.querySelector(".login-password").value,
-    };
+  const handleLogin = (event) => {
+    event.preventDefault();
 
     fetch("https://cf-backend-1cic.onrender.com/login", {
       method: "POST",
@@ -26,17 +28,16 @@ export default function Login(props) {
       .then((data) => {
         const authToken = data.authToken;
         localStorage.setItem("authToken", authToken);
-        // props.setUser(data.authToken);
-        swal("Congrats!", "Your are loged in", "success").then(() => {
-          // window.location.replace("http://localhost:3000/#/home");
-          window.location.replace("https://closet-fashion.onrender.com/#/home");
-        });
+        props.setUser(authToken);
+        navigate("/home");
+        // swal("Congrats!", "Your are loged in", "success").then(() => {
+        // });
       })
       .catch((err) => {
         console.log(err);
         swal("Oops!", "Something went wrong", "error");
       });
-  }
+  };
 
   function handleSignup(event) {
     event.preventDefault();
@@ -58,16 +59,13 @@ export default function Login(props) {
     })
       .then((response) => response.json())
       .then((data) => {
-        // console.log(data.authToken);
         const authToken = data.authToken;
         localStorage.setItem("authToken", authToken);
-        // props.setUser(authToken);
-        swal("Welcome!", "Your account is created", "success").then(() => {
-          // window.location.replace("http://localhost:3000/#/home");
-          // window.location.replace("http://localhost:3000/#/home");
-
-          window.location.replace("https://closet-fashion.onrender.com/#/home");
-        });
+        navigate("/home");
+        props.setUser(authToken);
+        // swal("Welcome!", "Your account is created", "success").then(() => {
+        //   // window.location.replace("https://closet-fashion.onrender.com/#/home");
+        // });
       })
       .catch((err) => {
         console.log(err);
@@ -113,6 +111,13 @@ export default function Login(props) {
                     name="useremail"
                     className="login-useremail"
                     placeholder="Useremail"
+                    value={user.useremail}
+                    onChange={(e) =>
+                      setUser((prev) => ({
+                        ...prev,
+                        useremail: e.target.value,
+                      }))
+                    }
                   />
                 </div>
                 <div className="form-item">
@@ -121,6 +126,10 @@ export default function Login(props) {
                     name="password"
                     className="login-password"
                     placeholder="Password"
+                    value={user.password}
+                    onChange={(e) =>
+                      setUser((prev) => ({ ...prev, password: e.target.value }))
+                    }
                   />
                 </div>
                 <div className="extra-form-items">

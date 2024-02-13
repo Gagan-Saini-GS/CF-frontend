@@ -49,7 +49,6 @@ export default function UploadProduct() {
         product: product,
       })
       .then((response) => {
-        console.log(response.data);
         swal("Thanks", "Your Product is submitted!", "success");
       })
       .catch((err) => {

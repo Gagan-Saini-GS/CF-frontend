@@ -6,9 +6,12 @@ import reportWebVitals from "./reportWebVitals";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
+  // React.StrictMode render component twice on development server
+  // just to ensure that everything is fine.
+  // Even if you use it in production it only renders once the component
+  // <React.StrictMode>
+  // </React.StrictMode>
+  <App />
 );
 
 // If you want to start measuring performance in your app, pass a function

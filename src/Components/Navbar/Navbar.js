@@ -2,10 +2,11 @@ import React, { useState } from "react";
 import "./Navbar.css";
 import "./Navbar2.css";
 
-import { Link, Navigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import swal from "sweetalert";
 
-export default function Navbar() {
+export default function Navbar({ setUser }) {
+  const navigate = useNavigate();
   const [showProfileMenu, setShowProfileMenu] = useState(false);
   const [searchFlag, setSearchFlag] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
@@ -19,7 +20,9 @@ export default function Navbar() {
     }).then((confirm) => {
       if (confirm) {
         localStorage.removeItem("authToken");
-        window.location.replace("https://closet-fashion.onrender.com/logout");
+        setUser("");
+        navigate("/logout");
+        // window.location.replace("https://closet-fashion.onrender.com/logout");
       } else {
         console.log("You are not loged out");
       }

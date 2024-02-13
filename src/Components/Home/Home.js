@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from "react";
 import "./Home.css";
-
 import Navbar from "../Navbar/Navbar";
 import Banner from "../Banner/Banner";
 import ProductCard1 from "../ProductCards/ProductCard1";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
-export default function Home() {
+export default function Home({ setUser }) {
   const [allProducts, setAllProducts] = useState([]);
 
   useEffect(() => {
@@ -25,7 +24,7 @@ export default function Home() {
   return (
     <div className="home-container">
       <div>
-        <Navbar />
+        <Navbar setUser={setUser} />
         <Banner />
 
         <div className="recently-viewed-container">

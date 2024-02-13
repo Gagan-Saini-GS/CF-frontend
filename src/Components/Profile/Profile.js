@@ -22,7 +22,6 @@ export default function Profile() {
         authToken: localStorage.getItem("authToken"),
       })
       .then((response) => {
-        console.log(response.data.foundUser);
         setUser(response.data.foundUser);
       })
       .catch((err) => {

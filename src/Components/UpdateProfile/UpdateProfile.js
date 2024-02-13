@@ -2,8 +2,10 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import "./UpdateProfile.css";
 import swal from "sweetalert";
+import { useNavigate } from "react-router-dom";
 
 export default function UpdateProfile() {
+  const navigate = useNavigate();
   // Changing image into base64
   const [imgSrc, setImgSrc] = useState("");
   const [user, setUser] = useState({
@@ -65,7 +67,6 @@ export default function UpdateProfile() {
       website: document.querySelector(".website").value,
     };
 
-    console.log(user);
     axios
       .patch("https://cf-backend-1cic.onrender.com/update-profile", {
         user: currentData,
@@ -74,14 +75,12 @@ export default function UpdateProfile() {
       .then((response) => {
         if (response.status === 200) {
           swal("Done!", "Your profile is updated", "success").then(() => {
-            window.location.replace(
-              "https://closet-fashion.onrender.com/#/my-profile"
-            );
+            navigate("/my-profile");
+            // window.location.replace(
+            //   "https://closet-fashion.onrender.com/#/my-profile"
+            // );
             // window.location.replace("http://localhost:3000/#/my-profile");
           });
-          // console.log(response);
-
-          // Redirect to my-profile page
         } else {
           swal("Oops!", "Something went wrong, try again", "error");
         }

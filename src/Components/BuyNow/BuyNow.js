@@ -1,12 +1,12 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import "./BuyNow.css";
 import swal from "sweetalert";
 
 export default function BuyNow() {
+  const navigate = useNavigate();
   const params = useParams();
-  // console.log(params.productID);
   const [user, setUser] = useState();
   const [product, setProduct] = useState();
   const [imgIndex, setImgIndex] = useState(0);
@@ -18,7 +18,6 @@ export default function BuyNow() {
         productID: params.productID,
       })
       .then((response) => {
-        console.log(response.data);
         setUser(response.data.x);
         setProduct(response.data.y);
       })
@@ -34,14 +33,16 @@ export default function BuyNow() {
         productID: params.productID,
       })
       .then((response) => {
-        console.log(response);
         swal(
           "Congrats!",
           "The item is added into your order list and delivered soon when we start delivering the products.",
           "success"
         );
+        navigate("/home");
+      })
+      .catch((err) => {
+        swal("Sorry!", "We don't start delivering products yet!", "info");
       });
-    // swal("Sorry!", "We don't start delivering products yet!", "info");
   }
 
   return (

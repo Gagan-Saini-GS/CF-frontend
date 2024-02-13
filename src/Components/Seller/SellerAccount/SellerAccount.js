@@ -16,7 +16,6 @@ export default function SellerAccount() {
         "Content-type": "application/json; charset=UTF-8",
       })
       .then((response) => {
-        console.log(response.data);
         document.querySelector(".sellerEmail").value = "";
         document.querySelector(".sellerPhoneNumber").value = "";
         document.querySelector(".sellerPANCardNumber").value = "";

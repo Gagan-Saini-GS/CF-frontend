@@ -26,7 +26,6 @@ export default function ProductPage() {
         productID: productID,
       })
       .then((response) => {
-        console.log(response.data.foundProduct);
         setProduct(response.data.foundProduct);
         setReviews(response.data.foundProduct.reviews);
         setFAQs(response.data.foundProduct.questions);
@@ -103,7 +102,6 @@ export default function ProductPage() {
         authToken: localStorage.getItem("authToken"),
       })
       .then((response) => {
-        // console.log(response);
         swal("Congrats!", "Item added into your cart", "success");
       })
       .catch((err) => {
@@ -115,7 +113,6 @@ export default function ProductPage() {
   }
 
   function buyNow() {
-    console.log("Buy Now");
     // alert("Buy Now");
   }
 

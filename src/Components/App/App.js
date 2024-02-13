@@ -25,13 +25,13 @@ function App() {
 
   useEffect(() => {
     const token = localStorage.getItem("authToken");
-    console.log(token);
+    // console.log(token);
     setAuthToken(token);
   }, []);
 
-  function setUser(token) {
+  const setUser = (token) => {
     setAuthToken(token);
-  }
+  };
 
   return (
     <Router>
@@ -41,18 +41,14 @@ function App() {
             {/* {console.log(authToken)} */}
             <Routes>
               <Route path="/" element={<Navigate to="/logout" />} />
-              {/* <Route path="/" element={<div>Hello</div>} /> */}
-              {/* <Route path="/logout" element={<div>Login</div>} /> */}
               <Route path="/logout" element={<Login setUser={setUser} />} />
-              {/* {console.log(authToken)} */}
             </Routes>
           </div>
         ) : (
           <div>
-            {/* {console.log(authToken)} */}
             <Routes>
               <Route path="/" element={<Navigate to="/home" />} />
-              <Route path="/home" element={<Home />} />
+              <Route path="/home" element={<Home setUser={setUser} />} />
               <Route path="/my-profile" element={<Profile />} />
               <Route path="/my-orders" element={<Profile />} />
               <Route path="/become-seller" element={<SellerAccount />} />

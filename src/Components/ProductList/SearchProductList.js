@@ -16,7 +16,6 @@ export default function SearchProductList() {
         searchQuery: query,
       })
       .then((response) => {
-        // console.log(response.data);
         setProducts(response.data);
       })
       .catch((err) => {

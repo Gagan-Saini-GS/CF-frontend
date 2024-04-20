@@ -3,13 +3,14 @@ import uploadImage from "../../Assets/imgChange";
 import "./UploadProduct.css";
 import axios from "axios";
 import swal from "sweetalert";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { SERVER_URL } from "../../config";
 
 export default function UploadProduct() {
   const [imgSrc, setImgSrc] = useState(["images/not found.jpg"]);
   const [imgIndex, setImgIndex] = useState(0);
   const [isSeller, setSeller] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     axios
@@ -17,7 +18,6 @@ export default function UploadProduct() {
         authToken: localStorage.getItem("authToken"),
       })
       .then((response) => {
-        // console.log(response.data);
         setSeller(response.data.foundUser.isSeller);
       })
       .catch((err) => {
@@ -50,11 +50,15 @@ export default function UploadProduct() {
         product: product,
       })
       .then((response) => {
-        swal("Thanks", "Your Product is submitted!", "success");
+        swal("Thanks", "Your Product is submitted!", "success").then(() => {
+          navigate("/home");
+        });
       })
       .catch((err) => {
         console.log(err);
-        swal("Oops", "Something went wrong", "error");
+        swal("Oops", "Something went wrong", "error").then(() => {
+          navigate("/home");
+        });
       });
   }
 

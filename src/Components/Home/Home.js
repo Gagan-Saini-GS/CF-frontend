@@ -12,7 +12,7 @@ export default function Home({ setUser }) {
 
   useEffect(() => {
     axios
-      .post(`${SERVER_URL}/get-all-products`)
+      .get(`${SERVER_URL}/get-all-products`)
       .then((resposnse) => {
         setAllProducts(resposnse.data);
       })

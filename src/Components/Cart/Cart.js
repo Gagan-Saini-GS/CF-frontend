@@ -51,26 +51,25 @@ export default function Cart() {
       <Navbar />
       <div className="cart-main-section">
         <div className="products-container">
-          {cartProduct !== undefined && cartProduct.length === 0 && (
+          {cartProduct?.length === 0 && (
             <div className="not-found-img">
               <img src="images/not found.jpg" alt="" />
-              <h2>Your cart is empty!</h2>
+              {/* <h2>Your cart is empty!</h2> */}
             </div>
           )}
-          {cartProduct !== undefined &&
-            cartProduct.map((product, index) => {
-              totalPrice += product.price;
-              delivery += Math.trunc(product.price * 0.02);
-              discount += Math.trunc(product.price * 0.05);
-              return (
-                <CartCard
-                  key={index}
-                  product={product}
-                  quantityChange={quantityChange}
-                  removeCartProduct={removeCartProduct}
-                />
-              );
-            })}
+          {cartProduct?.map((product, index) => {
+            totalPrice += product.price;
+            delivery += Math.trunc(product.price * 0.02);
+            discount += Math.trunc(product.price * 0.05);
+            return (
+              <CartCard
+                key={index}
+                product={product}
+                quantityChange={quantityChange}
+                removeCartProduct={removeCartProduct}
+              />
+            );
+          })}
         </div>
         <div className="side-card">
           <div>

@@ -19,8 +19,8 @@ export default function BuyNow() {
         productID: params.productID,
       })
       .then((response) => {
-        setUser(response.data.x);
-        setProduct(response.data.y);
+        setUser(response.data.userDetails);
+        setProduct(response.data.productDetails);
       })
       .catch((err) => {
         console.log(err);
@@ -38,8 +38,9 @@ export default function BuyNow() {
           "Congrats!",
           "The item is added into your order list and delivered soon when we start delivering the products.",
           "success"
-        );
-        navigate("/home");
+        ).then(() => {
+          navigate("/home");
+        });
       })
       .catch((err) => {
         swal("Sorry!", "We don't start delivering products yet!", "info");

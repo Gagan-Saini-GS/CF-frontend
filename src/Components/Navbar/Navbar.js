@@ -254,7 +254,7 @@ export default function Navbar({ setUser }) {
             <div className="profile-item">
               <img
                 className="profile-item-img user-img"
-                src={userProfileImg}
+                src={userProfileImg || "images/man.png"}
                 alt=""
                 onClick={() => {
                   setShowProfileMenu(true);

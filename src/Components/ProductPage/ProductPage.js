@@ -26,16 +26,15 @@ export default function ProductPage() {
   useEffect(() => {
     axios
       .post(`${SERVER_URL}/get-product-with-id`, {
-        authToken: localStorage.getItem("authToken"),
         productID: productID,
       })
       .then((response) => {
         setProduct(response.data.foundProduct);
-        setReviews(response.data.foundProduct.reviews);
-        setFAQs(response.data.foundProduct.questions);
+        setReviews(response.data.foundProduct?.reviews);
+        setFAQs(response.data.foundProduct?.questions);
         // checkSize();
 
-        // setIsProductFetched(true);
+        setIsProductFetched(true);
       })
       .catch((err) => {
         console.log(err);
@@ -78,10 +77,9 @@ export default function ProductPage() {
         authToken: localStorage.getItem("authToken"),
       })
       .then((response) => {
-        // console.log(response.data);
         swal(
           "Thanks",
-          "Your question is added successfully you get your soon",
+          "Your question is added successfully you will get your answer soon",
           "success"
         );
         setFAQs(response.data);
@@ -122,20 +120,20 @@ export default function ProductPage() {
     <div className="product-page-container">
       <div className="product-detail-container">
         <div className="product-info-container">
-          <div className="product-name">{product.name}</div>
-          <div className="product-price">₹ {product.price}/-</div>
+          <div className="product-name">{product?.name}</div>
+          <div className="product-price">₹ {product?.price}/-</div>
         </div>
         {isProductFetched ? (
           <>
             <div className="product-img-container">
-              {product.productImg !== undefined && (
+              {product?.productImg && (
                 <div>
                   <img
                     className="product-img"
-                    src={product.productImg[imgIndex]}
+                    src={product?.productImg[imgIndex]}
                     alt=""
                   />
-                  {product.productImg.length > 1 && (
+                  {product?.productImg?.length > 1 && (
                     <div className="img-btn-container">
                       <button
                         onClick={() => {
@@ -148,7 +146,7 @@ export default function ProductPage() {
                       </button>
                       <button
                         onClick={() => {
-                          if (imgIndex < product.productImg.length - 1) {
+                          if (imgIndex < product?.productImg?.length - 1) {
                             setImgIndex(imgIndex + 1);
                           }
                         }}
@@ -202,7 +200,7 @@ export default function ProductPage() {
       <div className="product-description-container">
         <div className="product-description">
           <h2>Description</h2>
-          <div>{product.description}</div>
+          <div>{product?.description}</div>
         </div>
         <div className="product-details">
           <h2>Details</h2>

@@ -15,7 +15,7 @@
   display: flex;
   /* justify-content: space-between; */
   overflow-x: scroll;
-  height: 350px;
+  height: fit-content;
 }
 
 .top-trends-container {
@@ -32,7 +32,7 @@
   display: flex;
   /* justify-content: space-between; */
   overflow-x: scroll;
-  height: 350px;
+  height: fit-content;
 }
 
 .product-card-link {

@@ -6,6 +6,8 @@ import axios from "axios";
 import { Link, useParams } from "react-router-dom";
 import StarRating from "../StarRating/StarRating";
 import swal from "sweetalert";
+import { SERVER_URL } from "../../config";
+import { FaArrowRight, FaImage } from "react-icons/fa6";
 
 export default function ProductPage() {
   const params = useParams();
@@ -15,13 +17,15 @@ export default function ProductPage() {
   const [writeReview, setWriteReview] = useState(false);
   const [askQuestion, setAskQuestion] = useState(false);
   const [stars, setStars] = useState(0);
-  let availableSizes = new Map([]);
+  const allSizes = ["S", "M", "L", "XL", "XXL"];
   const productID = params.productID;
   const [imgIndex, setImgIndex] = useState(0);
 
+  const [isProductFetched, setIsProductFetched] = useState(false);
+
   useEffect(() => {
     axios
-      .post("https://cf-backend-1cic.onrender.com/get-product-with-id", {
+      .post(`${SERVER_URL}/get-product-with-id`, {
         authToken: localStorage.getItem("authToken"),
         productID: productID,
       })
@@ -30,25 +34,19 @@ export default function ProductPage() {
         setReviews(response.data.foundProduct.reviews);
         setFAQs(response.data.foundProduct.questions);
         // checkSize();
+
+        // setIsProductFetched(true);
       })
       .catch((err) => {
         console.log(err);
       });
   }, [productID]);
 
-  function checkSize() {
-    if (product.sizes !== undefined) {
-      for (let i = 0; i < product.sizes.length; i++) {
-        availableSizes.set(product.sizes[i], true);
-      }
-    }
-  }
-
   function submitReview() {
     const reviewContent = document.querySelector(".review-form textarea").value;
 
     axios
-      .post("https://cf-backend-1cic.onrender.com/set-product-review", {
+      .post(`${SERVER_URL}/set-product-review`, {
         productID: productID,
         reviewContent: reviewContent,
         starCount: stars,
@@ -73,7 +71,7 @@ export default function ProductPage() {
     // console.log(reivewContent);
 
     axios
-      .post("https://cf-backend-1cic.onrender.com/ask-product-question", {
+      .post(`${SERVER_URL}/ask-product-question`, {
         productID: productID,
         question: question,
         answer: answer,
@@ -97,7 +95,7 @@ export default function ProductPage() {
 
   function addToCart() {
     axios
-      .post("https://cf-backend-1cic.onrender.com/add-to-cart", {
+      .post(`${SERVER_URL}/add-to-cart`, {
         productID: productID,
         authToken: localStorage.getItem("authToken"),
       })
@@ -125,73 +123,82 @@ export default function ProductPage() {
       <div className="product-detail-container">
         <div className="product-info-container">
           <div className="product-name">{product.name}</div>
-          <div className="product-price">{product.price}/-</div>
+          <div className="product-price">₹ {product.price}/-</div>
         </div>
-        <div className="product-img-container">
-          {product.productImg !== undefined && (
-            <div>
-              <img
-                className="product-img"
-                src={product.productImg[imgIndex]}
-                alt=""
-              />
-              <div className="img-btn-container">
-                <button
-                  onClick={() => {
-                    if (imgIndex >= 1) {
-                      setImgIndex(imgIndex - 1);
-                    }
-                  }}
-                >
-                  Prev
-                </button>
-                <button
-                  onClick={() => {
-                    if (imgIndex < product.productImg.length - 1) {
-                      setImgIndex(imgIndex + 1);
-                    }
-                  }}
-                >
-                  Next
-                </button>
-              </div>
+        {isProductFetched ? (
+          <>
+            <div className="product-img-container">
+              {product.productImg !== undefined && (
+                <div>
+                  <img
+                    className="product-img"
+                    src={product.productImg[imgIndex]}
+                    alt=""
+                  />
+                  {product.productImg.length > 1 && (
+                    <div className="img-btn-container">
+                      <button
+                        onClick={() => {
+                          if (imgIndex >= 1) {
+                            setImgIndex(imgIndex - 1);
+                          }
+                        }}
+                      >
+                        Prev
+                      </button>
+                      <button
+                        onClick={() => {
+                          if (imgIndex < product.productImg.length - 1) {
+                            setImgIndex(imgIndex + 1);
+                          }
+                        }}
+                      >
+                        Next
+                      </button>
+                    </div>
+                  )}
+                </div>
+              )}
             </div>
-          )}
-        </div>
+          </>
+        ) : (
+          <div className="product-img-container">
+            <div className="product-img-placeholder">
+              <FaImage style={{ height: "100%", width: "100%" }} />
+            </div>
+          </div>
+        )}
         <div className="product-side-container">
           <div className="product-size-container">
-            <h3 className="size-heading">Select Size</h3>
+            <h3 className="size-heading">Available Sizes</h3>
             <ul>
-              {checkSize()}
-              <li className={availableSizes.has("S") ? "available-size" : ""}>
-                S
-              </li>
-              <li className={availableSizes.has("M") ? "available-size" : ""}>
-                M
-              </li>
-              <li className={availableSizes.has("L") ? "available-size" : ""}>
-                L
-              </li>
-              <li className={availableSizes.has("XL") ? "available-size" : ""}>
-                XL
-              </li>
-              <li className={availableSizes.has("XXL") ? "available-size" : ""}>
-                XXL
-              </li>
+              {allSizes.map((size) => (
+                <li
+                  key={size}
+                  className={
+                    product?.sizes?.includes(size) ? "available-size" : ""
+                  }
+                >
+                  {size}
+                </li>
+              ))}
             </ul>
           </div>
           <div className="btn-container">
             <button className="product-btn" onClick={addToCart}>
-              add to cart <span>&rarr;</span>
+              <span>Add to Cart</span>
+              <FaArrowRight />
             </button>
             <button className="product-btn" onClick={buyNow}>
               <Link to={"/product/buynow/" + productID}>
-                buy now <span>&rarr;</span>
+                <span>Buy Now</span>
+                <FaArrowRight />
               </Link>
             </button>
           </div>
         </div>
       </div>
+
       <div className="product-description-container">
         <div className="product-description">
           <h2>Description</h2>

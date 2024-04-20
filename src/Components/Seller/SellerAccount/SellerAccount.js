@@ -2,11 +2,15 @@ import React from "react";
 import axios from "axios";
 import "./SellerAccount.css";
 import swal from "sweetalert";
+import { SERVER_URL } from "../../../config";
+import { useNavigate } from "react-router-dom";
 
 export default function SellerAccount() {
+  const navigate = useNavigate();
+
   function becomeSeller() {
     axios
-      .post("https://cf-backend-1cic.onrender.com/become-seller", {
+      .post(`${SERVER_URL}/become-seller`, {
         sellerEmail: document.querySelector(".sellerEmail").value,
         sellerPhoneNumber: document.querySelector(".sellerPhoneNumber").value,
         sellerPANCardNumber: document.querySelector(".sellerPANCardNumber")
@@ -20,11 +24,15 @@ export default function SellerAccount() {
         document.querySelector(".sellerPhoneNumber").value = "";
         document.querySelector(".sellerPANCardNumber").value = "";
         document.querySelector(".sellerGSTNumber").value = "";
-        swal("Thanks!", "You become a seller now", "success");
+        swal("Thanks!", "You become a seller now", "success").then(() => {
+          navigate("/home");
+        });
       })
       .catch((err) => {
         console.log(err);
-        swal("Oops!", "Something is wrong", "error");
+        swal("Oops!", "Something is wrong", "error").then(() => {
+          navigate("/home");
+        });
       });
   }
 

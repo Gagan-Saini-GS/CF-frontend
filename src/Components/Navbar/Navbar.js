@@ -1,15 +1,18 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Navbar.css";
 import "./Navbar2.css";
 
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import swal from "sweetalert";
+import axios from "axios";
+import { SERVER_URL } from "../../config";
 
 export default function Navbar({ setUser }) {
   const navigate = useNavigate();
   const [showProfileMenu, setShowProfileMenu] = useState(false);
   const [searchFlag, setSearchFlag] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const [userProfileImg, setUserProfileImage] = useState("images/man.png");
 
   function logout() {
     swal("Warning!", "You will be loged out", "warning", {
@@ -117,6 +120,20 @@ export default function Navbar({ setUser }) {
       }
     }
   }
+
+  useEffect(() => {
+    axios
+      .post(`${SERVER_URL}/user-details`, {
+        "Content-type": "application/json; charset=UTF-8",
+        authToken: localStorage.getItem("authToken"),
+      })
+      .then((response) => {
+        setUserProfileImage(response.data.foundUser.userProfileImg);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
 
   return (
     <div className="outer-nav-container">
@@ -237,7 +254,7 @@ export default function Navbar({ setUser }) {
             <div className="profile-item">
               <img
                 className="profile-item-img user-img"
-                src="images/user.png"
+                src={userProfileImg}
                 alt=""
                 onClick={() => {
                   setShowProfileMenu(true);

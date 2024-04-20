@@ -5,15 +5,15 @@ import Banner from "../Banner/Banner";
 import ProductCard1 from "../ProductCards/ProductCard1";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { SERVER_URL } from "../../config";
 
 export default function Home({ setUser }) {
   const [allProducts, setAllProducts] = useState([]);
 
   useEffect(() => {
     axios
-      .post("https://cf-backend-1cic.onrender.com/get-all-products")
+      .post(`${SERVER_URL}/get-all-products`)
       .then((resposnse) => {
-        // console.log(resposnse.data);
         setAllProducts(resposnse.data);
       })
       .catch((err) => {

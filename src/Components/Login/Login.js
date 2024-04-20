@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./Login.css";
 import swal from "sweetalert";
 import { useNavigate } from "react-router-dom";
+import { SERVER_URL } from "../../config";
 
 export default function Login(props) {
   const navigate = useNavigate();
@@ -15,7 +16,7 @@ export default function Login(props) {
   const handleLogin = (event) => {
     event.preventDefault();
 
-    fetch("https://cf-backend-1cic.onrender.com/login", {
+    fetch(`${SERVER_URL}/login`, {
       method: "POST",
       body: JSON.stringify({
         user: user,
@@ -48,7 +49,7 @@ export default function Login(props) {
       password: document.querySelector(".signup-password").value,
     };
 
-    fetch("https://cf-backend-1cic.onrender.com/signup", {
+    fetch(`${SERVER_URL}/signup`, {
       method: "POST",
       body: JSON.stringify({
         user: user,

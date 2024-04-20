@@ -3,6 +3,7 @@ import "./Profile.css";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import ProductCard1 from "../ProductCards/ProductCard1";
+import { SERVER_URL } from "../../config";
 
 export default function Profile() {
   const [user, setUser] = useState({
@@ -17,7 +18,7 @@ export default function Profile() {
 
   useEffect(() => {
     axios
-      .post("https://cf-backend-1cic.onrender.com/user-details", {
+      .post(`${SERVER_URL}/user-details`, {
         "Content-type": "application/json; charset=UTF-8",
         authToken: localStorage.getItem("authToken"),
       })

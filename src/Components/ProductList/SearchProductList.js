@@ -4,6 +4,7 @@ import "./ProductList.css";
 import { Link, useParams } from "react-router-dom";
 import ProductCard2 from "../ProductCards/ProductCard2";
 import axios from "axios";
+import { SERVER_URL } from "../../config";
 
 export default function SearchProductList() {
   const [products, setProducts] = useState();
@@ -12,7 +13,7 @@ export default function SearchProductList() {
 
   useEffect(() => {
     axios
-      .post("https://cf-backend-1cic.onrender.com/search-product", {
+      .post(`${SERVER_URL}/search-product`, {
         searchQuery: query,
       })
       .then((response) => {

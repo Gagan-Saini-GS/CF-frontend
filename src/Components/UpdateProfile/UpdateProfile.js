@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import "./UpdateProfile.css";
 import swal from "sweetalert";
 import { useNavigate } from "react-router-dom";
+import { SERVER_URL } from "../../config";
 
 export default function UpdateProfile() {
   const navigate = useNavigate();
@@ -38,7 +39,7 @@ export default function UpdateProfile() {
 
   useEffect(() => {
     axios
-      .post("https://cf-backend-1cic.onrender.com/user-details", {
+      .post(`${SERVER_URL}/user-details`, {
         authToken: localStorage.getItem("authToken"),
       })
       .then((response) => {
@@ -62,13 +63,13 @@ export default function UpdateProfile() {
   function updateProfile() {
     const currentData = {
       userProfileImg: imgSrc,
-      phonenumber: document.querySelector(".phonenumber").value,
+      phoneNumber: document.querySelector(".phonenumber").value,
       address: document.querySelector(".address").value,
       website: document.querySelector(".website").value,
     };
 
     axios
-      .patch("https://cf-backend-1cic.onrender.com/update-profile", {
+      .patch(`${SERVER_URL}/update-profile`, {
         user: currentData,
         authToken: localStorage.getItem("authToken"),
       })
@@ -76,10 +77,6 @@ export default function UpdateProfile() {
         if (response.status === 200) {
           swal("Done!", "Your profile is updated", "success").then(() => {
             navigate("/my-profile");
-            // window.location.replace(
-            //   "https://closet-fashion.onrender.com/#/my-profile"
-            // );
-            // window.location.replace("http://localhost:3000/#/my-profile");
           });
         } else {
           swal("Oops!", "Something went wrong, try again", "error");

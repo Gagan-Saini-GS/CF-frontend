@@ -4,6 +4,7 @@ import "./UploadProduct.css";
 import axios from "axios";
 import swal from "sweetalert";
 import { Link } from "react-router-dom";
+import { SERVER_URL } from "../../config";
 
 export default function UploadProduct() {
   const [imgSrc, setImgSrc] = useState(["images/not found.jpg"]);
@@ -12,7 +13,7 @@ export default function UploadProduct() {
 
   useEffect(() => {
     axios
-      .post("https://cf-backend-1cic.onrender.com/user-details", {
+      .post(`${SERVER_URL}/user-details`, {
         authToken: localStorage.getItem("authToken"),
       })
       .then((response) => {
@@ -44,7 +45,7 @@ export default function UploadProduct() {
     };
 
     axios
-      .post("https://cf-backend-1cic.onrender.com/upload-product", {
+      .post(`${SERVER_URL}/upload-product`, {
         authToken: localStorage.getItem("authToken"),
         product: product,
       })

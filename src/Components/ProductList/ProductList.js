@@ -5,6 +5,7 @@ import axios from "axios";
 import { Link, useParams } from "react-router-dom";
 import ProductCard2 from "../ProductCards/ProductCard2";
 import checkNumber from "../../Assets/checkNumber";
+import { SERVER_URL } from "../../config";
 
 export default function ProductList() {
   const params = useParams();
@@ -19,7 +20,7 @@ export default function ProductList() {
 
   useEffect(() => {
     axios
-      .post("https://cf-backend-1cic.onrender.com/filtered-products", {
+      .post(`${SERVER_URL}/filtered-products`, {
         filter: filter,
       })
       .then((response) => {

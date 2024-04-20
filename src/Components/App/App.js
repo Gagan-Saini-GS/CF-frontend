@@ -21,13 +21,16 @@ import BuyNow from "../BuyNow/BuyNow";
 import Footer from "../Footer/Footer";
 
 function App() {
-  const [authToken, setAuthToken] = useState("");
+  const [authToken, setAuthToken] = useState(
+    localStorage.getItem("authToken") || ""
+  );
 
   useEffect(() => {
     const token = localStorage.getItem("authToken");
-    // console.log(token);
-    setAuthToken(token);
-  }, []);
+    if (token != authToken) {
+      setAuthToken(token);
+    }
+  }, [authToken]);
 
   const setUser = (token) => {
     setAuthToken(token);
@@ -38,15 +41,19 @@ function App() {
       <div className="app-container">
         {authToken === undefined || authToken === null || authToken === "" ? (
           <div>
-            {/* {console.log(authToken)} */}
             <Routes>
               <Route path="/" element={<Navigate to="/logout" />} />
+              <Route path="*" element={<Navigate to="/logout" />} />
               <Route path="/logout" element={<Login setUser={setUser} />} />
             </Routes>
           </div>
         ) : (
           <div>
             <Routes>
+              {/* Fallback Route */}
+              <Route path="*" element={<Navigate to="/home" />} />
+
+              {/* Other Routes */}
               <Route path="/" element={<Navigate to="/home" />} />
               <Route path="/home" element={<Home setUser={setUser} />} />
               <Route path="/my-profile" element={<Profile />} />

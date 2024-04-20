@@ -4,6 +4,7 @@ import "./Cart.css";
 import Navbar from "../Navbar/Navbar";
 import CartCard from "./CartCard";
 import swal from "sweetalert";
+import { SERVER_URL } from "../../config";
 
 export default function Cart() {
   const [cartProduct, setCartProducts] = useState([]);
@@ -13,7 +14,7 @@ export default function Cart() {
 
   useEffect(() => {
     axios
-      .post("https://cf-backend-1cic.onrender.com/access-cart-items", {
+      .post(`${SERVER_URL}/access-cart-items`, {
         authToken: localStorage.getItem("authToken"),
       })
       .then((response) => {

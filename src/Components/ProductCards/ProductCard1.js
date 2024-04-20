@@ -1,5 +1,4 @@
-import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "./ProductCard1.css";
 
 export default function ProductCard1(props) {
@@ -15,8 +14,24 @@ export default function ProductCard1(props) {
         <img src={product.productImg[0]} alt="" />
       </div>
       <div className="product-info-box">
-        <div className="product-info-item">{product.name}</div>
-        <div className="product-info-item">{product.price}/-</div>
+        <div
+          className="product-info-item"
+          style={{ fontSize: "1.25rem", fontWeight: 700 }}
+        >
+          {product.name}
+        </div>
+        {/* <div className="product-info-item">{product.price}/-</div> */}
+        {/* <div className="action-container">
+          <div
+            className="pc-action-btn"
+            style={{ backgroundColor: "#1e1e1e", color: "#f0f3f6" }}
+          >
+            Add To Cart
+          </div>
+          <div className="pc-action-btn" style={{ backgroundColor: "#48d198" }}>
+            Buy Now
+          </div>
+        </div> */}
       </div>
     </div>
   );

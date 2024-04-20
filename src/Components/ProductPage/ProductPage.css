@@ -6,9 +6,10 @@ textarea {
   background-color: var(--black);
   color: var(--white);
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
   height: 250px;
+  padding: 0 5%;
 }
 
 .product-info-container {
@@ -17,10 +18,34 @@ textarea {
 
 .product-img-container {
   position: relative;
-  top: 100px;
+  top: 75px;
   width: 30%;
   height: 110%;
   border-radius: 5px;
+  margin-bottom: 0px;
+}
+
+.product-img-container .img-btn-container {
+  display: flex;
+  align-items: center;
+  width: 275px;
+  padding: 0 20%;
+  margin: 0;
+}
+
+.product-img-placeholder {
+  width: 275px;
+  height: 300px;
+  border-radius: 10px;
+  padding: 0 20%;
+  margin: 0;
+}
+
+.product-img-container .img-btn-container button {
+  width: 50%;
+  margin: 0;
+  border: 2px solid var(--black);
+  text-transform: uppercase;
 }
 
 .product-price {
@@ -30,13 +55,12 @@ textarea {
 }
 
 .product-img {
-  /* width: 60%;
-  height: 100%; */
-  width: 250px;
-  height: 250px;
-  border-radius: 5px;
+  width: 275px;
+  height: 300px;
   margin: 0px 20%;
-  border: 3px solid var(--blue);
+  border: 3px solid var(--white);
+  border-radius: 12px;
+  box-shadow: 0px 0px 12px 2px var(--blue);
 }
 
 .product-side-container {
@@ -54,7 +78,8 @@ textarea {
 
 .product-size-container ul {
   display: flex;
-  justify-content: space-between;
+  /* justify-content: space-between; */
+  gap: 5px;
   list-style-type: none;
   padding: 0;
   margin: 0;
@@ -85,22 +110,30 @@ textarea {
 }
 
 .product-btn {
-  background-color: var(--green);
-  border-radius: 5px;
+  background-color: var(--white);
+  border: none;
+  box-shadow: 3px 3px 0px 1px var(--green);
+  border-radius: 4px;
   color: var(--black);
-  display: flex;
-  font-size: 1.5rem;
-  justify-content: space-between;
+  font-size: 1.25rem;
   margin-top: 10px;
-  padding: 5px;
+  padding: 5px 10px;
   text-align: left;
   text-transform: uppercase;
   width: 100%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .product-btn a {
   text-decoration: none;
   color: var(--black);
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .product-description-container {
@@ -249,9 +282,6 @@ textarea {
 }
 
 @media (min-width: 600px) and (max-width: 1200px) {
-  .product-detail-container {
-    padding: 0px 5%;
-  }
   .product-description-container {
     flex-direction: column;
   }

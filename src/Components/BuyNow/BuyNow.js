@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import "./BuyNow.css";
 import swal from "sweetalert";
+import { SERVER_URL } from "../../config";
 
 export default function BuyNow() {
   const navigate = useNavigate();
@@ -13,7 +14,7 @@ export default function BuyNow() {
 
   useEffect(() => {
     axios
-      .post("https://cf-backend-1cic.onrender.com/buy-product", {
+      .post(`${SERVER_URL}/buy-product`, {
         authToken: localStorage.getItem("authToken"),
         productID: params.productID,
       })
@@ -28,7 +29,7 @@ export default function BuyNow() {
 
   function checkout() {
     axios
-      .post("https://cf-backend-1cic.onrender.com/checkout-product", {
+      .post(`${SERVER_URL}/checkout-product`, {
         authToken: localStorage.getItem("authToken"),
         productID: params.productID,
       })

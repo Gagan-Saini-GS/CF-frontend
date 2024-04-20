@@ -3,6 +3,7 @@ import ProductCard2 from "../ProductCards/ProductCard2";
 import { Link } from "react-router-dom";
 import "./CartCard.css";
 import axios from "axios";
+import { SERVER_URL } from "../../config";
 
 export default function CartCard(props) {
   const product = props.product;
@@ -16,7 +17,7 @@ export default function CartCard(props) {
     // const temp = product.price;
     // console.log(product);
     axios
-      .post("https://cf-backend-1cic.onrender.com/remove-item", {
+      .post(`${SERVER_URL}/remove-item`, {
         productID: product._id,
         authToken: localStorage.getItem("authToken"),
       })

@@ -1,78 +1,10 @@
 import React, { useState } from "react";
 import "./Login.css";
-import swal from "sweetalert";
-import { useNavigate } from "react-router-dom";
-import { SERVER_URL } from "../../config";
+import SignupForm from "./SignupForm";
+import LoginForm from "./LoginForm";
 
 export default function Login(props) {
-  const navigate = useNavigate();
   const [showLogin, setShowLogin] = useState(true);
-
-  const [user, setUser] = useState({
-    useremail: "",
-    password: "",
-  });
-
-  const handleLogin = (event) => {
-    event.preventDefault();
-
-    fetch(`${SERVER_URL}/login`, {
-      method: "POST",
-      body: JSON.stringify({
-        user: user,
-      }),
-      headers: {
-        "Content-type": "application/json; charset=UTF-8",
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        const authToken = data.authToken;
-        localStorage.setItem("authToken", authToken);
-        props.setUser(authToken);
-        navigate("/home");
-        // swal("Congrats!", "Your are loged in", "success").then(() => {
-        // });
-      })
-      .catch((err) => {
-        console.log(err);
-        swal("Oops!", "Something went wrong", "error");
-      });
-  };
-
-  function handleSignup(event) {
-    event.preventDefault();
-
-    const user = {
-      username: document.querySelector(".signup-username").value,
-      useremail: document.querySelector(".signup-useremail").value,
-      password: document.querySelector(".signup-password").value,
-    };
-
-    fetch(`${SERVER_URL}/signup`, {
-      method: "POST",
-      body: JSON.stringify({
-        user: user,
-      }),
-      headers: {
-        "Content-type": "application/json; charset=UTF-8",
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        const authToken = data.authToken;
-        localStorage.setItem("authToken", authToken);
-        navigate("/home");
-        props.setUser(authToken);
-        // swal("Welcome!", "Your account is created", "success").then(() => {
-        //   // window.location.replace("https://closet-fashion.onrender.com/#/home");
-        // });
-      })
-      .catch((err) => {
-        console.log(err);
-        swal("Oops!", "Something went wrong", "error");
-      });
-  }
 
   return (
     <div className="login-container">
@@ -104,112 +36,16 @@ export default function Login(props) {
           </div>
 
           {showLogin ? (
-            <div>
-              <form className="form-box" onSubmit={handleLogin}>
-                <div className="form-item">
-                  <input
-                    type="text"
-                    name="useremail"
-                    className="login-useremail"
-                    placeholder="Useremail"
-                    value={user.useremail}
-                    onChange={(e) =>
-                      setUser((prev) => ({
-                        ...prev,
-                        useremail: e.target.value,
-                      }))
-                    }
-                  />
-                </div>
-                <div className="form-item">
-                  <input
-                    type="password"
-                    name="password"
-                    className="login-password"
-                    placeholder="Password"
-                    value={user.password}
-                    onChange={(e) =>
-                      setUser((prev) => ({ ...prev, password: e.target.value }))
-                    }
-                  />
-                </div>
-                <div className="extra-form-items">
-                  <div>
-                    <input type="checkbox" name="" />
-                    Remember me
-                  </div>
-                  <div>Forgot Password?</div>
-                </div>
-                <div className="form-btn">
-                  <button onClick={handleLogin}>Login</button>
-                </div>
-              </form>
-              <div className="signup-info">
-                Don't have an account {"  "}
-                <span
-                  onClick={() => {
-                    setShowLogin(false);
-                  }}
-                >
-                  Click here!
-                </span>
-              </div>
-            </div>
+            <LoginForm
+              setUserAuthToken={props.setUser}
+              setShowLogin={setShowLogin}
+            />
           ) : (
-            <div>
-              <form className="form-box" onSubmit={handleSignup}>
-                <div className="form-item">
-                  <input
-                    type="text"
-                    name="username"
-                    className="signup-username"
-                    placeholder="Username"
-                  />
-                </div>
-                <div className="form-item">
-                  <input
-                    type="email"
-                    name="useremail"
-                    className="signup-useremail"
-                    placeholder="Useremail"
-                  />
-                </div>
-                <div className="form-item">
-                  <input
-                    type="password"
-                    name="password"
-                    className="signup-password"
-                    placeholder="Password"
-                  />
-                </div>
-                <div className="form-btn">
-                  <button onClick={handleSignup}>Create Account</button>
-                </div>
-              </form>
-              <div className="signup-info">
-                Already have an account {"  "}
-                <span
-                  onClick={() => {
-                    setShowLogin(true);
-                  }}
-                >
-                  Click here!
-                </span>
-              </div>
-            </div>
+            <SignupForm
+              setUserAuthToken={props.setUser}
+              setShowLogin={setShowLogin}
+            />
           )}
-
-          {/* <div className="social-media-icon-box">
-            <div className="social-media-icon">
-              <img src="images/search.png" alt="social-media-icon" />
-            </div>
-            <div className="social-media-icon">
-              <img src="images/facebook.png" alt="social-media-icon" />
-            </div>
-            <div className="social-media-icon">
-              <img src="images/twitter.png" alt="social-media-icon" />
-            </div>
-          </div> */}
         </div>
         <div className="bottom-logo-circle">
           <div>

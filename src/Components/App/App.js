@@ -32,7 +32,7 @@ function App() {
     }
   }, [authToken]);
 
-  const setUser = (token) => {
+  const setUserAuthToken = (token) => {
     setAuthToken(token);
   };
 
@@ -44,7 +44,10 @@ function App() {
             <Routes>
               <Route path="/" element={<Navigate to="/logout" />} />
               <Route path="*" element={<Navigate to="/logout" />} />
-              <Route path="/logout" element={<Login setUser={setUser} />} />
+              <Route
+                path="/logout"
+                element={<Login setUserAuthToken={setUserAuthToken} />}
+              />
             </Routes>
           </div>
         ) : (
@@ -55,7 +58,10 @@ function App() {
 
               {/* Other Routes */}
               <Route path="/" element={<Navigate to="/home" />} />
-              <Route path="/home" element={<Home setUser={setUser} />} />
+              <Route
+                path="/home"
+                element={<Home setUserAuthToken={setUserAuthToken} />}
+              />
               <Route path="/my-profile" element={<Profile />} />
               <Route path="/my-orders" element={<Profile />} />
               <Route path="/become-seller" element={<SellerAccount />} />

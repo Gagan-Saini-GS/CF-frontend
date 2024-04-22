@@ -6,15 +6,23 @@ import { Link, Navigate, useNavigate } from "react-router-dom";
 import swal from "sweetalert";
 import axios from "axios";
 import { SERVER_URL } from "../../config";
+import { Dropdown } from "../../GS-Libs/Dropdown/Dropdown";
+import { profileMenuDropdownData } from "../../GS-Libs/Profile/profileMenuDropdownData";
+import {
+  categoryList,
+  companyList,
+  priceList,
+} from "../../GS-Libs/Static-Data/filterMenuLists";
+import { Input } from "../../GS-Libs";
 
-export default function Navbar({ setUser }) {
+export default function Navbar({ setUserAuthToken }) {
   const navigate = useNavigate();
   const [showProfileMenu, setShowProfileMenu] = useState(false);
   const [searchFlag, setSearchFlag] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [userProfileImg, setUserProfileImage] = useState("images/man.png");
 
-  function logout() {
+  const logout = () => {
     swal("Warning!", "You will be loged out", "warning", {
       buttons: {
         cancel: true,
@@ -23,21 +31,18 @@ export default function Navbar({ setUser }) {
     }).then((confirm) => {
       if (confirm) {
         localStorage.removeItem("authToken");
-        setUser("");
+        setUserAuthToken("");
         navigate("/logout");
-        // window.location.replace("https://closet-fashion.onrender.com/logout");
       } else {
         console.log("You are not loged out");
       }
     });
-  }
+  };
 
-  function search(event) {
+  const search = (event) => {
     event.preventDefault();
-    const x = document.querySelector(".search-product-input").value;
-    setSearchQuery(x);
     setSearchFlag(true);
-  }
+  };
 
   window.addEventListener("resize", function () {
     // Worst code segment in closet fashion
@@ -82,7 +87,7 @@ export default function Navbar({ setUser }) {
     }
   });
 
-  function showMenu() {
+  const showMenu = () => {
     // Worst code segment in closet fashion
     // Fix this with right and efficient code
     const temp = document.querySelector(".menu-container-list");
@@ -119,7 +124,7 @@ export default function Navbar({ setUser }) {
         subitem[i].style.margin = "0px";
       }
     }
-  }
+  };
 
   useEffect(() => {
     axios
@@ -155,11 +160,13 @@ export default function Navbar({ setUser }) {
             <div className="logo-container-item">
               <div className="logo-input-item">
                 <form onSubmit={search}>
-                  <input
+                  <Input
                     type="search"
                     className="search-product-input"
                     name="product-search"
                     placeholder="Search"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
                   />
                 </form>
               </div>
@@ -180,61 +187,45 @@ export default function Navbar({ setUser }) {
                   <div className="category-sub-item">
                     <h2 className="category-heading">Colthing</h2>
                     <div className="category-type">
-                      <Link to={"/products/all-cloths"}>
-                        <p className="background-effect">All Colths</p>
-                      </Link>
-                      <Link to={"/products/tshirts"}>
-                        <p className="background-effect">T-Shirt</p>
-                      </Link>
-                      <Link to={"/products/shirts"}>
-                        <p className="background-effect">Shirts</p>
-                      </Link>
-                      <Link to={"/products/shoes"}>
-                        <p className="background-effect">Shoes</p>
-                      </Link>
-                      <Link to={"/products/hoodies"}>
-                        <p className="background-effect">Hoodies</p>
-                      </Link>
+                      {categoryList.map((category) => {
+                        return (
+                          <Link
+                            to={"/products/" + category.linkTo}
+                            key={category.id}
+                          >
+                            <p className="background-effect">{category.name}</p>
+                          </Link>
+                        );
+                      })}
                     </div>
                   </div>
                   <div className="category-sub-item">
                     <h2 className="category-heading">Top Brands</h2>
                     <div className="category-type">
-                      <Link to={"/products/nike"}>
-                        <p className="background-effect">Nike</p>
-                      </Link>
-                      <Link to={"/products/adidas"}>
-                        <p className="background-effect">Adidas</p>
-                      </Link>
-                      <Link to={"/products/gucci"}>
-                        <p className="background-effect">Gucci</p>
-                      </Link>
-                      <Link to={"/products/puma"}>
-                        <p className="background-effect">Puma</p>
-                      </Link>
-                      <Link to={"/products/louisvuitton"}>
-                        <p className="background-effect">Louis Vuitton</p>
-                      </Link>
+                      {companyList.map((company) => {
+                        return (
+                          <Link
+                            to={"/products/" + company.linkTo}
+                            key={company.id}
+                          >
+                            <p className="background-effect">{company.name}</p>
+                          </Link>
+                        );
+                      })}
                     </div>
                   </div>
                   <div className="category-sub-item">
                     <h2 className="category-heading">Under Price</h2>
                     <div className="category-type">
-                      <Link to={"/products/799"}>
-                        <p className="background-effect">Under 799/-</p>
-                      </Link>
-                      <Link to={"/products/1299"}>
-                        <p className="background-effect">Under 1299/-</p>
-                      </Link>
-                      <Link to={"/products/1899"}>
-                        <p className="background-effect">Under 1899/-</p>
-                      </Link>
-                      <Link to={"/products/2399"}>
-                        <p className="background-effect">Under 2399/-</p>
-                      </Link>
-                      <Link to={"/products/3099"}>
-                        <p className="background-effect">Under 3099/-</p>
-                      </Link>
+                      {priceList.map((price) => {
+                        return (
+                          <Link to={"/products/" + price.linkTo} key={price.id}>
+                            <p className="background-effect">
+                              Under {price.name}/-
+                            </p>
+                          </Link>
+                        );
+                      })}
                     </div>
                   </div>
                 </div>
@@ -258,66 +249,13 @@ export default function Navbar({ setUser }) {
                 alt=""
                 onClick={() => {
                   setShowProfileMenu(true);
-                  // setShowProfileMenu(!showProfileMenu);
                 }}
               />
             </div>
 
             {showProfileMenu && (
               <div className="profile-menu">
-                <div className="profile-menu-item background-effect">
-                  <Link to="/my-profile" className="profile-menu-item-link">
-                    <img
-                      className="profile-menu-icon"
-                      src="images/profile.png"
-                      alt=""
-                    />
-                    <p>My Profile</p>
-                  </Link>
-                </div>
-                <div className="profile-menu-item background-effect">
-                  <Link to="/my-orders" className="profile-menu-item-link">
-                    <img
-                      className="profile-menu-icon"
-                      src="images/shopping-bag.png"
-                      alt=""
-                    />
-                    <p>My Orders</p>
-                  </Link>
-                </div>
-                <div className="profile-menu-item background-effect">
-                  <Link
-                    to="/my-profile/update-profile"
-                    className="profile-menu-item-link"
-                  >
-                    <img
-                      className="profile-menu-icon"
-                      src="images/pencil.png"
-                      alt=""
-                    />
-                    <p>Edit Profile</p>
-                  </Link>
-                </div>
-                <div className="profile-menu-item background-effect">
-                  <Link to="/become-seller" className="profile-menu-item-link">
-                    <img
-                      className="profile-menu-icon"
-                      src="images/shop.png"
-                      alt=""
-                    />
-                    <p>Become Seller</p>
-                  </Link>
-                </div>
-                <div className="profile-menu-item background-effect">
-                  <Link to="/upload-product" className="profile-menu-item-link">
-                    <img
-                      className="profile-menu-icon"
-                      src="images/shopping-cart.png"
-                      alt=""
-                    />
-                    <p>Upload Product</p>
-                  </Link>
-                </div>
+                <Dropdown options={profileMenuDropdownData} />
                 <div
                   className="profile-menu-item background-effect"
                   onClick={logout}

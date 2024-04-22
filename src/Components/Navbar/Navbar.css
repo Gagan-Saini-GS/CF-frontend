@@ -234,12 +234,22 @@
     width: 30%;
   }
 
+  .profile-menu-item p {
+    font-size: 1.25rem;
+    font-weight: 500;
+  }
+
+  .profile-menu-icon {
+    width: 12%;
+    margin-right: 10px;
+  }
+
   .profile-item .profile-item-img {
     width: 100%;
   }
 
   .profile-menu {
-    width: 35%;
+    width: 30%;
   }
 }
 
@@ -307,11 +317,21 @@
     width: 30%;
   }
 
+  .profile-menu-item p {
+    font-size: 1rem;
+    font-weight: 500;
+  }
+
+  .profile-menu-icon {
+    width: 10%;
+    margin-right: 8px;
+  }
+
   .profile-item .profile-item-img {
     width: 100%;
   }
 
   .profile-menu {
-    width: 35%;
+    width: 45%;
   }
 }

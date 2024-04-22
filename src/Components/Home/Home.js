@@ -7,7 +7,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import { SERVER_URL } from "../../config";
 
-export default function Home({ setUser }) {
+export default function Home({ setUserAuthToken }) {
   const [allProducts, setAllProducts] = useState([]);
 
   useEffect(() => {
@@ -24,17 +24,17 @@ export default function Home({ setUser }) {
   return (
     <div className="home-container">
       <div>
-        <Navbar setUser={setUser} />
+        <Navbar setUserAuthToken={setUserAuthToken} />
         <Banner />
 
         <div className="recently-viewed-container">
           <h2>Recently viewed products</h2>
           <div className="recent-box">
-            {allProducts.slice(0, 5).map((product, index) => {
+            {allProducts.slice(0, 5).map((product) => {
               return (
                 <Link
                   className="product-card-link"
-                  key={index}
+                  key={product._id}
                   to={"/product/" + product._id}
                 >
                   <ProductCard1 product={product} />
@@ -46,11 +46,11 @@ export default function Home({ setUser }) {
         <div className="top-trends-container">
           <h2>Top Trends</h2>
           <div className="top-trend-box">
-            {allProducts.reverse().map((product, index) => {
+            {allProducts.reverse().map((product) => {
               return (
                 <Link
                   className="product-card-link"
-                  key={index}
+                  key={product._id}
                   to={"/product/" + product._id}
                 >
                   <ProductCard1 product={product} />
@@ -62,11 +62,11 @@ export default function Home({ setUser }) {
         <div className="top-trends-container">
           <h2>All Products</h2>
           <div className="top-trend-box">
-            {allProducts.map((product, index) => {
+            {allProducts.map((product) => {
               return (
                 <Link
                   className="product-card-link"
-                  key={index}
+                  key={product._id}
                   to={"/product/" + product._id}
                 >
                   <ProductCard1 product={product} />
@@ -76,7 +76,6 @@ export default function Home({ setUser }) {
           </div>
         </div>
       </div>
-      {/* )} */}
     </div>
   );
 }

@@ -9,7 +9,13 @@ const FooterItem = ({ heading, items }) => {
       <h2 className="footer-item-heading">{heading}</h2>
       <div className="footer-item-details">
         {items.map((item) => {
-          return <BackgroundEffectText text={item.text} imgUrl={item.imgUrl} />;
+          return (
+            <BackgroundEffectText
+              key={item.text}
+              text={item.text}
+              imgUrl={item.imgUrl}
+            />
+          );
         })}
       </div>
     </div>
@@ -22,7 +28,7 @@ export default function Footer() {
       {FooterData.map((footerItem) => {
         return (
           <FooterItem
-            // key={footerItem.id}
+            key={footerItem.id}
             heading={footerItem.heading}
             items={footerItem.items}
           />

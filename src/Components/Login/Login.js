@@ -37,12 +37,12 @@ export default function Login(props) {
 
           {showLogin ? (
             <LoginForm
-              setUserAuthToken={props.setUser}
+              setUserAuthToken={props.setUserAuthToken}
               setShowLogin={setShowLogin}
             />
           ) : (
             <SignupForm
-              setUserAuthToken={props.setUser}
+              setUserAuthToken={props.setUserAuthToken}
               setShowLogin={setShowLogin}
             />
           )}

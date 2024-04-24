@@ -4,11 +4,66 @@ import { useNavigate, useParams } from "react-router-dom";
 import "./BuyNow.css";
 import swal from "sweetalert";
 import { SERVER_URL } from "../../config";
+import { Button } from "../../GS-Libs/MultiUse/button";
+import { Input } from "../../GS-Libs";
+
+const PaymentMethods = [
+  {
+    id: "cod",
+    name: "Cash On Delivery",
+    value: "cod",
+  },
+  {
+    id: "upi",
+    name: "UPI",
+    value: "upi",
+  },
+  {
+    id: "credit-card",
+    name: "Credit Card",
+    value: "creditcard",
+  },
+  {
+    id: "debit-card",
+    name: "Debit Card",
+    value: "debitcard",
+  },
+  // {
+  //   id: "net-banking",
+  //   name: "Net Banking",
+  //   value: "netbanking",
+  // },
+];
+
+const PaymentItem = ({ name, value, isSelected, setPaymentMethod }) => {
+  return (
+    <div
+      className={`payment-item ${isSelected && "payment-item-selected"}`}
+      onClick={() => setPaymentMethod({ isValid: true, paymentMethod: value })}
+    >
+      <div>{name}</div>
+    </div>
+  );
+};
 
 export default function BuyNow() {
   const navigate = useNavigate();
   const params = useParams();
   const [user, setUser] = useState();
+  const [phoneNumber, setPhoneNumber] = useState({
+    phoneNumber: "",
+    isValid: true,
+  });
+  const [address, setAddress] = useState({
+    address: "",
+    isValid: true,
+  });
+
+  const [paymentMethod, setPaymentMethod] = useState({
+    paymentMethod: "",
+    isValid: true,
+  });
+
   const [product, setProduct] = useState();
   const [imgIndex, setImgIndex] = useState(0);
 
@@ -20,6 +75,14 @@ export default function BuyNow() {
       })
       .then((response) => {
         setUser(response.data.userDetails);
+        setPhoneNumber((prev) => ({
+          ...prev,
+          phoneNumber: response.data.userDetails.phoneNumber,
+        }));
+        setAddress((prev) => ({
+          ...prev,
+          address: response.data.userDetails.address,
+        }));
         setProduct(response.data.productDetails);
       })
       .catch((err) => {
@@ -27,7 +90,34 @@ export default function BuyNow() {
       });
   }, []);
 
-  function checkout() {
+  const checkout = () => {
+    if (
+      phoneNumber.phoneNumber === undefined ||
+      phoneNumber.phoneNumber.length !== 10
+    ) {
+      setPhoneNumber((prev) => ({ ...prev, isValid: false }));
+      // return;
+    }
+
+    if (address.address === undefined || address.address.length === 0) {
+      setAddress((prev) => ({ ...prev, isValid: false }));
+      // return;
+    }
+
+    if (paymentMethod.paymentMethod === "") {
+      setPaymentMethod((prev) => ({ ...prev, isValid: false }));
+    }
+
+    if (
+      phoneNumber.phoneNumber === undefined ||
+      phoneNumber.phoneNumber.length !== 10 ||
+      address.address === undefined ||
+      address.address.length === 0 ||
+      paymentMethod.paymentMethod === ""
+    ) {
+      return;
+    }
+
     axios
       .post(`${SERVER_URL}/checkout-product`, {
         authToken: localStorage.getItem("authToken"),
@@ -44,8 +134,21 @@ export default function BuyNow() {
       })
       .catch((err) => {
         swal("Sorry!", "We don't start delivering products yet!", "info");
+        console.log(err);
       });
-  }
+  };
+
+  const decrease = () => {
+    if (imgIndex >= 1) setImgIndex(imgIndex - 1);
+    else setImgIndex(product.productImg.length - 1);
+  };
+
+  const increase = () => {
+    if (imgIndex < product.productImg.length - 1) setImgIndex(imgIndex + 1);
+    else setImgIndex(0);
+  };
+
+  console.log(user);
 
   return (
     <div className="buy-now-container">
@@ -53,33 +156,28 @@ export default function BuyNow() {
         {product !== undefined && (
           <div className="product-container">
             <div className="product-img-box">
-              {/* <img src={product.productImg[]} alt="" /> */}
-
               <img src={product.productImg[imgIndex]} alt="" />
-              <div className="img-btn-container">
-                <button
-                  onClick={() => {
-                    if (imgIndex >= 1) {
-                      setImgIndex(imgIndex - 1);
-                    }
-                  }}
-                >
-                  Prev
-                </button>
-                <button
-                  onClick={() => {
-                    if (imgIndex < product.productImg.length - 1) {
-                      setImgIndex(imgIndex + 1);
-                    }
-                  }}
-                >
-                  Next
-                </button>
-              </div>
+              {product.productImg.length > 1 && (
+                <div className="img-btn-container">
+                  <Button
+                    ButtonText="Prev"
+                    onClick={decrease}
+                    className="btn"
+                  />
+                  <Button
+                    ButtonText="Next"
+                    onClick={increase}
+                    className="btn"
+                  />
+                </div>
+              )}
             </div>
             <div className="product-info-container">
-              <div className="product-info-item">{product.name}</div>
-              <div className="product-info-item">{product.price}/-</div>
+              <div className="product-name-price">
+                <div className="product-info-item">{product.name}</div>
+                <div className="product-info-item">₹ {product.price}/-</div>
+              </div>
+              <div className="product-description">{product.description}</div>
             </div>
           </div>
         )}
@@ -94,37 +192,82 @@ export default function BuyNow() {
               <p>Email</p> {user.email}
             </div>
             <div className="user-info-item">
-              <p>Phone Number</p> {user.phoneNumber}
+              <p>Phone Number</p>
+              {user.phoneNumber ? (
+                <>{user.phoneNumber}</>
+              ) : (
+                <div className="user-info-input">
+                  <Input
+                    type="number"
+                    placeholder="Enter Phone Number"
+                    className={`user-input ${
+                      !phoneNumber.isValid ? "validation-error-input" : ""
+                    }`}
+                    value={phoneNumber.phoneNumber}
+                    onChange={(e) => {
+                      setPhoneNumber({
+                        isValid: true,
+                        phoneNumber: e.target.value,
+                      });
+                    }}
+                  />
+                  {!phoneNumber.isValid && (
+                    <span className="validation-error-msg">
+                      Please enter a valid phone number.
+                    </span>
+                  )}
+                </div>
+              )}
             </div>
             <div className="user-info-item">
               <p>Address</p>
-              {user.address}
+              {user.address ? (
+                <>{user.address}</>
+              ) : (
+                <div className="user-info-input">
+                  <Input
+                    type="text"
+                    placeholder="Enter Address"
+                    className={`user-input ${
+                      !address.isValid ? "validation-error-input" : ""
+                    }`}
+                    value={address.address}
+                    onChange={(e) => {
+                      setAddress({
+                        isValid: true,
+                        address: e.target.value,
+                      });
+                    }}
+                  />
+                  {!address.isValid && (
+                    <span className="validation-error-msg">
+                      Please enter a valid address.
+                    </span>
+                  )}
+                </div>
+              )}
             </div>
           </div>
         )}
         <div>
           <h3 className="payment-method-heading">Select Your Payment Method</h3>
+          {!paymentMethod.isValid && (
+            <span className="validation-error-msg">
+              Please Select Payment Method
+            </span>
+          )}
           <div className="payment-method-box">
-            <div className="payment-item">
-              <label>Cash On Delivery</label>
-              <input type="radio" name="payment-method" value="cod" />
-            </div>
-            <div className="payment-item">
-              <label>UPI</label>
-              <input type="radio" name="payment-method" value="upi" />
-            </div>
-            <div className="payment-item">
-              <label>Credit Card</label>
-              <input type="radio" name="payment-method" value="creditcard" />
-            </div>
-            <div className="payment-item">
-              <label>Debit Card</label>
-              <input type="radio" name="payment-method" value="debitcard" />
-            </div>
-            <div className="payment-item">
-              <label>Net Banking</label>
-              <input type="radio" name="payment-method" value="netbanking" />
-            </div>
+            {PaymentMethods.map((paymentItem) => {
+              return (
+                <PaymentItem
+                  key={paymentItem.id}
+                  name={paymentItem.name}
+                  value={paymentItem.value}
+                  isSelected={paymentMethod.paymentMethod === paymentItem.value}
+                  setPaymentMethod={setPaymentMethod}
+                />
+              );
+            })}
           </div>
         </div>
         <div className="checkout-btn">

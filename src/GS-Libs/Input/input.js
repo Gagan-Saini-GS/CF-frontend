@@ -9,15 +9,13 @@ export const Input = ({
   className,
 }) => {
   return (
-    <div>
-      <input
-        className={className}
-        type={type}
-        name={name}
-        value={value}
-        onChange={onChange}
-        placeholder={placeholder}
-      />
-    </div>
+    <input
+      className={className}
+      type={type}
+      name={name}
+      value={value}
+      onChange={onChange}
+      placeholder={placeholder}
+    />
   );
 };

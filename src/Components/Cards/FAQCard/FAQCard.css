@@ -1,18 +1,24 @@
 .faq {
-  width: 30%;
+  width: 25%;
   color: var(--yellow);
   background-color: var(--black);
-  min-width: 28%;
+  min-width: 20%;
   margin-right: 2%;
-  padding: 20px;
+  padding: 1rem;
   border-radius: 10px;
   position: relative;
-  height: 200px;
+  height: 175px;
+}
+
+.faq-question,
+.faq-answer {
+  font-weight: 500;
 }
 
 .faq-author {
+  font-size: 1rem;
+  color: var(--white);
   text-align: right;
-  font-size: 1.75rem;
   position: absolute;
   bottom: 15px;
   right: 20px;
@@ -20,20 +26,30 @@
 
 @media (min-width: 600px) and (max-width: 1200px) {
   .faq {
-    min-width: 60%;
+    width: 40%;
+    min-width: 30%;
   }
 }
 
 @media (min-width: 300px) and (max-width: 600px) {
+  .faq-question,
+  .faq-answer {
+    font-weight: 500;
+  }
   .faq {
-    min-width: 86%;
+    width: 70%;
+    min-width: 60%;
   }
 }
 
 /* Common Area for both Mobile and Tab View */
 @media (min-width: 300px) and (max-width: 1200px) {
+  .faq-question,
+  .faq-answer {
+    font-weight: 500;
+  }
   .faq-author {
-    font-size: 1.5rem;
+    font-size: 1.25rem;
     right: 10px;
   }
 }

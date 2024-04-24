@@ -75,6 +75,20 @@ input::-webkit-inner-spin-button {
   margin: 0;
 }
 
+img {
+  object-fit: fill;
+}
+
+.validation-error-msg {
+  font-size: 1rem;
+  font-weight: 400;
+  color: red;
+}
+
+.validation-error-input {
+  border: 2px solid red;
+}
+
 /* Gucci Jacket G-98 is a green shade rare gucci jacket which is very famous for it's cool looks and this can be paired with any shirt or t-shirt. */
 /* Black nike hoodie with great comfort and looks. */
 /* The OP-7 means One Piece 7 is the best t-shirt with for fans of one piece and specially for luffy fans. */

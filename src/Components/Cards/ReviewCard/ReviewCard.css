@@ -1,39 +1,59 @@
 .review {
-  width: 30%;
+  width: 25%;
   color: var(--yellow);
   background-color: var(--black);
-  min-width: 28%;
+  min-width: 20%;
   margin-right: 2%;
-  padding: 20px;
+  padding: 1rem;
   border-radius: 10px;
   position: relative;
-  height: 200px;
+  height: 175px;
+}
+
+.review-description {
+  font-size: 1.25rem;
 }
 
 .review-card-bottom {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   position: absolute;
   bottom: 15px;
   font-size: 1.75rem;
   width: 90%;
 }
 
+.review-author {
+  font-size: 1rem;
+  color: var(--white);
+}
+
 @media (min-width: 600px) and (max-width: 1200px) {
+  .review-description {
+    font-size: 1rem;
+    font-weight: 500;
+  }
   .review {
-    min-width: 60%;
+    width: 40%;
+    min-width: 30%;
   }
 }
 
 @media (min-width: 300px) and (max-width: 600px) {
+  .review-description {
+    font-size: 1rem;
+    font-weight: 500;
+  }
   .review {
-    min-width: 86%;
+    width: 70%;
+    min-width: 60%;
   }
 }
 
 /* Common Area for both Mobile and Tab View */
 @media (min-width: 300px) and (max-width: 1200px) {
   .review-card-bottom {
-    font-size: 1.5rem;
+    font-size: 1.25rem;
   }
 }

@@ -25,12 +25,12 @@ textarea {
   margin-bottom: 0px;
 }
 
-.product-img-container .img-btn-container {
+.product-img-container .product-img-btn-container {
   display: flex;
   align-items: center;
   width: 275px;
-  padding: 0 20%;
-  margin: 0;
+  margin: 0 20%;
+  gap: 5px;
 }
 
 .product-img-placeholder {
@@ -41,16 +41,28 @@ textarea {
   margin: 0;
 }
 
-.product-img-container .img-btn-container button {
-  width: 50%;
-  margin: 0;
+.product-img-container .img-btn-container {
+  background-color: var(--yellow);
+  border-radius: 4px;
   border: 2px solid var(--black);
+  cursor: pointer;
+  padding: 4px 8px;
+  width: 100%;
   text-transform: uppercase;
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: var(--black);
+}
+
+.product-name {
+  font-size: 2.5rem;
+  font-weight: 600;
+  max-width: 250px;
 }
 
 .product-price {
-  font-size: 2.5rem;
-  font-weight: 300;
+  font-size: 2rem;
+  font-weight: 500;
   color: var(--green);
 }
 
@@ -115,7 +127,6 @@ textarea {
   box-shadow: 3px 3px 0px 1px var(--green);
   border-radius: 4px;
   color: var(--black);
-  font-size: 1.25rem;
   margin-top: 10px;
   padding: 5px 10px;
   text-align: left;
@@ -125,6 +136,11 @@ textarea {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  font-size: 1.25rem;
+}
+
+.product-btn span {
+  font-weight: 600;
 }
 
 .product-btn a {
@@ -151,7 +167,8 @@ textarea {
 }
 
 .product-description {
-  font-weight: 300;
+  font-size: 1.25rem;
+  font-weight: 500;
   margin-left: 5%;
   width: 30%;
 }
@@ -168,13 +185,16 @@ textarea {
 }
 
 .product-scale-item p {
-  font-weight: 300;
+  font-weight: 500;
+  font-size: 1.25rem;
   margin: 0;
   text-transform: uppercase;
 }
 
-.product-scale {
-  margin: 5px 0px;
+.product-scale-item .product-scale {
+  margin: 2px 0px;
+  font-size: 1.5rem;
+  color: var(--yellow);
 }
 
 .product-review-container {
@@ -193,7 +213,7 @@ textarea {
 .product-review-heading h2 {
   margin: 0;
   margin-bottom: 20px;
-  font-size: 1.5rem;
+  font-size: 1.25rem;
 }
 
 .write-or-ask {
@@ -201,15 +221,16 @@ textarea {
   color: var(--yellow);
   border-radius: 50px;
   padding: 5px 20px;
+  font-size: 1.25rem;
 }
 
 .write-or-ask-plus {
   display: none;
+  font-size: 1.25rem;
 }
 
 .reviews-container {
   display: flex;
-  /* justify-content: space-between; */
   overflow-x: scroll;
 }
 
@@ -300,7 +321,7 @@ textarea {
   }
 
   .product-review-heading h2 {
-    font-size: 1.25rem;
+    font-size: 1rem;
   }
 
   .write-review-container {
@@ -332,6 +353,11 @@ textarea {
     position: relative;
     top: 135px;
     width: 95%;
+  }
+
+  .product-img-btn-container {
+    display: flex;
+    align-items: center;
   }
 
   .product-side-container {

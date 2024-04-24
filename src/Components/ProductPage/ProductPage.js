@@ -8,6 +8,7 @@ import StarRating from "../StarRating/StarRating";
 import swal from "sweetalert";
 import { SERVER_URL } from "../../config";
 import { FaArrowRight, FaImage } from "react-icons/fa6";
+import { Button } from "../../GS-Libs/MultiUse/button";
 
 export default function ProductPage() {
   const params = useParams();
@@ -116,6 +117,16 @@ export default function ProductPage() {
     setStars(index + 1);
   }
 
+  const decrease = () => {
+    if (imgIndex >= 1) setImgIndex(imgIndex - 1);
+    else setImgIndex(product.productImg.length - 1);
+  };
+
+  const increase = () => {
+    if (imgIndex < product.productImg.length - 1) setImgIndex(imgIndex + 1);
+    else setImgIndex(0);
+  };
+
   return (
     <div className="product-page-container">
       <div className="product-detail-container">
@@ -134,25 +145,17 @@ export default function ProductPage() {
                     alt=""
                   />
                   {product?.productImg?.length > 1 && (
-                    <div className="img-btn-container">
-                      <button
-                        onClick={() => {
-                          if (imgIndex >= 1) {
-                            setImgIndex(imgIndex - 1);
-                          }
-                        }}
-                      >
-                        Prev
-                      </button>
-                      <button
-                        onClick={() => {
-                          if (imgIndex < product?.productImg?.length - 1) {
-                            setImgIndex(imgIndex + 1);
-                          }
-                        }}
-                      >
-                        Next
-                      </button>
+                    <div className="product-img-btn-container">
+                      <Button
+                        ButtonText="Prev"
+                        onClick={decrease}
+                        className="img-btn-container"
+                      />
+                      <Button
+                        ButtonText="Next"
+                        onClick={increase}
+                        className="img-btn-container"
+                      />
                     </div>
                   )}
                 </div>
@@ -207,15 +210,21 @@ export default function ProductPage() {
           <div className="product-scale-container">
             <div className="product-scale-item">
               <p>Fit</p>
-              <p className="product-scale">⭐⭐⭐⭐⭐⭐</p>
+              <p className="product-scale">
+                &#9733;&#9733;&#9733;&#9733;&#9733;&#9733;
+              </p>
             </div>
             <div className="product-scale-item">
               <p>Durablity</p>
-              <p className="product-scale">⭐⭐⭐⭐⭐</p>
+              <p className="product-scale">
+                &#9733;&#9733;&#9733;&#9733;&#9733;
+              </p>
             </div>
             <div className="product-scale-item">
               <p>Comfort</p>
-              <p className="product-scale">⭐⭐⭐⭐⭐⭐⭐</p>
+              <p className="product-scale">
+                &#9733;&#9733;&#9733;&#9733;&#9733;&#9733;&#9733;
+              </p>
             </div>
           </div>
         </div>
@@ -229,7 +238,7 @@ export default function ProductPage() {
               setWriteReview(true);
             }}
           >
-            Write A Review
+            Write a Review
           </h2>
           <h2
             className="write-or-ask-plus"
@@ -266,7 +275,7 @@ export default function ProductPage() {
               setAskQuestion(true);
             }}
           >
-            Ask A Question
+            Ask a Question
           </h2>
           <h2
             className="write-or-ask-plus"

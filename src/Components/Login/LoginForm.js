@@ -8,12 +8,44 @@ import swal from "sweetalert";
 const LoginForm = ({ setUserAuthToken, setShowLogin }) => {
   const navigate = useNavigate();
   const [user, setUser] = useState({
-    useremail: "",
-    password: "",
+    useremail: {
+      value: "",
+      isValid: true,
+      errorMessage: "Email is required",
+    },
+    password: {
+      value: "",
+      isValid: true,
+      errorMessage: "Password is required",
+    },
   });
 
   const handleLogin = (event) => {
     event.preventDefault();
+
+    if (user.useremail.value === "") {
+      setUser((prev) => ({
+        ...prev,
+        useremail: {
+          ...prev.useremail,
+          isValid: false,
+        },
+      }));
+    }
+
+    if (user.password.value === "") {
+      setUser((prev) => ({
+        ...prev,
+        password: {
+          ...prev.password,
+          isValid: false,
+        },
+      }));
+    }
+
+    if (user.useremail.value === "" || user.password.value === "") {
+      return;
+    }
 
     fetch(`${SERVER_URL}/login`, {
       method: "POST",
@@ -45,14 +77,23 @@ const LoginForm = ({ setUserAuthToken, setShowLogin }) => {
             type="text"
             name="useremail"
             className="login-useremail"
-            placeholder="Useremail"
-            value={user.useremail}
+            placeholder="Email"
+            value={user.useremail.value}
             onChange={(e) =>
-              setUser((prev) => ({
-                ...prev,
-                useremail: e.target.value,
-              }))
+              setUser((prev) => {
+                return {
+                  ...prev,
+                  useremail: {
+                    ...prev.useremail,
+                    isValid: true,
+                    value: e.target.value,
+                  },
+                };
+              })
             }
+            isRequired={true}
+            isValid={user.useremail.isValid}
+            errorMessage={user.useremail.errorMessage}
           />
         </div>
         <div className="form-item">
@@ -61,10 +102,22 @@ const LoginForm = ({ setUserAuthToken, setShowLogin }) => {
             name="password"
             className="login-password"
             placeholder="Password"
-            value={user.password}
+            value={user.password.value}
             onChange={(e) =>
-              setUser((prev) => ({ ...prev, password: e.target.value }))
+              setUser((prev) => {
+                return {
+                  ...prev,
+                  password: {
+                    ...prev.password,
+                    isValid: true,
+                    value: e.target.value,
+                  },
+                };
+              })
             }
+            isRequired={true}
+            isValid={user.password.isValid}
+            errorMessage={user.password.errorMessage}
           />
         </div>
         <div className="extra-form-items">

@@ -7,14 +7,64 @@ import { Input } from "../../GS-Libs";
 
 const SignupForm = ({ setUserAuthToken, setShowLogin }) => {
   const [user, setUser] = useState({
-    username: "",
-    useremail: "",
-    password: "",
+    username: {
+      value: "",
+      isValid: true,
+      errorMessage: "Name is required",
+    },
+    useremail: {
+      value: "",
+      isValid: true,
+      errorMessage: "Email is required",
+    },
+    password: {
+      value: "",
+      isValid: true,
+      errorMessage: "Password is required",
+    },
   });
 
   const navigate = useNavigate();
   const handleSignup = (event) => {
     event.preventDefault();
+
+    if (user.username.value === "") {
+      setUser((prev) => ({
+        ...prev,
+        username: {
+          ...prev.username,
+          isValid: false,
+        },
+      }));
+    }
+
+    if (user.useremail.value === "") {
+      setUser((prev) => ({
+        ...prev,
+        useremail: {
+          ...prev.useremail,
+          isValid: false,
+        },
+      }));
+    }
+
+    if (user.password.value === "") {
+      setUser((prev) => ({
+        ...prev,
+        password: {
+          ...prev.password,
+          isValid: false,
+        },
+      }));
+    }
+
+    if (
+      user.username.value === "" ||
+      user.useremail.value === "" ||
+      user.password.value === ""
+    ) {
+      return;
+    }
 
     fetch(`${SERVER_URL}/signup`, {
       method: "POST",
@@ -46,20 +96,44 @@ const SignupForm = ({ setUserAuthToken, setShowLogin }) => {
             <Input
               type="text"
               name="username"
-              placeholder="Username"
+              placeholder="Name"
               className="signup-username"
-              value={user.username}
-              onChange={(e) => setUser({ ...user, username: e.target.value })}
+              value={user.username.value}
+              onChange={(e) =>
+                setUser((prev) => ({
+                  ...prev,
+                  username: {
+                    ...prev.username,
+                    isValid: true,
+                    value: e.target.value,
+                  },
+                }))
+              }
+              isRequired={true}
+              isValid={user.username.isValid}
+              errorMessage={user.username.errorMessage}
             />
           </div>
           <div className="form-item">
             <Input
               type="email"
               name="useremail"
-              placeholder="Useremail"
+              placeholder="Email"
               className="signup-useremail"
-              value={user.useremail}
-              onChange={(e) => setUser({ ...user, useremail: e.target.value })}
+              value={user.useremail.value}
+              onChange={(e) =>
+                setUser((prev) => ({
+                  ...prev,
+                  useremail: {
+                    ...prev.useremail,
+                    isValid: true,
+                    value: e.target.value,
+                  },
+                }))
+              }
+              isRequired={true}
+              isValid={user.useremail.isValid}
+              errorMessage={user.useremail.errorMessage}
             />
           </div>
           <div className="form-item">
@@ -68,8 +142,20 @@ const SignupForm = ({ setUserAuthToken, setShowLogin }) => {
               name="password"
               placeholder="Password"
               className="signup-password"
-              value={user.password}
-              onChange={(e) => setUser({ ...user, password: e.target.value })}
+              value={user.password.value}
+              onChange={(e) =>
+                setUser((prev) => ({
+                  ...prev,
+                  password: {
+                    ...prev.password,
+                    isValid: true,
+                    value: e.target.value,
+                  },
+                }))
+              }
+              isRequired={true}
+              isValid={user.password.isValid}
+              errorMessage={user.password.errorMessage}
             />
           </div>
           <div className="form-btn">

@@ -7,8 +7,7 @@ import swal from "sweetalert";
 import { checkValidEmail } from "../../GS-Libs/utils/checkValidEmail";
 
 const LoginForm = ({ setUserAuthToken, setShowLogin }) => {
-  const navigate = useNavigate();
-  const [user, setUser] = useState({
+  const initailUserValue = {
     useremail: {
       value: "",
       isValid: true,
@@ -19,7 +18,9 @@ const LoginForm = ({ setUserAuthToken, setShowLogin }) => {
       isValid: true,
       errorMessage: "Password is required",
     },
-  });
+  };
+  const navigate = useNavigate();
+  const [user, setUser] = useState(initailUserValue);
 
   const handleLogin = (event) => {
     event.preventDefault();
@@ -70,7 +71,8 @@ const LoginForm = ({ setUserAuthToken, setShowLogin }) => {
     })
       .then((response) => {
         if (response.status === 401) {
-          swal("Oops!", "Something went wrong", "error");
+          swal("Oops!", "User not found", "error");
+          setUser(initailUserValue);
           throw new Error("Unauthorized");
         }
         return response.json();

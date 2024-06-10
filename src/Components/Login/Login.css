@@ -161,6 +161,19 @@
   font-weight: 500;
 }
 
+.guest-user {
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-align: center;
+  padding: 4px 8px;
+  background-color: var(--light);
+  border: 1px solid var(--black);
+  border-radius: 4px;
+  width: 40%;
+  margin: 20px auto;
+  cursor: pointer;
+}
+
 /* Tab View */
 
 @media (min-width: 700px) and (max-width: 1200px) {

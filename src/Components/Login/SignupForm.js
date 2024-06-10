@@ -7,7 +7,7 @@ import { Input } from "../../GS-Libs";
 import { checkValidEmail } from "../../GS-Libs/utils/checkValidEmail";
 
 const SignupForm = ({ setUserAuthToken, setShowLogin }) => {
-  const [user, setUser] = useState({
+  const initailUserValue = {
     username: {
       value: "",
       isValid: true,
@@ -23,7 +23,9 @@ const SignupForm = ({ setUserAuthToken, setShowLogin }) => {
       isValid: true,
       errorMessage: "Password is required",
     },
-  });
+  };
+
+  const [user, setUser] = useState(initailUserValue);
 
   const navigate = useNavigate();
   const handleSignup = (event) => {
@@ -93,6 +95,7 @@ const SignupForm = ({ setUserAuthToken, setShowLogin }) => {
         localStorage.setItem("authToken", authToken);
         navigate("/home");
         setUserAuthToken(authToken);
+        setUser(initailUserValue);
       })
       .catch((err) => {
         console.log(err);

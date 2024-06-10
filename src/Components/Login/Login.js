@@ -2,9 +2,49 @@ import React, { useState } from "react";
 import "./Login.css";
 import SignupForm from "./SignupForm";
 import LoginForm from "./LoginForm";
+import {
+  GUEST_USER_EMAIL,
+  GUEST_USER_PASSWORD,
+  SERVER_URL,
+} from "../../config";
+import { useNavigate } from "react-router-dom";
+import swal from "sweetalert";
 
 export default function Login(props) {
   const [showLogin, setShowLogin] = useState(true);
+  const navigate = useNavigate();
+
+  const guestUserLogin = () => {
+    fetch(`${SERVER_URL}/login`, {
+      method: "POST",
+      body: JSON.stringify({
+        user: {
+          useremail: { value: GUEST_USER_EMAIL },
+          password: { value: GUEST_USER_PASSWORD },
+        },
+      }),
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      },
+    })
+      .then((response) => {
+        if (response.status === 401) {
+          swal("Oops!", "User not found", "error");
+          throw new Error("Unauthorized");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        const authToken = data.authToken;
+        localStorage.setItem("authToken", authToken);
+        props.setUserAuthToken(authToken);
+        navigate("/home");
+      })
+      .catch((err) => {
+        console.log(err);
+        swal("Oops!", "Something went wrong", "error");
+      });
+  };
 
   return (
     <div className="login-container">
@@ -46,6 +86,9 @@ export default function Login(props) {
               setShowLogin={setShowLogin}
             />
           )}
+          <div onClick={guestUserLogin} className="guest-user">
+            Login as a Guest User
+          </div>
         </div>
         <div className="bottom-logo-circle">
           <div>

@@ -24,8 +24,8 @@ export const Input = ({
         style={
           isRequired && !isValid
             ? {
-                border: "2px solid red",
-                boxShadow: "4px 4px 0 1px red",
+                border: "1px solid red",
+                boxShadow: "2px 2px 0 1px red",
               }
             : null
         }

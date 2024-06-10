@@ -4,6 +4,7 @@ import swal from "sweetalert";
 import { useNavigate } from "react-router-dom";
 import { SERVER_URL } from "../../config";
 import { Input } from "../../GS-Libs";
+import { checkValidEmail } from "../../GS-Libs/utils/checkValidEmail";
 
 const SignupForm = ({ setUserAuthToken, setShowLogin }) => {
   const [user, setUser] = useState({
@@ -58,6 +59,18 @@ const SignupForm = ({ setUserAuthToken, setShowLogin }) => {
       }));
     }
 
+    if (user.useremail.value !== "" && !checkValidEmail(user.useremail.value)) {
+      setUser((prev) => ({
+        ...prev,
+        useremail: {
+          ...prev.useremail,
+          isValid: false,
+          errorMessage: "Invalid Email format",
+        },
+      }));
+      return;
+    }
+
     if (
       user.username.value === "" ||
       user.useremail.value === "" ||
@@ -65,7 +78,6 @@ const SignupForm = ({ setUserAuthToken, setShowLogin }) => {
     ) {
       return;
     }
-
     fetch(`${SERVER_URL}/signup`, {
       method: "POST",
       body: JSON.stringify({

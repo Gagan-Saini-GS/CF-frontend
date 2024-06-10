@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { SERVER_URL } from "../../config";
 import { Input } from "../../GS-Libs";
 import swal from "sweetalert";
+import { checkValidEmail } from "../../GS-Libs/utils/checkValidEmail";
 
 const LoginForm = ({ setUserAuthToken, setShowLogin }) => {
   const navigate = useNavigate();
@@ -43,6 +44,17 @@ const LoginForm = ({ setUserAuthToken, setShowLogin }) => {
       }));
     }
 
+    if (user.useremail.value !== "" && !checkValidEmail(user.useremail.value)) {
+      setUser((prev) => ({
+        ...prev,
+        useremail: {
+          ...prev.useremail,
+          isValid: false,
+          errorMessage: "Invalid Email format",
+        },
+      }));
+      return;
+    }
     if (user.useremail.value === "" || user.password.value === "") {
       return;
     }
@@ -56,7 +68,13 @@ const LoginForm = ({ setUserAuthToken, setShowLogin }) => {
         "Content-type": "application/json; charset=UTF-8",
       },
     })
-      .then((response) => response.json())
+      .then((response) => {
+        if (response.status === 401) {
+          swal("Oops!", "Something went wrong", "error");
+          throw new Error("Unauthorized");
+        }
+        return response.json();
+      })
       .then((data) => {
         const authToken = data.authToken;
         localStorage.setItem("authToken", authToken);

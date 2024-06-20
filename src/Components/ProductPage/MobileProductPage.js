@@ -71,7 +71,6 @@ const MobileProductPage = ({ productID }) => {
       .post(`${SERVER_URL}/ask-product-question`, {
         productID: productID,
         question: question,
-        answer: answer,
         authToken: localStorage.getItem("authToken"),
       })
       .then((response) => {

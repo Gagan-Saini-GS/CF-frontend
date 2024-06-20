@@ -1,18 +1,16 @@
+import { SERVER_URL } from "../../config";
 import React, { useEffect, useState } from "react";
-import "./ProductPage.css";
+import "./MobileProductPage.css";
 import ReviewCard from "../Cards/ReviewCard/ReviewCard";
 import FAQCard from "../Cards/FAQCard/FAQCard";
 import axios from "axios";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import StarRating from "../StarRating/StarRating";
 import swal from "sweetalert";
-import { SERVER_URL } from "../../config";
-import { FaArrowRight, FaImage } from "react-icons/fa6";
+import { FaArrowRight, FaImage, FaPlus } from "react-icons/fa6";
 import { Button } from "../../GS-Libs/MultiUse/button";
-import MobileProductPage from "./MobileProductPage";
 
-export default function ProductPage() {
-  const params = useParams();
+const MobileProductPage = ({ productID }) => {
   const [reviews, setReviews] = useState([]);
   const [faqs, setFAQs] = useState();
   const [product, setProduct] = useState({});
@@ -20,7 +18,6 @@ export default function ProductPage() {
   const [askQuestion, setAskQuestion] = useState(false);
   const [stars, setStars] = useState(0);
   const allSizes = ["S", "M", "L", "XL", "XXL"];
-  const productID = params.productID;
   const [imgIndex, setImgIndex] = useState(0);
 
   const [isProductFetched, setIsProductFetched] = useState(false);
@@ -44,6 +41,7 @@ export default function ProductPage() {
   }, [productID]);
 
   function submitReview() {
+    // Fix this -> useState
     const reviewContent = document.querySelector(".review-form textarea").value;
 
     axios
@@ -68,8 +66,6 @@ export default function ProductPage() {
 
   function submitQuestion() {
     const question = document.querySelector(".faq-question").value;
-    const answer = document.querySelector(".faq-answer").value;
-    // console.log(reivewContent);
 
     axios
       .post(`${SERVER_URL}/ask-product-question`, {
@@ -128,39 +124,30 @@ export default function ProductPage() {
     else setImgIndex(0);
   };
 
-  const windowWidth = window.innerWidth;
-  if (windowWidth <= 425) {
-    return <MobileProductPage productID={productID} />;
-  }
-
   return (
-    <div className="product-page-container">
-      <div className="product-detail-container">
-        <div className="product-info-container">
-          <div className="product-name">{product?.name}</div>
-          <div className="product-price">₹ {product?.price}/-</div>
-        </div>
+    <div className="mb-product-page-container">
+      <div className="mb-product-detail-container">
         {isProductFetched ? (
           <>
-            <div className="product-img-container">
+            <div className="mb-product-img-container">
               {product?.productImg && (
                 <div>
                   <img
-                    className="product-img"
+                    className="mb-product-img"
                     src={product?.productImg[imgIndex]}
                     alt=""
                   />
                   {product?.productImg?.length > 1 && (
-                    <div className="product-img-btn-container">
+                    <div className="mb-product-img-btn-container">
                       <Button
                         ButtonText="Prev"
                         onClick={decrease}
-                        className="img-btn-container"
+                        className="mb-img-btn-container"
                       />
                       <Button
                         ButtonText="Next"
                         onClick={increase}
-                        className="img-btn-container"
+                        className="mb-img-btn-container"
                       />
                     </div>
                   )}
@@ -169,21 +156,54 @@ export default function ProductPage() {
             </div>
           </>
         ) : (
-          <div className="product-img-container">
-            <div className="product-img-placeholder">
+          <div className="mb-product-img-container">
+            <div className="mb-product-img-placeholder">
               <FaImage style={{ height: "100%", width: "100%" }} />
             </div>
           </div>
         )}
-        <div className="product-side-container">
-          <div className="product-size-container">
-            <h3 className="size-heading">Available Sizes</h3>
+        <div className="mb-product-info-container">
+          <div className="mb-product-name">{product?.name}</div>
+          <div className="mb-product-description-container">
+            <div className="mb-product-description">
+              <div>{product?.description}</div>
+            </div>
+            <div className="mb-product-details">
+              <h2>Details</h2>
+              <div className="mb-product-scale-container">
+                <div className="mb-product-scale-item">
+                  <p>Fit</p>
+                  <p className="mb-product-scale">
+                    &#9733;&#9733;&#9733;&#9733;&#9733;&#9733;
+                  </p>
+                </div>
+                <div className="mb-product-scale-item">
+                  <p>Durablity</p>
+                  <p className="mb-product-scale">
+                    &#9733;&#9733;&#9733;&#9733;&#9733;
+                  </p>
+                </div>
+                <div className="mb-product-scale-item">
+                  <p>Comfort</p>
+                  <p className="mb-product-scale">
+                    &#9733;&#9733;&#9733;&#9733;&#9733;&#9733;&#9733;
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="mb-product-price">₹ {product?.price}/-</div>
+        </div>
+
+        <div className="mb-product-side-container">
+          <div className="mb-product-size-container">
+            <h3 className="mb-size-heading">Sizes</h3>
             <ul>
               {allSizes.map((size) => (
                 <li
                   key={size}
                   className={
-                    product?.sizes?.includes(size) ? "available-size" : ""
+                    product?.sizes?.includes(size) ? "mb-available-size" : ""
                   }
                 >
                   {size}
@@ -191,70 +211,42 @@ export default function ProductPage() {
               ))}
             </ul>
           </div>
-          <div className="btn-container">
-            <button className="product-btn" onClick={addToCart}>
-              <span>Add to Cart</span>
-              <FaArrowRight />
+          <div className="mb-btn-container">
+            <button
+              className="mb-product-btn mb-add-to-cart-btn"
+              onClick={addToCart}
+            >
+              Add to Cart
             </button>
-            <button className="product-btn" onClick={buyNow}>
-              <Link to={"/product/buynow/" + productID}>
-                <span>Buy Now</span>
-                <FaArrowRight />
-              </Link>
+            <button className="mb-product-btn mb-buy-now-btn" onClick={buyNow}>
+              <Link to={"/product/buynow/" + productID}>Buy Now</Link>
             </button>
           </div>
         </div>
       </div>
 
-      <div className="product-description-container">
-        <div className="product-description">
-          <h2>Description</h2>
-          <div>{product?.description}</div>
-        </div>
-        <div className="product-details">
-          <h2>Details</h2>
-          <div className="product-scale-container">
-            <div className="product-scale-item">
-              <p>Fit</p>
-              <p className="product-scale">
-                &#9733;&#9733;&#9733;&#9733;&#9733;&#9733;
-              </p>
-            </div>
-            <div className="product-scale-item">
-              <p>Durablity</p>
-              <p className="product-scale">
-                &#9733;&#9733;&#9733;&#9733;&#9733;
-              </p>
-            </div>
-            <div className="product-scale-item">
-              <p>Comfort</p>
-              <p className="product-scale">
-                &#9733;&#9733;&#9733;&#9733;&#9733;&#9733;&#9733;
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className="product-review-container">
-        <div className="product-review-heading">
+      <div className="mb-product-review-container">
+        <div className="mb-product-review-heading">
           <h2>Customer Reviews</h2>
           <h2
-            className="write-or-ask"
+            className="mb-write-or-ask-plus"
             onClick={() => {
               setWriteReview(true);
             }}
           >
-            Write a Review
+            <FaPlus />
           </h2>
         </div>
-        <div className="reviews-container">
+        <div className="mb-reviews-container">
           {writeReview && (
-            <div className="write-review-container">
+            <div className="mb-write-review-container">
               <h3>Share Your Experience</h3>
-              <div className="review-form">
+              <div className="mb-review-form">
                 <textarea placeholder="Write a review"></textarea>
-                <StarRating setStarCount={setStarCount} />
-                <button onClick={submitReview}>Submit</button>
+                <div className="mb-review-rating-form">
+                  <StarRating setStarCount={setStarCount} />
+                  <button onClick={submitReview}>Submit</button>
+                </div>
               </div>
             </div>
           )}
@@ -264,28 +256,30 @@ export default function ProductPage() {
             })}
         </div>
       </div>
-      <div className="product-review-container">
-        <div className="product-review-heading">
+      <div className="mb-product-review-container">
+        <div className="mb-product-review-heading">
           <h2>FAQ's</h2>
           <h2
-            className="write-or-ask"
+            className="mb-write-or-ask-plus"
             onClick={() => {
               setAskQuestion(true);
             }}
           >
-            Ask a Question
+            <FaPlus />
           </h2>
         </div>
-        <div className="reviews-container">
+        <div className="mb-reviews-container">
           {askQuestion && (
-            <div className="write-review-container">
+            <div className="mb-write-review-container">
               <h3>Ask Your Question</h3>
-              <div className="faq-form">
+              <div className="mb-faq-form">
                 <textarea
                   placeholder="Question"
-                  className="faq-question"
+                  className="mb-faq-question"
                 ></textarea>
-                <button onClick={submitQuestion}>Ask</button>
+                <div className="mb-review-rating-form">
+                  <button onClick={submitQuestion}>Ask</button>
+                </div>
               </div>
             </div>
           )}
@@ -298,4 +292,6 @@ export default function ProductPage() {
       </div>
     </div>
   );
-}
+};
+
+export default MobileProductPage;

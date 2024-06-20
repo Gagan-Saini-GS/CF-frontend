@@ -20,18 +20,6 @@ export default function ProductCard1(props) {
         >
           {product.name}
         </div>
-        {/* <div className="product-info-item">{product.price}/-</div> */}
-        {/* <div className="action-container">
-          <div
-            className="pc-action-btn"
-            style={{ backgroundColor: "#1e1e1e", color: "#f0f3f6" }}
-          >
-            Add To Cart
-          </div>
-          <div className="pc-action-btn" style={{ backgroundColor: "#48d198" }}>
-            Buy Now
-          </div>
-        </div> */}
       </div>
     </div>
   );

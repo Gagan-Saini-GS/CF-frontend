@@ -222,11 +222,7 @@ textarea {
   border-radius: 50px;
   padding: 5px 20px;
   font-size: 1.25rem;
-}
-
-.write-or-ask-plus {
-  display: none;
-  font-size: 1.25rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2), 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 .reviews-container {

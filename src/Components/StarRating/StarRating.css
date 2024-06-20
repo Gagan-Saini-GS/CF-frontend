@@ -1,7 +1,7 @@
 .star-rating {
   width: 100%;
   display: flex;
-  justify-content: space-evenly;
+  gap: 10px;
   align-items: center;
 }
 
@@ -20,4 +20,13 @@
 
 .off {
   color: dimgray;
+}
+
+@media (max-width: 425px) {
+  .star-rating {
+    gap: 2px;
+  }
+  .star {
+    font-size: 25px;
+  }
 }

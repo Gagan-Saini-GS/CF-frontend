@@ -2,6 +2,9 @@ import React from "react";
 import "./FAQCard.css";
 
 export default function FAQCard(props) {
+  if (props.question.question === "" || props.question.question === null)
+    return <></>;
+
   return (
     <div className="faq">
       <div className="faq-question">

@@ -1,8 +1,8 @@
 import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
   Navigate,
+  createBrowserRouter,
+  Outlet,
+  RouterProvider,
 } from "react-router-dom";
 
 import { useEffect, useState } from "react";
@@ -12,7 +12,33 @@ import ProductPage from "../ProductPage/ProductPage.jsx";
 import BuyNow from "../BuyNow/BuyNow.jsx";
 import Navbar from "../Navbar/Navbar.jsx";
 
-function App() {
+const AppLayout = () => {
+  const [showProfileSlider, setShowProfileSlider] = useState(false);
+  const [showCartSlider, setShowCartSlider] = useState(false);
+  const [authToken, setAuthToken] = useState(
+    localStorage.getItem("authToken") || ""
+  );
+
+  const setUserAuthToken = (token) => {
+    setAuthToken(token);
+  };
+
+  return (
+    <div className="h-screen bg-White">
+      <Navbar
+        showProfileSlider={showProfileSlider}
+        setShowProfileSlider={setShowProfileSlider}
+        showCartSlider={showCartSlider}
+        setShowCartSlider={setShowCartSlider}
+        userAuthToken={authToken}
+        setUserAuthToken={setUserAuthToken}
+      />
+      <Outlet />
+    </div>
+  );
+};
+
+const App = () => {
   const [openCart, setOpenCart] = useState(false);
   const [authToken, setAuthToken] = useState(
     localStorage.getItem("authToken") || ""
@@ -32,52 +58,51 @@ function App() {
   const handleOpenCart = () => {
     setOpenCart(true);
   };
-  const [showProfileSlider, setShowProfileSlider] = useState(false);
+
   const [showCartSlider, setShowCartSlider] = useState(false);
 
-  return (
-    <Router>
-      <div className="h-screen bg-White">
-        <div>
-          <Navbar
-            showProfileSlider={showProfileSlider}
-            setShowProfileSlider={setShowProfileSlider}
-            showCartSlider={showCartSlider}
-            setShowCartSlider={setShowCartSlider}
-            userAuthToken={authToken}
-            setUserAuthToken={setUserAuthToken}
-          />
-          <Routes>
-            {/* Fallback Route */}
-            <Route path="*" element={<Navigate to="/home" />} />
+  const appRouter = createBrowserRouter([
+    {
+      path: "/",
+      element: <AppLayout />,
+      children: [
+        {
+          path: "/login",
+          element: <Login setUserAuthToken={setUserAuthToken} />,
+        },
+        {
+          path: "/home",
+          element: (
+            <Home
+              openCart={openCart}
+              setOpenCart={setOpenCart}
+              userAuthToken={authToken}
+              setUserAuthToken={setUserAuthToken}
+              setShowCartSlider={setShowCartSlider}
+            />
+          ),
+        },
+        {
+          path: "/product/:productID",
+          element: <ProductPage handleOpenCart={handleOpenCart} />,
+        },
+        {
+          path: "/product/buynow/:productID",
+          element: <BuyNow />,
+        },
+        {
+          path: "/",
+          element: <Navigate to="/home" />,
+        },
+        {
+          path: "*",
+          element: <Navigate to="/home" />,
+        },
+      ],
+    },
+  ]);
 
-            {/* Other Routes */}
-            <Route
-              path="/login"
-              element={<Login setUserAuthToken={setUserAuthToken} />}
-            />
-            <Route
-              path="/home"
-              element={
-                <Home
-                  openCart={openCart}
-                  setOpenCart={setOpenCart}
-                  userAuthToken={authToken}
-                  setUserAuthToken={setUserAuthToken}
-                  setShowCartSlider={setShowCartSlider}
-                />
-              }
-            />
-            <Route
-              path={"/product/:productID"}
-              element={<ProductPage handleOpenCart={handleOpenCart} />}
-            />
-            <Route path={"/product/buynow/:productID"} element={<BuyNow />} />
-          </Routes>
-        </div>
-      </div>
-    </Router>
-  );
-}
+  return <RouterProvider router={appRouter} />;
+};
 
 export default App;

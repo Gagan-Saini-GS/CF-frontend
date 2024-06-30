@@ -9,7 +9,7 @@
 .mb-product-img-container {
   width: 100%;
   padding: 20px 0;
-  background-color: var(--black);
+  background-color: var(--Black);
 }
 
 .mb-product-img-container .mb-product-img {
@@ -17,7 +17,7 @@
   margin: 0 auto;
   display: block;
   border-radius: 10px;
-  box-shadow: 0 0 10px 3px var(--white);
+  box-shadow: 0 0 10px 3px var(--White);
 }
 
 .mb-product-name {
@@ -29,7 +29,7 @@
 .mb-product-price {
   font-size: 1.25rem;
   font-weight: 500;
-  color: var(--green);
+  color: var(--Green);
 }
 
 .mb-product-info-container {
@@ -70,8 +70,8 @@
 }
 
 .mb-product-size-container ul li {
-  background-color: var(--yellow);
-  color: var(--black);
+  background-color: var(--Yellow);
+  color: var(--Black);
   font-size: 0.75rem;
   font-weight: 500;
   padding: 7px;
@@ -95,10 +95,10 @@
 }
 
 .mb-product-btn {
-  background-color: var(--light);
+  background-color: var(--Light);
   border: none;
   border-radius: 5px;
-  color: var(--black);
+  color: var(--Black);
   margin-top: 10px;
   padding: 10px;
   text-transform: uppercase;
@@ -121,20 +121,20 @@
 
 .mb-product-btn a {
   text-decoration: none;
-  color: var(--black);
+  color: var(--Black);
   width: 100%;
 }
 
 .mb-add-to-cart-btn {
-  background-color: var(--yellow);
+  background-color: var(--Yellow);
 }
 
 .mb-buy-now-btn {
-  background-color: var(--green);
+  background-color: var(--Green);
 }
 
 .mb-product-review-container {
-  color: var(--black);
+  color: var(--Black);
   padding: 2.5% 10px;
 }
 
@@ -152,8 +152,8 @@
 }
 
 .mb-write-or-ask-plus {
-  background-color: var(--black);
-  color: var(--yellow);
+  background-color: var(--Black);
+  color: var(--Yellow);
   border-radius: 50px;
   padding: 8px;
   font-size: 1.25rem;
@@ -168,7 +168,7 @@
 }
 
 .mb-write-review-container {
-  border: 2px solid var(--blue);
+  border: 2px solid var(--Blue);
   border-radius: 10px;
   margin-right: 20px;
   min-width: 80%;
@@ -177,13 +177,13 @@
 .mb-write-review-container h3 {
   width: 70%;
   margin: 0px 5%;
-  border-bottom: 2px solid var(--black);
+  border-bottom: 2px solid var(--Black);
 }
 
 .mb-review-form textarea {
   width: 97%;
   height: 77px;
-  background-color: var(--light);
+  background-color: var(--Light);
   padding: 3px;
 }
 
@@ -214,11 +214,11 @@
 .mb-review-form button,
 .mb-faq-form button {
   display: block;
-  border: 2px solid var(--black);
+  border: 2px solid var(--Black);
   border-radius: 3px;
   padding: 5px;
-  color: var(--white);
-  background-color: var(--black);
+  color: var(--White);
+  background-color: var(--Black);
   font-size: 1.25rem;
   font-weight: 500;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2), 0 1px 3px rgba(0, 0, 0, 0.1);
@@ -237,7 +237,7 @@
   display: block;
   width: 97%;
   padding: 3px;
-  background-color: var(--light);
+  background-color: var(--Light);
   margin: 5px 0px;
 }
 

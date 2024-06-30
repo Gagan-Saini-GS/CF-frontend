@@ -17,7 +17,7 @@ export default function ReviewCard(props) {
             return <span key={index}>&#9733;</span>;
           })}
         </div>
-        <div className="review-author">{props.review.username}</div>
+        <div className="review-author">{props.review.name}</div>
       </div>
     </div>
   );

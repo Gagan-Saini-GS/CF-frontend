@@ -7,8 +7,8 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import StarRating from "../StarRating/StarRating";
 import swal from "sweetalert";
-import { FaArrowRight, FaImage, FaPlus } from "react-icons/fa6";
-import { Button } from "../../GS-Libs/MultiUse/button";
+import { FaImage, FaPlus } from "react-icons/fa6";
+import Button from "../../GS-Libs/Buttons/Button";
 
 const MobileProductPage = ({ productID }) => {
   const [reviews, setReviews] = useState([]);
@@ -115,11 +115,11 @@ const MobileProductPage = ({ productID }) => {
 
   const decrease = () => {
     if (imgIndex >= 1) setImgIndex(imgIndex - 1);
-    else setImgIndex(product.productImg.length - 1);
+    else setImgIndex(product.productImages.length - 1);
   };
 
   const increase = () => {
-    if (imgIndex < product.productImg.length - 1) setImgIndex(imgIndex + 1);
+    if (imgIndex < product.productImages.length - 1) setImgIndex(imgIndex + 1);
     else setImgIndex(0);
   };
 
@@ -129,14 +129,14 @@ const MobileProductPage = ({ productID }) => {
         {isProductFetched ? (
           <>
             <div className="mb-product-img-container">
-              {product?.productImg && (
+              {product?.productImages && (
                 <div>
                   <img
                     className="mb-product-img"
-                    src={product?.productImg[imgIndex]}
+                    src={product?.productImages[imgIndex]}
                     alt=""
                   />
-                  {product?.productImg?.length > 1 && (
+                  {product?.productImages?.length > 1 && (
                     <div className="mb-product-img-btn-container">
                       <Button
                         ButtonText="Prev"

@@ -1,5 +1,5 @@
 .filter-text-parent {
-  background-color: var(--white);
+  background-color: var(--White);
   width: 100%;
 }
 
@@ -7,11 +7,11 @@
   width: 92%;
   margin: 0 auto;
   padding: 5px 0px;
-  border-bottom: 2px solid var(--blue);
+  border-bottom: 2px solid var(--Blue);
 }
 
 .product-list-container {
-  background-color: var(--white);
+  background-color: var(--White);
   width: 100%;
   padding: 20px 0px;
   display: flex;

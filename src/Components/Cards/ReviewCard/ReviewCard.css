@@ -1,7 +1,7 @@
 .review {
   width: 25%;
-  color: var(--yellow);
-  background-color: var(--black);
+  color: var(--Yellow);
+  background-color: var(--Black);
   min-width: 20%;
   margin-right: 2%;
   padding: 1rem;
@@ -27,7 +27,7 @@
 
 .review-author {
   font-size: 1rem;
-  color: var(--white);
+  color: var(--White);
 }
 
 @media (min-width: 600px) and (max-width: 1200px) {

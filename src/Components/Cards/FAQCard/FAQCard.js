@@ -13,7 +13,7 @@ export default function FAQCard(props) {
       <div className="faq-answer">
         <span>A.</span> {props.question.answer}
       </div>
-      <div className="faq-author">{props.question.username}</div>
+      <div className="faq-author">{props.question.name}</div>
     </div>
   );
 }

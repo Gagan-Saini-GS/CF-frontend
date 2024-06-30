@@ -1,7 +1,7 @@
 .faq {
   width: 25%;
-  color: var(--yellow);
-  background-color: var(--black);
+  color: var(--Yellow);
+  background-color: var(--Black);
   min-width: 20%;
   margin-right: 2%;
   padding: 1rem;
@@ -18,7 +18,7 @@
 
 .faq-author {
   font-size: 1rem;
-  color: var(--white);
+  color: var(--White);
   text-align: right;
   position: absolute;
   bottom: 15px;

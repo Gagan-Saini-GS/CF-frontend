@@ -66,82 +66,79 @@ export default function Profile({
         </div>
         <div className="flex flex-col gap-2 pt-10">
           {Object.keys(user).map((item) => {
-            if (item === "website") {
-              return (
-                <div
-                  className="flex items-center gap-2 w-full"
-                  key={user[item]}
-                >
-                  <p className="text-Gray w-1/3 max-w-32">
-                    {toTitleCase(item)}
-                  </p>
-                  <div className="text-Black w-2/3">
-                    {isEditing ? (
-                      <Input
-                        className="p-2 border-2 border-Black/20 bg-Gray/10 rounded text-Black w-full"
-                        type="text"
-                        name={item}
-                        placeholder={"Enter" + user[item]}
-                        value={user[item]}
-                        errorMessage={errors[item]}
-                        onChange={handleChange}
-                      />
-                    ) : (
-                      <div className="font-semibold">
-                        {user[item] === "" ? (
-                          "Not available"
-                        ) : (
-                          <a
-                            href={user[item]}
-                            target="_blank"
-                            className="underline text-Blue"
-                          >
-                            Live
-                          </a>
-                        )}
-                      </div>
-                    )}
-                  </div>
-                </div>
-              );
-            }
-            if (
-              item === "name" ||
-              item === "email" ||
-              item === "phoneNumber" ||
-              item === "address"
-            ) {
-              return (
-                <div
-                  className="flex items-center gap-2 w-full"
-                  key={user[item]}
-                >
-                  <p className="text-Gray w-1/3 max-w-32">
-                    {toTitleCase(item)}
-                  </p>
-                  <div className="text-Black w-2/3">
-                    {isEditing ? (
-                      <div>
+            return (
+              <div key={item}>
+                {item === "website" && (
+                  <div
+                    className="flex items-center gap-2 w-full"
+                    key={user[item]}
+                  >
+                    <p className="text-Gray w-1/3 max-w-32">
+                      {toTitleCase(item)}
+                    </p>
+                    <div className="text-Black w-2/3">
+                      {isEditing ? (
                         <Input
                           className="p-2 border-2 border-Black/20 bg-Gray/10 rounded text-Black w-full"
-                          type={item === "phoneNumber" ? "number" : "text"}
+                          type="text"
+                          name={item}
                           placeholder={"Enter" + user[item]}
                           value={user[item]}
-                          name={item}
                           errorMessage={errors[item]}
                           onChange={handleChange}
                         />
-                      </div>
-                    ) : (
-                      <div className="font-semibold">
-                        {user[item] === "" ? "Not available" : user[item]}
-                      </div>
-                    )}
+                      ) : (
+                        <div className="font-semibold">
+                          {user[item] === "" ? (
+                            "Not available"
+                          ) : (
+                            <a
+                              href={user[item]}
+                              target="_blank"
+                              className="underline text-Blue"
+                            >
+                              Live
+                            </a>
+                          )}
+                        </div>
+                      )}
+                    </div>
                   </div>
-                </div>
-              );
-            }
-            return <></>;
+                )}
+                {(item === "name" ||
+                  item === "email" ||
+                  item === "phoneNumber" ||
+                  item === "address") && (
+                  <div
+                    className="flex items-center gap-2 w-full"
+                    key={user[item]}
+                  >
+                    <p className="text-Gray w-1/3 max-w-32">
+                      {toTitleCase(item)}
+                    </p>
+                    <div className="text-Black w-2/3">
+                      {isEditing ? (
+                        <div>
+                          <Input
+                            className="p-2 border-2 border-Black/20 bg-Gray/10 rounded text-Black w-full"
+                            type={item === "phoneNumber" ? "number" : "text"}
+                            placeholder={"Enter" + user[item]}
+                            value={user[item]}
+                            name={item}
+                            errorMessage={errors[item]}
+                            onChange={handleChange}
+                          />
+                        </div>
+                      ) : (
+                        <div className="font-semibold">
+                          {user[item] === "" ? "Not available" : user[item]}
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                )}
+              </div>
+            );
           })}
         </div>
 

@@ -63,13 +63,13 @@ const App = () => {
 
   const appRouter = createBrowserRouter([
     {
+      path: "/login",
+      element: <Login setUserAuthToken={setUserAuthToken} />,
+    },
+    {
       path: "/",
       element: <AppLayout />,
       children: [
-        {
-          path: "/login",
-          element: <Login setUserAuthToken={setUserAuthToken} />,
-        },
         {
           path: "/home",
           element: (

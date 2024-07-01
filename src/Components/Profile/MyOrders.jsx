@@ -27,10 +27,9 @@ const MyOrders = ({ orders }) => {
           <div className="flex flex-wrap gap-4">
             {orders.reverse().map((product, productIndex) => {
               return (
-                <div className="w-[48%]">
+                <div className="w-[48%]" key={`${product._id}-${productIndex}`}>
                   <Link
                     className="product-card-link"
-                    key={productIndex}
                     to={"/product/" + product._id}
                   >
                     <OrderCard product={product} />

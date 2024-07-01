@@ -88,6 +88,7 @@ const Cart = () => {
             {cartProducts?.reverse().map((product) => {
               return (
                 <CheckoutCard
+                  key={product._id}
                   product={product}
                   cartProducts={cartProducts}
                   setCartProducts={setCartProducts}

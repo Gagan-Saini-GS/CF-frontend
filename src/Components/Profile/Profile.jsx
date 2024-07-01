@@ -68,7 +68,10 @@ export default function Profile({
           {Object.keys(user).map((item) => {
             if (item === "website") {
               return (
-                <div className="flex items-center gap-2 w-full">
+                <div
+                  className="flex items-center gap-2 w-full"
+                  key={user[item]}
+                >
                   <p className="text-Gray w-1/3 max-w-32">
                     {toTitleCase(item)}
                   </p>
@@ -109,7 +112,10 @@ export default function Profile({
               item === "address"
             ) {
               return (
-                <div className="flex items-center gap-2 w-full">
+                <div
+                  className="flex items-center gap-2 w-full"
+                  key={user[item]}
+                >
                   <p className="text-Gray w-1/3 max-w-32">
                     {toTitleCase(item)}
                   </p>

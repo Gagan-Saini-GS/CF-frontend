@@ -40,12 +40,8 @@ const Home = ({ openCart, setShowCartSlider }) => {
               <div className="w-full grid grid-cols-4 gap-2">
                 {allProducts.map((product) => {
                   return (
-                    <div className="w-full">
-                      <Link
-                        className=""
-                        key={product._id}
-                        to={"/product/" + product._id}
-                      >
+                    <div className="w-full" key={product._id}>
+                      <Link className="" to={"/product/" + product._id}>
                         <ProductCard1 product={product} />
                       </Link>
                     </div>

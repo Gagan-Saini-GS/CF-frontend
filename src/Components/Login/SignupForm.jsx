@@ -76,12 +76,12 @@ const SignupForm = ({ setUserAuthToken, setShowLogin }) => {
               errorMessage={errors.password}
             />
           </div>
-          <div
+          <button
+            type="submit"
             className="w-full bg-Purple p-2 rounded text-white text-center cursor-pointer mt-10"
-            onClick={handleSubmit}
           >
             Create Account
-          </div>
+          </button>
         </form>
         <div className="signup-info">
           Already have an account {"  "}

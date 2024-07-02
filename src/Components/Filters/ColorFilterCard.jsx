@@ -6,7 +6,7 @@ const ColorFilterCard = ({ color, onClick, isSelected, readOnly }) => {
       key={color.id}
       className="flex items-center w-full"
       onClick={() => {
-        onClick("colors", color.name);
+        onClick("colors", color.color);
       }}
     >
       <div

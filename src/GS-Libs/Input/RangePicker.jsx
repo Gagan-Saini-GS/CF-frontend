@@ -17,8 +17,8 @@ const RangePicker = ({
       ...prev,
       price: [
         {
-          min: values[0],
-          max: values[1],
+          minimum: values[0],
+          maximum: values[1],
         },
       ],
     }));

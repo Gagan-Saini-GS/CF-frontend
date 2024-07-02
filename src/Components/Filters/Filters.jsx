@@ -5,21 +5,8 @@ import FilterCard from "./FilterCard";
 import RangePicker from "../../GS-Libs/Input/RangePicker";
 import ColorFilter from "./ColorFilter";
 
-const Filters = () => {
+const Filters = ({ selectedFilters, setSelectedFilters }) => {
   const [numberOfFilters, setNumberOfFilters] = useState(0);
-  const [selectedFilters, setSelectedFilters] = useState({
-    brands: [],
-    colors: [],
-    price: [
-      {
-        minimum: MIN_PRICE,
-        maximum: MAX_PRICE,
-      },
-    ],
-    sizes: [],
-    materials: [],
-    genders: [],
-  });
 
   const selectFilters = (filterName, optionName) => {
     const alreadySelected = selectedFilters[filterName].includes(

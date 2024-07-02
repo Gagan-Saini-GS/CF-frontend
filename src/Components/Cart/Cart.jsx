@@ -5,6 +5,7 @@ import { SERVER_URL } from "../../config";
 import Button from "../../GS-Libs/Buttons/Button";
 import LabelValue from "../../GS-Libs/MultiUse/LabelValue";
 import CheckoutCard from "../ProductCards/CheckoutCard";
+import swal from "sweetalert";
 
 const Cart = () => {
   const [cartProducts, setCartProducts] = useState([]);
@@ -51,6 +52,32 @@ const Cart = () => {
       totalPrice: totalPrice,
     });
   }, [cartProducts]);
+
+  const checkout = async () => {
+    const authToken = localStorage.getItem("authToken");
+
+    try {
+      const res = await axios.post(
+        `${SERVER_URL}/checkout-product`,
+        {
+          products: cartProducts.map((product) => ({
+            _id: product._id,
+            quantity: product.quantity,
+          })),
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            authorization: `Bearer ${authToken}`,
+          },
+        }
+      );
+      await swal("Done", "Order placed successfully", "success");
+    } catch (error) {
+      console.log(error);
+      await swal("Oops", "Something went wrong", "error");
+    }
+  };
 
   if (isLoading) {
     return (
@@ -117,12 +144,7 @@ const Cart = () => {
               value={`$${productPriceDetails.totalPrice}`}
             />
           </div>
-          <Button
-            text="Checkout"
-            onClick={() => {
-              console.log("checkout");
-            }}
-          />
+          <Button text="Checkout" onClick={checkout} />
         </div>
       </div>
     </div>

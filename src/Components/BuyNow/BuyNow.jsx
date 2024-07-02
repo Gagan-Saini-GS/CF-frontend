@@ -100,11 +100,20 @@ export default function BuyNow() {
       return;
     }
 
+    const authToken = localStorage.getItem("authToken");
     axios
-      .post(`${SERVER_URL}/checkout-product`, {
-        authToken: localStorage.getItem("authToken"),
-        productID: params.productID,
-      })
+      .post(
+        `${SERVER_URL}/checkout-product`,
+        {
+          products: [{ _id: params.productID }],
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            authorization: `Bearer ${authToken}`,
+          },
+        }
+      )
       .then((response) => {
         swal(
           "Congrats!",

@@ -1,20 +1,53 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import OrderCard from "../ProductCards/OrderCard";
+import axios from "axios";
+import { SERVER_URL } from "../../config";
 
 const MyOrders = ({ orders }) => {
+  const [userOrders, setUserOrders] = useState([]);
+
+  const fetchProductData = async () => {
+    const authToken = localStorage.getItem("authToken");
+    try {
+      const res = await axios.post(
+        `${SERVER_URL}/ordered-products`,
+        {
+          orders: orders,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            authorization: `Bearer ${authToken}`,
+          },
+        }
+      );
+
+      console.log(res.data);
+      setUserOrders(res.data.products);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchProductData();
+  }, [orders]);
+
+  console.log(userOrders);
+
   return (
     <div className="w-full h-full">
       <div className="text-2xl font-semibold pb-4 flex items-center justify-between">
         <div>My Orders</div>
-        {orders.length > 0 && (
+        {userOrders.length > 0 && (
           <div className="bg-Purple text-White text-lg font-semibold p-2 rounded w-7 h-7 flex justify-center items-center">
-            {orders.length}
+            {userOrders.length}
           </div>
         )}
       </div>
       <div className="w-full h-[90%]">
-        {orders.length === 0 ? (
+        {userOrders.length === 0 ? (
           <div className="w-full h-full">
             <div className="text-lg font-medium text-Gray">
               You did not order anything yet!
@@ -25,7 +58,7 @@ const MyOrders = ({ orders }) => {
           </div>
         ) : (
           <div className="flex flex-wrap gap-4">
-            {orders.reverse().map((product, productIndex) => {
+            {userOrders.reverse().map((product, productIndex) => {
               return (
                 <div className="w-[48%]" key={`${product._id}-${productIndex}`}>
                   <Link

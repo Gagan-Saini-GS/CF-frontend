@@ -1,12 +1,12 @@
 import React from "react";
 
 const ColorFilterCard = ({ color, onClick, isSelected, readOnly }) => {
+  console.log(color);
   return (
     <div
-      key={color.id}
       className="flex items-center w-full"
       onClick={() => {
-        onClick("colors", color.color);
+        onClick("colors", color);
       }}
     >
       <div
@@ -21,11 +21,11 @@ const ColorFilterCard = ({ color, onClick, isSelected, readOnly }) => {
         }`}
       >
         <div
-          className={`${color.color} w-6 h-6 mr-1 rounded border border-Black/20`}
+          className={`${color} w-6 h-6 mr-1 rounded border border-Black/20`}
         ></div>
-        <div className="">
-          {color.name.slice(0, 1).toUpperCase()}
-          {color.name.slice(1)}
+        <div>
+          {color.slice(0, 1).toUpperCase()}
+          {color.slice(1)}
         </div>
       </div>
     </div>

@@ -208,7 +208,10 @@ export default function BuyNow() {
                     <Checkbox
                       label={size.name}
                       key={size.id}
-                      isSelected={product?.sizes?.includes(size.name) || false}
+                      isSelected={
+                        product?.sizes?.includes(size.name.toLowerCase()) ||
+                        false
+                      }
                       readOnly={true}
                     />
                   );
@@ -221,7 +224,7 @@ export default function BuyNow() {
                 {Colors.map((color) => {
                   return (
                     <ColorFilterCard
-                      color={color}
+                      color={color.color}
                       key={color}
                       isSelected={product.colors
                         .map((color) => color.color)
@@ -305,7 +308,7 @@ export default function BuyNow() {
                 return (
                   <div onClick={() => setSelectSize(size)}>
                     <Checkbox
-                      label={size}
+                      label={size.toUpperCase()}
                       key={size}
                       isSelected={selectedSize === size}
                     />
@@ -325,13 +328,10 @@ export default function BuyNow() {
             <div className="grid grid-cols-3 gap-2 mt-2">
               {product.colors.map((color) => {
                 return (
-                  <div
-                    onClick={() => setSelectedColor(color.color)}
-                    key={color}
-                  >
+                  <div onClick={() => setSelectedColor(color)} key={color}>
                     <ColorFilterCard
                       color={color}
-                      isSelected={selectedColor === color.color}
+                      isSelected={selectedColor === color}
                     />
                   </div>
                 );

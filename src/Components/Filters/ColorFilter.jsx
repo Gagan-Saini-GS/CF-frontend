@@ -9,11 +9,11 @@ const ColorFilter = ({ selectedFilters, onClick }) => {
       <div className="grid grid-cols-2 gap-2">
         {Colors.map((color) => (
           <ColorFilterCard
-            key={color.color}
-            color={color}
+            key={color.id}
+            color={color.color}
             onClick={onClick}
             isSelected={selectedFilters["colors"].includes(
-              color.name.toLowerCase()
+              color.color.toLowerCase()
             )}
           />
         ))}

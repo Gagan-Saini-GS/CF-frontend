@@ -316,7 +316,7 @@ export default function UploadProduct() {
                   {Colors.map((color) => (
                     <ColorFilterCard
                       key={color.id}
-                      color={color}
+                      color={color.color}
                       onClick={() => {
                         handleChange({
                           target: {

@@ -4,7 +4,7 @@ import OrderCard from "../ProductCards/OrderCard";
 import axios from "axios";
 import { SERVER_URL } from "../../config";
 
-const MyOrders = ({ orders }) => {
+const MyOrders = ({ orders, showProfileSlider }) => {
   const [userOrders, setUserOrders] = useState([]);
 
   const fetchProductData = async () => {
@@ -23,7 +23,6 @@ const MyOrders = ({ orders }) => {
         }
       );
 
-      console.log(res.data);
       setUserOrders(res.data.products);
     } catch (error) {
       console.log(error);
@@ -31,10 +30,10 @@ const MyOrders = ({ orders }) => {
   };
 
   useEffect(() => {
-    fetchProductData();
-  }, [orders]);
-
-  console.log(userOrders);
+    if (showProfileSlider) {
+      fetchProductData();
+    }
+  }, [orders, showProfileSlider]);
 
   return (
     <div className="w-full h-full">

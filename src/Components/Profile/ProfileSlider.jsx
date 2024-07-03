@@ -154,7 +154,10 @@ const ProfileSlider = ({
               activeTab === "orders" ? "right-0" : "-right-[120%]"
             }`}
           >
-            <MyOrders orders={user.orders || []} />
+            <MyOrders
+              orders={user.orders || []}
+              showProfileSlider={showProfileSlider}
+            />
           </div>
           <div
             className={`w-full h-full absolute p-2 rounded transition-all duration-300 ease-in-out overflow-y-scroll ${

@@ -7,7 +7,7 @@ import LabelValue from "../../GS-Libs/MultiUse/LabelValue";
 import CheckoutCard from "../ProductCards/CheckoutCard";
 import swal from "sweetalert";
 
-const Cart = () => {
+const Cart = ({ showCartSlider }) => {
   const [cartProducts, setCartProducts] = useState([]);
   const [productPriceDetails, setProductPriceDetails] = useState({
     discount: 0,
@@ -17,19 +17,21 @@ const Cart = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    setIsLoading(true);
-    axios
-      .post(`${SERVER_URL}/access-cart-items`, {
-        authToken: localStorage.getItem("authToken"),
-      })
-      .then((response) => {
-        setCartProducts(response.data.products);
-        setIsLoading(false);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
+    if (showCartSlider) {
+      setIsLoading(true);
+      axios
+        .post(`${SERVER_URL}/access-cart-items`, {
+          authToken: localStorage.getItem("authToken"),
+        })
+        .then((response) => {
+          setCartProducts(response.data.products);
+          setIsLoading(false);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }, [showCartSlider]);
 
   useEffect(() => {
     let totalPrice = 0,

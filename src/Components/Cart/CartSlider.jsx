@@ -17,7 +17,7 @@ const CartSlider = ({ showCartSlider, setShowCartSlider }) => {
         >
           <ImCross className="w-5 h-5 text-Purple" />
         </div>
-        <Cart />
+        <Cart showCartSlider={showCartSlider} />
       </div>
     </div>
   );

@@ -1,7 +1,6 @@
 import React from "react";
 
 const ColorFilterCard = ({ color, onClick, isSelected, readOnly }) => {
-  console.log(color);
   return (
     <div
       className="flex items-center w-full"

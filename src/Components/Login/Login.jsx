@@ -8,6 +8,9 @@ import {
 } from "../../config";
 import { useNavigate } from "react-router-dom";
 import swal from "sweetalert";
+import OnlineShoppingImage from "../../Assets/images/online-shopping.png";
+import DeliveryTruckImage from "../../Assets/images/delivery-truck.png";
+import ManProfileImage from "../../Assets/images/man.png";
 
 export default function Login(props) {
   const [showLogin, setShowLogin] = useState(true);
@@ -51,10 +54,10 @@ export default function Login(props) {
         <div className="logo-container">
           <div className="circle">
             <div className="shopping-logo-img">
-              <img src="images/online-shopping.png" alt="Online-shopping" />
+              <img src={OnlineShoppingImage} alt="Online-shopping" />
             </div>
             <div className="delivery-truck-img">
-              <img src="images/delivery-truck.png" alt="Delivery Truck" />
+              <img src={DeliveryTruckImage} alt="Delivery Truck" />
             </div>
           </div>
         </div>
@@ -71,7 +74,7 @@ export default function Login(props) {
                 <p>Welcome at Closet Fashion</p>
               )}
             </div>
-            <img className="user-img" src="images/man.png" alt="" />
+            <img className="user-img" src={ManProfileImage} alt="" />
           </div>
           {showLogin ? (
             <LoginForm

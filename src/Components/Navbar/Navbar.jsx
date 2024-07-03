@@ -6,6 +6,7 @@ import NavbarRightOptions from "./NavbarRightOptions";
 import ProfileSlider from "../Profile/ProfileSlider";
 import CartSlider from "../Cart/CartSlider";
 import { profileInitailValues } from "../../validations/profile-form";
+import CFLogoImage from "../../Assets/images/closet fashion-logos.jpeg";
 
 export default function Navbar({
   showProfileSlider,
@@ -39,7 +40,7 @@ export default function Navbar({
           <div className="flex items-center gap-2">
             <Link to="/home">
               <img
-                src="images/logos/closet fashion-logos.jpeg"
+                src={CFLogoImage}
                 alt=""
                 className="w-6 h-6 md:w-8 md:h-8 rounded"
               />

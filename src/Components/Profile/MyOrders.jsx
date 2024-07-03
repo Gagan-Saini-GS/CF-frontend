@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import OrderCard from "../ProductCards/OrderCard";
 import axios from "axios";
 import { SERVER_URL } from "../../config";
+import NotFoundImage from "../../Assets/images/not found.jpg";
 
 const MyOrders = ({ orders, showProfileSlider }) => {
   const [userOrders, setUserOrders] = useState([]);
@@ -52,7 +53,7 @@ const MyOrders = ({ orders, showProfileSlider }) => {
               You did not order anything yet!
             </div>
             <div className="w-full h-full flex items-center justify-center">
-              <img src="images/not found.jpg" alt="" className="rounded-md" />
+              <img src={NotFoundImage} alt="" className="rounded-md" />
             </div>
           </div>
         ) : (

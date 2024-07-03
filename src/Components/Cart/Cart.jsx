@@ -6,6 +6,7 @@ import Button from "../../GS-Libs/Buttons/Button";
 import LabelValue from "../../GS-Libs/MultiUse/LabelValue";
 import CheckoutCard from "../ProductCards/CheckoutCard";
 import swal from "sweetalert";
+import NotFoundImage from "../../Assets/images/not found.jpg";
 
 const Cart = ({ showCartSlider }) => {
   const [cartProducts, setCartProducts] = useState([]);
@@ -96,7 +97,7 @@ const Cart = ({ showCartSlider }) => {
           <div className="w-full h-full">
             <div className="text-lg font-medium text-Gray">Empty Cart</div>
             <div className="w-full h-full flex items-center justify-center">
-              <img src="images/not found.jpg" alt="" className="rounded-md" />
+              <img src={NotFoundImage} alt="" className="rounded-md" />
             </div>
           </div>
         ) : (

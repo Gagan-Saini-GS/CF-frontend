@@ -1,3 +1,5 @@
+import NotFoundImage from "../Assets/images/not found.jpg";
+
 export const uploadProductValidation = {
   name: (value) => {
     if (!value) {
@@ -79,5 +81,5 @@ export const initailProductValues = {
   description: "",
   sizes: [],
   colors: [],
-  productImages: ["images/not found.jpg"],
+  productImages: [NotFoundImage],
 };

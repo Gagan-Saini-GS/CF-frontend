@@ -4,6 +4,7 @@ import { Input } from "../../GS-Libs/Input/input";
 import { MdEdit } from "react-icons/md";
 import uploadImage from "../../GS-Libs/utils/uploadImage";
 import Button from "../../GS-Libs/Buttons/Button";
+import ManProfileImage from "../../Assets/images/man.png";
 
 export default function Profile({
   user,
@@ -56,7 +57,7 @@ export default function Profile({
             <img
               className="rounded-full absolute top-0 w-full h-full max-w-60 max-h-60"
               src={
-                user.profileImage === "" ? "images/man.png" : user.profileImage
+                user.profileImage !== "" ? user.profileImage : ManProfileImage
               }
               alt="Profile Image"
               onMouseEnter={() => isEditing && setShowImageEditOption(true)}

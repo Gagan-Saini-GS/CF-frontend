@@ -1,6 +1,7 @@
 import React from "react";
 import Searchbar from "../../GS-Libs/Input/Searchbar";
 import { PiShoppingCart } from "react-icons/pi";
+import ManProfileImage from "../../Assets/images/man.png";
 
 const NavbarRightOptions = ({
   userAuthToken,
@@ -29,7 +30,7 @@ const NavbarRightOptions = ({
             >
               <img
                 className="w-6 h-6 md:w-8 md:h-8 rounded"
-                src={profileImage || "images/man.png"}
+                src={profileImage || ManProfileImage}
                 alt="Profile Image"
               />
               <div className="text-md font-medium hidden md:block">

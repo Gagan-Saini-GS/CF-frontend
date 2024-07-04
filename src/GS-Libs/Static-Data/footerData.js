@@ -1,3 +1,8 @@
+import LinkedInImage from "../../Assets/images/linkedin.png";
+import TwitterImage from "../../Assets/images/twitter.png";
+import YouTubeImage from "../../Assets/images/youtube.png";
+import InstagramImage from "../../Assets/images/instagram.png";
+
 export const FooterData = [
   {
     id: "shop-item",
@@ -33,10 +38,10 @@ export const FooterData = [
     id: "social-media-item",
     heading: "Follow Us",
     items: [
-      { text: "Twitter", imgUrl: "images/twitter.png" },
-      { text: "LinkedIn", imgUrl: "images/linkedin.png" },
-      { text: "YouTube", imgUrl: "images/youtube.png" },
-      { text: "Instagram", imgUrl: "images/instagram.png" },
+      { text: "Twitter", imgUrl: TwitterImage },
+      { text: "LinkedIn", imgUrl: LinkedInImage },
+      { text: "YouTube", imgUrl: YouTubeImage },
+      { text: "Instagram", imgUrl: InstagramImage },
     ],
   },
 ];

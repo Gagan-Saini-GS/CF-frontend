@@ -1,5 +1,8 @@
-export const SERVER_URL = "http://localhost:5000";
-// export const SERVER_URL = "https://cf-backend-ecru.vercel.app";
+import LinkedInImage from "./Assets/images/linkedin.png";
+import GithubImage from "./Assets/images/github.png";
+
+// export const SERVER_URL = "http://localhost:5000";
+export const SERVER_URL = "https://cf-backend-ecru.vercel.app";
 
 export const GUEST_USER_EMAIL = "guestuser@closetfashion.com";
 export const GUEST_USER_PASSWORD = "guestuser";
@@ -166,7 +169,9 @@ export const Categories = [
   { id: "3", name: "Sweatshirt" },
   { id: "4", name: "Jacket" },
   { id: "5", name: "Hoodie" },
-  { id: "6", name: "Other" },
+  { id: "6", name: "Shoes" },
+  { id: "7", name: "Trousers" },
+  { id: "8", name: "Other" },
 ];
 
 export const Quantity = [
@@ -222,6 +227,21 @@ export const PaymentMethods = [
     id: "debit-card",
     name: "Debit Card",
     value: "debitcard",
+  },
+];
+
+export const SocialMedia = [
+  {
+    id: "linkedin",
+    name: "Linkedin",
+    imgSrc: LinkedInImage,
+    link: "https://www.linkedin.com/in/gagan-saini-gs/",
+  },
+  {
+    id: "github",
+    name: "Github",
+    imgSrc: GithubImage,
+    link: "https://github.com/Gagan-Saini-GS",
   },
 ];
 
@@ -300,4 +320,4 @@ export const AllFilters = [
 ];
 
 export const MIN_PRICE = 500;
-export const MAX_PRICE = 50000;
+export const MAX_PRICE = 100000;

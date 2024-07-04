@@ -43,43 +43,41 @@ const Home = ({ openCart, setShowCartSlider }) => {
   }, [openCart]);
 
   return (
-    <div>
-      <div className={`flex relative bg-White`}>
-        <div className="w-1/5 h-full">
-          <div className="w-full h-full">
-            <Filters
-              selectedFilters={selectedFilters}
-              setSelectedFilters={setSelectedFilters}
-            />
-          </div>
+    <div className={`flex relative bg-White`}>
+      <div className="w-1/5 h-full">
+        <div className="w-full h-full">
+          <Filters
+            selectedFilters={selectedFilters}
+            setSelectedFilters={setSelectedFilters}
+          />
         </div>
-        <div className="w-4/5">
-          <div className="flex flex-col bg-White px-4 py-2 fixed w-4/5 h-full overflow-y-scroll pb-20">
-            <div className="w-full h-full">
-              {allProducts.length > 0 ? (
-                <>
-                  <div className="text-2xl pb-2 font-normal">All products</div>
-                  <div className="w-full grid grid-cols-4 gap-2">
-                    {allProducts.map((product) => {
-                      return (
-                        <div className="w-full" key={product._id}>
-                          <Link className="" to={"/product/" + product._id}>
-                            <ProductCard1 product={product} />
-                          </Link>
-                        </div>
-                      );
-                    })}
-                  </div>
-                </>
-              ) : (
-                <div className="w-full h-full">
-                  <NoResultsFound
-                    actionText="Please Adjust Filters"
-                    infoText="Sorry! No Results Found"
-                  />
+      </div>
+      <div className="w-4/5">
+        <div className="flex flex-col bg-White px-4 py-2 fixed w-4/5 h-full">
+          <div className="w-full h-full overflow-y-scroll">
+            {allProducts.length > 0 ? (
+              <>
+                <div className="text-2xl pb-2 font-normal">All products</div>
+                <div className="w-full grid grid-cols-4 gap-2">
+                  {allProducts.map((product) => {
+                    return (
+                      <div className="w-full" key={product._id}>
+                        <Link className="" to={"/product/" + product._id}>
+                          <ProductCard1 product={product} />
+                        </Link>
+                      </div>
+                    );
+                  })}
                 </div>
-              )}
-            </div>
+              </>
+            ) : (
+              <div className="w-full h-full">
+                <NoResultsFound
+                  actionText="Please Adjust Filters"
+                  infoText="Sorry! No Results Found"
+                />
+              </div>
+            )}
           </div>
         </div>
       </div>

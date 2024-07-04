@@ -9,9 +9,9 @@ const Checkbox = ({ label, isSelected, readOnly = false }) => {
           : `border-dashed border-Gray font-medium ${
               !readOnly && "hover:text-Purple"
             }`
-      } px-2 py-1 inline-block rounded text-Gray cursor-pointer min-w-8 text-center transition-all duration-150 ${
+      } px-2 py-1 inline-block rounded text-Gray min-w-8 text-center transition-all duration-150 ${
         !readOnly && "hover:border-solid hover:border-Purple"
-      }`}
+      } ${readOnly ? "cursor-default" : "cursor-pointer"}`}
     >
       {label}
     </div>

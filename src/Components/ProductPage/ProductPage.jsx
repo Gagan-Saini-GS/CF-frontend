@@ -210,7 +210,13 @@ export default function ProductPage({ handleOpenCart }) {
                 <div className="text-xl font-semibold">Colors</div>
                 <div className="grid grid-cols-5 gap-1">
                   {product?.colors.map((color) => {
-                    return <ColorFilterCard color={color} key={color} />;
+                    return (
+                      <ColorFilterCard
+                        color={color}
+                        key={color}
+                        readOnly={true}
+                      />
+                    );
                   })}
                 </div>
               </div>

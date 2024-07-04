@@ -9,6 +9,7 @@ import { Textarea } from "../../GS-Libs/Input/Textarea";
 import Checkbox from "../../GS-Libs/Input/Checkbox";
 import ColorFilterCard from "../Filters/ColorFilterCard";
 import { toTitleCase } from "../../GS-Libs/utils/toTitleCase";
+import QuantityInput from "../../GS-Libs/Input/QuantityInput";
 
 const PaymentItem = ({ name, value, isSelected, setPaymentMethod }) => {
   return (
@@ -49,6 +50,7 @@ export default function BuyNow() {
   const [selectedSize, setSelectSize] = useState("");
   const [selectedColor, setSelectedColor] = useState("");
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [quantity, setQuantity] = useState(1);
 
   useEffect(() => {
     axios
@@ -105,7 +107,7 @@ export default function BuyNow() {
       .post(
         `${SERVER_URL}/checkout-product`,
         {
-          products: [{ _id: params.productID }],
+          products: [{ _id: params.productID, quantity: quantity }],
         },
         {
           headers: {
@@ -143,8 +145,8 @@ export default function BuyNow() {
   }
 
   return (
-    <div className="h-screen w-screen flex justify-center items-center bg-White">
-      <div className="w-2/3 flex gap-4 h-full px-4 items-center">
+    <div className="w-screen flex justify-center bg-White">
+      <div className="w-3/4 flex gap-4 h-full px-4 py-5 items-center">
         <div className="flex gap-4 w-full">
           <div className="flex gap-2 col-span-4">
             {product?.productImages && (
@@ -226,9 +228,7 @@ export default function BuyNow() {
                     <ColorFilterCard
                       color={color.color}
                       key={color}
-                      isSelected={product.colors
-                        .map((color) => color.color)
-                        .includes(color.color)}
+                      isSelected={product.colors.includes(color.color)}
                       readOnly={true}
                     />
                   );
@@ -238,7 +238,7 @@ export default function BuyNow() {
           </div>
         </div>
       </div>
-      <div className="w-1/3 flex items-center gap-4 bg-Light h-full px-10 shadow">
+      <div className="w-1/4 flex flex-col justify-between gap-4 bg-Light p-4 shadow h-[87vh]">
         <div className="w-full flex flex-col gap-2">
           <div className="w-full flex flex-col gap-1">
             <div className="text-lg font-medium">
@@ -296,6 +296,12 @@ export default function BuyNow() {
                   />
                 </>
               )}
+            </div>
+          </div>
+          <div className="w-full">
+            <div className="text-Black/80 text-xs font-semibold">Quantity</div>
+            <div className="mt-2">
+              <QuantityInput quantity={quantity} setQuantity={setQuantity} />
             </div>
           </div>
           <div className="w-full">
@@ -367,9 +373,9 @@ export default function BuyNow() {
               </span>
             )}
           </div>
-          <div className="w-full mt-4">
-            <Button text="Place Order" size="medium" onClick={placeOrder} />
-          </div>
+        </div>
+        <div className="w-full mt-4">
+          <Button text="Place Order" size="medium" onClick={placeOrder} />
         </div>
       </div>
     </div>

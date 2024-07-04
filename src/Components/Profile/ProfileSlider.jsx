@@ -47,7 +47,7 @@ const ProfileSlider = ({
 
   const updateProfile = () => {
     axios
-      .patch(`${SERVER_URL}/update-profile`, {
+      .post(`${SERVER_URL}/update-profile`, {
         user: user,
         authToken: localStorage.getItem("authToken"),
       })

@@ -21,8 +21,8 @@ export default function Login(props) {
       method: "POST",
       body: JSON.stringify({
         user: {
-          email: { value: GUEST_USER_EMAIL },
-          password: { value: GUEST_USER_PASSWORD },
+          email: GUEST_USER_EMAIL,
+          password: GUEST_USER_PASSWORD,
         },
       }),
       headers: {

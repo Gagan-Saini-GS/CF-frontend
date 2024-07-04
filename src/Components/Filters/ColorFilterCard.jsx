@@ -15,9 +15,9 @@ const ColorFilterCard = ({ color, onClick, isSelected, readOnly }) => {
             : `border-dashed border-Gray font-medium ${
                 !readOnly && "hover:text-Purple"
               }`
-        } p-1 rounded text-Gray font-medium cursor-pointer min-w-8 text-center transition-all duration-150 ${
+        } p-1 rounded text-Gray font-medium min-w-8 text-center transition-all duration-150 ${
           !readOnly && "hover:border-solid hover:border-Purple"
-        }`}
+        } ${readOnly ? "cursor-default" : "cursor-pointer"}`}
       >
         <div
           className={`${color} w-6 h-6 mr-1 rounded border border-Black/20`}

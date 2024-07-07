@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 
 const useDebounce = (callback, delay, dependencies = []) => {
+  const [data, setData] = useState(null);
   const [timerId, setTimerId] = useState(null);
 
   useEffect(() => {
@@ -8,8 +9,9 @@ const useDebounce = (callback, delay, dependencies = []) => {
       clearTimeout(timerId);
     }
 
-    const newTimerId = setTimeout(() => {
-      callback();
+    const newTimerId = setTimeout(async () => {
+      const data = await callback();
+      setData(data);
     }, delay);
 
     setTimerId(newTimerId);
@@ -19,7 +21,7 @@ const useDebounce = (callback, delay, dependencies = []) => {
     };
   }, [...dependencies, delay]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  return timerId;
+  return { timerId, data };
 };
 
 export default useDebounce;

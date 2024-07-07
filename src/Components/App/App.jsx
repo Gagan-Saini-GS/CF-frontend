@@ -26,17 +26,17 @@ const AppLayout = () => {
 
   return (
     <div className="h-screen bg-White flex flex-col justify-between">
-      <div>
-        <Navbar
-          showProfileSlider={showProfileSlider}
-          setShowProfileSlider={setShowProfileSlider}
-          showCartSlider={showCartSlider}
-          setShowCartSlider={setShowCartSlider}
-          userAuthToken={authToken}
-          setUserAuthToken={setUserAuthToken}
-        />
-        <Outlet />
-      </div>
+      {/* <div> */}
+      <Navbar
+        showProfileSlider={showProfileSlider}
+        setShowProfileSlider={setShowProfileSlider}
+        showCartSlider={showCartSlider}
+        setShowCartSlider={setShowCartSlider}
+        userAuthToken={authToken}
+        setUserAuthToken={setUserAuthToken}
+      />
+      <Outlet />
+      {/* </div> */}
       <Footer />
     </div>
   );

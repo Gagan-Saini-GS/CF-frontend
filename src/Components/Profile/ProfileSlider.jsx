@@ -13,7 +13,6 @@ import {
   profileInitailValues,
   profileValidations,
 } from "../../validations/profile-form";
-import { useNavigate } from "react-router-dom";
 import swal from "sweetalert";
 import UploadProduct from "../UploadProduct/UploadProduct";
 

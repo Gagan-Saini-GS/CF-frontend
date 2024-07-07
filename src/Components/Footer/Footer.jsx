@@ -1,6 +1,5 @@
 import React from "react";
 import { MdCopyright } from "react-icons/md";
-import CFLogoImage from "../../Assets/images/closet fashion-logos.jpeg";
 import { SocialMedia } from "../../config";
 
 const Footer = () => {

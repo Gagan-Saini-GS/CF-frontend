@@ -6,8 +6,10 @@ import ProductCard1 from "../ProductCards/ProductCard1";
 import useDebounce from "../../hooks/useDebounce";
 import NoResultsFound from "../../GS-Libs/MultiUse/NoResultsFound";
 import { fetchAllProducts } from "../../API/fetchAllProducts";
+import { useSearchContext } from "../../context/searchContext";
 
 const Home = ({ openCart, setShowCartSlider }) => {
+  const { searchQuery } = useSearchContext();
   const [allProducts, setAllProducts] = useState([]);
   const [selectedFilters, setSelectedFilters] = useState({
     brands: [],
@@ -24,9 +26,9 @@ const Home = ({ openCart, setShowCartSlider }) => {
   });
 
   const { data: products } = useDebounce(
-    () => fetchAllProducts(selectedFilters),
+    () => fetchAllProducts(selectedFilters, searchQuery),
     250,
-    [selectedFilters]
+    [selectedFilters, searchQuery]
   );
 
   useEffect(() => {

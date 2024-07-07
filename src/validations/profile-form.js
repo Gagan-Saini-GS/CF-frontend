@@ -47,7 +47,7 @@ export const profileInitailValues = {
   email: "",
   phoneNumber: "",
   address: "",
-  profileImage: "images/man.png",
+  profileImage: "",
   website: "",
   // cart: [],
   orders: [],

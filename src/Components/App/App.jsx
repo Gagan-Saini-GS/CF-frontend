@@ -12,6 +12,7 @@ import ProductPage from "../ProductPage/ProductPage.jsx";
 import BuyNow from "../BuyNow/BuyNow.jsx";
 import Navbar from "../Navbar/Navbar.jsx";
 import Footer from "../Footer/Footer.jsx";
+import { SearchContextProvider } from "../../context/searchContext.jsx";
 
 const AppLayout = () => {
   const [showProfileSlider, setShowProfileSlider] = useState(false);
@@ -26,18 +27,18 @@ const AppLayout = () => {
 
   return (
     <div className="h-screen bg-White flex flex-col justify-between">
-      {/* <div> */}
-      <Navbar
-        showProfileSlider={showProfileSlider}
-        setShowProfileSlider={setShowProfileSlider}
-        showCartSlider={showCartSlider}
-        setShowCartSlider={setShowCartSlider}
-        userAuthToken={authToken}
-        setUserAuthToken={setUserAuthToken}
-      />
-      <Outlet />
-      {/* </div> */}
-      <Footer />
+      <SearchContextProvider>
+        <Navbar
+          showProfileSlider={showProfileSlider}
+          setShowProfileSlider={setShowProfileSlider}
+          showCartSlider={showCartSlider}
+          setShowCartSlider={setShowCartSlider}
+          userAuthToken={authToken}
+          setUserAuthToken={setUserAuthToken}
+        />
+        <Outlet />
+        <Footer />
+      </SearchContextProvider>
     </div>
   );
 };

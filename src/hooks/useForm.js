@@ -20,7 +20,7 @@ const useForm = (initialValues, validationRules, onSubmit) => {
       Object.keys(validationRules).forEach((key) => {
         const rule = validationRules[key];
         if (rule && typeof rule === "function") {
-          const errorMessage = rule(formData[key]);
+          const errorMessage = rule(formData[key], formData);
           if (errorMessage) {
             newErrors[key] = errorMessage;
           }

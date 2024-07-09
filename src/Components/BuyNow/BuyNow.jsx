@@ -10,6 +10,11 @@ import Checkbox from "../../GS-Libs/Input/Checkbox";
 import ColorFilterCard from "../Filters/ColorFilterCard";
 import { toTitleCase } from "../../GS-Libs/utils/toTitleCase";
 import QuantityInput from "../../GS-Libs/Input/QuantityInput";
+import useForm from "../../hooks/useForm";
+import {
+  buyProductPageUserInitailValues,
+  buyProductPageUserValidations,
+} from "../../validations/buy-product-page-validations";
 
 const PaymentItem = ({ name, value, isSelected, setPaymentMethod }) => {
   return (
@@ -29,7 +34,7 @@ const PaymentItem = ({ name, value, isSelected, setPaymentMethod }) => {
 export default function BuyNow() {
   const navigate = useNavigate();
   const params = useParams();
-  const [user, setUser] = useState();
+  // const [user, setUser] = useState();
   const [phoneNumber, setPhoneNumber] = useState({
     phoneNumber: "",
     isValid: true,
@@ -46,43 +51,16 @@ export default function BuyNow() {
 
   const [product, setProduct] = useState();
   const [imgIndex, setImgIndex] = useState(0);
-
   const [selectedSize, setSelectSize] = useState("");
   const [selectedColor, setSelectedColor] = useState("");
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [quantity, setQuantity] = useState(1);
-
-  useEffect(() => {
-    const authToken = localStorage.getItem("authToken");
-    axios
-      .post(
-        `${SERVER_URL}/buy-product`,
-        {
-          productID: params.productID,
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-            authorization: `Bearer ${authToken}`,
-          },
-        }
-      )
-      .then((response) => {
-        setUser(response.data.userDetails);
-        setPhoneNumber((prev) => ({
-          ...prev,
-          phoneNumber: response.data.userDetails.phoneNumber,
-        }));
-        setAddress((prev) => ({
-          ...prev,
-          address: response.data.userDetails.address,
-        }));
-        setProduct(response.data.productDetails);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, [params.productID]);
+  const [upiIdValue, setUpiIdValue] = useState("");
+  const [cardDetails, setCardDetails] = useState({
+    cardNumber: "",
+    validDate: "",
+    cvc: "",
+  });
 
   const placeOrder = () => {
     setIsSubmitted(true);
@@ -101,16 +79,6 @@ export default function BuyNow() {
       setPaymentMethod((prev) => ({ ...prev, isValid: false }));
     }
 
-    if (
-      phoneNumber.phoneNumber === undefined ||
-      phoneNumber.phoneNumber.length !== 10 ||
-      address.address === undefined ||
-      address.address.length === 0 ||
-      paymentMethod.paymentMethod === ""
-    ) {
-      return;
-    }
-
     const authToken = localStorage.getItem("authToken");
     axios
       .post(
@@ -125,7 +93,7 @@ export default function BuyNow() {
           },
         }
       )
-      .then((response) => {
+      .then(() => {
         swal(
           "Congrats!",
           "The item is added into your order list and delivered soon when we start delivering the products.",
@@ -145,6 +113,48 @@ export default function BuyNow() {
       });
   };
 
+  const {
+    formData: user,
+    setFormData,
+    errors,
+    handleChange,
+    handleSubmit,
+  } = useForm(
+    buyProductPageUserInitailValues,
+    buyProductPageUserValidations,
+    placeOrder
+  );
+
+  useEffect(() => {
+    const authToken = localStorage.getItem("authToken");
+    axios
+      .post(
+        `${SERVER_URL}/buy-product`,
+        {
+          productID: params.productID,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            authorization: `Bearer ${authToken}`,
+          },
+        }
+      )
+      .then((response) => {
+        setFormData((prev) => ({
+          ...prev,
+          name: response.data.userDetails.name,
+          email: response.data.userDetails.email,
+          phoneNumber: response.data.userDetails.phoneNumber,
+          address: response.data.userDetails.address,
+        }));
+        setProduct(response.data.productDetails);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [params.productID]);
+
   if (!product || !user) {
     return (
       <div className="fullscreen-loader">
@@ -152,6 +162,8 @@ export default function BuyNow() {
       </div>
     );
   }
+
+  // TODO: Store varient in backend like which color, size, payment method user choosed
 
   return (
     <div className="w-screen flex justify-center bg-White">
@@ -247,7 +259,7 @@ export default function BuyNow() {
           </div>
         </div>
       </div>
-      <div className="w-1/4 flex flex-col justify-between gap-4 bg-Light p-4 shadow h-[87vh]">
+      <div className="w-1/4 flex flex-col overflow-y-scroll justify-between gap-4 bg-Light p-4 shadow h-[87vh]">
         <div className="w-full flex flex-col gap-2">
           <div className="w-full flex flex-col gap-1">
             <div className="text-lg font-medium">
@@ -264,19 +276,11 @@ export default function BuyNow() {
                 <>
                   <Input
                     type="number"
+                    name="phoneNumber"
                     placeholder="Enter Phone Number"
                     value={phoneNumber.phoneNumber}
-                    onChange={(e) => {
-                      setPhoneNumber({
-                        isValid: true,
-                        phoneNumber: e.target.value,
-                      });
-                    }}
-                    errorMessage={
-                      !phoneNumber.isValid
-                        ? "Please enter a valid phone number"
-                        : undefined
-                    }
+                    onChange={handleChange}
+                    errorMessage={errors.phoneNumber}
                   />
                 </>
               )}
@@ -291,17 +295,8 @@ export default function BuyNow() {
                     name="address"
                     placeholder="Enter Address"
                     value={address.address}
-                    onChange={(e) => {
-                      setAddress({
-                        isValid: true,
-                        address: e.target.value,
-                      });
-                    }}
-                    errorMessage={
-                      !address.isValid
-                        ? "Please enter a valid address"
-                        : undefined
-                    }
+                    onChange={handleChange}
+                    errorMessage={errors.address}
                   />
                 </>
               )}
@@ -381,10 +376,68 @@ export default function BuyNow() {
                 Please Select Payment Method
               </span>
             )}
+
+            {paymentMethod.paymentMethod === "upi" && (
+              <div className="mt-2">
+                <div className="text-Black/80 text-xs font-semibold">
+                  UPI ID
+                </div>
+                <div className="w-full mt-2">
+                  <Input
+                    type="text"
+                    name="upiIdValue"
+                    placeholder="Enter UPI Id"
+                    value={user.upiIdValue}
+                    onChange={handleChange}
+                    errorMessage={errors.upiIdValue}
+                    className="p-2 border-2 border-Black/20 bg-Gray/10 rounded text-Black w-full"
+                  />
+                </div>
+              </div>
+            )}
+            {(paymentMethod.paymentMethod === "creditcard" ||
+              paymentMethod.paymentMethod === "debitcard") && (
+              <div className="mt-2">
+                <div className="text-Black/80 text-xs font-semibold">
+                  Card Details
+                </div>
+                <div className="grid grid-cols-2 gap-2 mt-2">
+                  <div className="col-span-2">
+                    <Input
+                      type="number"
+                      name="cardNumber"
+                      placeholder="Enter card number"
+                      value={user.cardNumber}
+                      onChange={handleChange}
+                      errorMessage={errors.cardNumber}
+                      className="p-2 border-2 border-Black/20 bg-Gray/10 rounded text-Black w-full"
+                    />
+                  </div>
+                  <Input
+                    type="text"
+                    name="validDate"
+                    placeholder="Enter Valid Date"
+                    value={user.validDate}
+                    onChange={handleChange}
+                    errorMessage={errors.validDate}
+                    className="p-2 border-2 border-Black/20 bg-Gray/10 rounded text-Black w-full"
+                  />
+                  <Input
+                    type="number"
+                    name="cvc"
+                    placeholder="Enter CVC"
+                    value={user.cvc}
+                    onChange={handleChange}
+                    errorMessage={errors.cvc}
+                    className="p-2 border-2 border-Black/20 bg-Gray/10 rounded text-Black w-full"
+                  />
+                </div>
+              </div>
+            )}
           </div>
         </div>
         <div className="w-full mt-4">
-          <Button text="Place Order" size="medium" onClick={placeOrder} />
+          <Button text="Place Order" size="medium" onClick={handleSubmit} />
         </div>
       </div>
     </div>

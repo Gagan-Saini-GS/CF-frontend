@@ -36,8 +36,6 @@ export const Input = ({
         placeholder={placeholder}
         onKeyDown={onKeyDown}
         onKeyUp={onKeyUp}
-        onFocus={() => console.log("Focus")}
-        onBlur={() => console.log("Blur")}
         readOnly={readOnly}
       />
       {errorMessage && <span className="text-Red text-sm">{errorMessage}</span>}

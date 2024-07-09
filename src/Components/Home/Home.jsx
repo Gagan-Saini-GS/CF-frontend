@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { MAX_PRICE, MIN_PRICE } from "../../config";
 import Filters from "../Filters/Filters";
 import { Link } from "react-router-dom";
@@ -9,8 +9,14 @@ import { fetchAllProducts } from "../../API/fetchAllProducts";
 import { useSearchContext } from "../../context/searchContext";
 
 const Home = ({ openCart, setShowCartSlider }) => {
+  const [totalPages, setTotalPages] = useState(1);
+  const [isLoading, setIsLoading] = useState(false);
+  const observer = useRef();
+
+  const limit = 8;
   const { searchQuery } = useSearchContext();
   const [allProducts, setAllProducts] = useState([]);
+  const [page, setPage] = useState(1);
   const [selectedFilters, setSelectedFilters] = useState({
     brands: [],
     colors: [],
@@ -25,23 +31,43 @@ const Home = ({ openCart, setShowCartSlider }) => {
     genders: [],
   });
 
-  const { data: products } = useDebounce(
-    () => fetchAllProducts(selectedFilters, searchQuery),
+  const { data } = useDebounce(
+    () => {
+      setIsLoading(true);
+      return fetchAllProducts(selectedFilters, searchQuery, page, limit);
+    },
     250,
-    [selectedFilters, searchQuery]
+    [selectedFilters, searchQuery, page]
   );
 
   useEffect(() => {
-    if (products) {
-      setAllProducts(products);
+    if (data?.products) {
+      setAllProducts((prev) => [...prev, ...data?.products]);
+      setTotalPages(data?.totalPages);
+      setIsLoading(false);
     }
-  }, [products]);
+  }, [data?.products]);
 
   useEffect(() => {
     if (openCart) {
       setShowCartSlider(true);
     }
   }, [openCart]);
+
+  // Intersection Observer callback to detect when the sentinel div is visible
+  const lastProductElementRef = useCallback(
+    (node) => {
+      if (isLoading) return;
+      if (observer.current) observer.current.disconnect();
+      observer.current = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting && page < totalPages) {
+          setPage((prev) => prev + 1);
+        }
+      });
+      if (node) observer.current.observe(node);
+    },
+    [isLoading, page, totalPages]
+  );
 
   return (
     <div className="flex bg-White">
@@ -60,15 +86,24 @@ const Home = ({ openCart, setShowCartSlider }) => {
               <>
                 <div className="text-2xl pb-2 font-normal">All products</div>
                 <div className="w-full min-h-fit h-fit grid grid-cols-2 md:grid-cols-4 gap-2 pb-28">
-                  {allProducts.map((product) => {
+                  {allProducts.map((product, index) => {
                     return (
-                      <div className="w-full" key={product._id}>
+                      <div
+                        className="w-full"
+                        key={product._id}
+                        ref={
+                          allProducts.length === index + 1
+                            ? lastProductElementRef
+                            : null
+                        }
+                      >
                         <Link className="" to={"/product/" + product._id}>
                           <ProductCard1 product={product} />
                         </Link>
                       </div>
                     );
                   })}
+                  {isLoading && <div>Loading...</div>}
                 </div>
               </>
             ) : (

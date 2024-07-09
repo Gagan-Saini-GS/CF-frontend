@@ -123,12 +123,20 @@ const Home = ({ openCart, setShowCartSlider }) => {
                 </div>
               </>
             ) : (
-              <div className="w-full h-full">
-                <NoResultsFound
-                  actionText="Please Adjust Filters"
-                  infoText="Sorry! No Results Found"
-                />
-              </div>
+              <>
+                {isLoading ? (
+                  <div className="pt-4 w-full text-xl font-medium text-Gray text-center col-span-full">
+                    Loading...
+                  </div>
+                ) : (
+                  <div className="w-full h-full">
+                    <NoResultsFound
+                      actionText="Please Adjust Filters"
+                      infoText="Sorry! No Results Found"
+                    />
+                  </div>
+                )}
+              </>
             )}
           </div>
         </div>

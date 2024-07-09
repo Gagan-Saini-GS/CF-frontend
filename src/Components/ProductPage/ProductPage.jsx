@@ -23,8 +23,6 @@ export default function ProductPage({ handleOpenCart }) {
   // const [askQuestion, setAskQuestion] = useState(false);
   // const [stars, setStars] = useState(0);
   const [imgIndex, setImgIndex] = useState(0);
-  const [quantity, setQuantity] = useState(1);
-
   const [isProductFetched, setIsProductFetched] = useState(false);
 
   useEffect(() => {
@@ -69,7 +67,7 @@ export default function ProductPage({ handleOpenCart }) {
           },
         }
       )
-      .then((response) => {
+      .then(() => {
         swal("Congrats!", "Item added into your cart", "success").then(() =>
           setIsProductAlreadyInCart(true)
         );
@@ -79,10 +77,6 @@ export default function ProductPage({ handleOpenCart }) {
         swal("Oops!", err, "error");
       });
   };
-
-  function buyNow() {
-    // alert("Buy Now");
-  }
 
   const windowWidth = window.innerWidth;
   if (windowWidth <= 425) {
@@ -208,46 +202,6 @@ export default function ProductPage({ handleOpenCart }) {
                 <LabelValue label="Packaging by" value="CF Packaging" />
               </div>
             </div>
-            <div className="flex items-center justify-between gap-2 text-lg">
-              <div>Quantity</div>
-              <div className="flex items-center gap-1">
-                <div
-                  className="text-md text-Black w-8 h-8 flex items-center justify-center"
-                  onClick={() =>
-                    setQuantity((prev) => (prev > 1 ? prev - 1 : 1))
-                  }
-                >
-                  <FaMinus
-                    className={`${
-                      quantity === 1
-                        ? "opacity-50 cursor-default"
-                        : "cursor-pointer"
-                    }`}
-                  />
-                </div>
-                <Input
-                  type="number"
-                  name="quantity"
-                  value={quantity}
-                  readOnly={true}
-                  className="rounded border-dashed border border-Gray text-md font-medium w-8 text-center text-Black py-0.5 px-1"
-                />
-                <div
-                  className="text-md text-Black w-8 h-8 flex items-center justify-center"
-                  onClick={() =>
-                    setQuantity((prev) => (prev < 10 ? prev + 1 : 10))
-                  }
-                >
-                  <FaPlus
-                    className={`${
-                      quantity === 10
-                        ? "opacity-50 cursor-default"
-                        : "cursor-pointer"
-                    }`}
-                  />
-                </div>
-              </div>
-            </div>
           </div>
           <div className="grid grid-cols-2 gap-2 w-full">
             {isProductAlreadyInCart ? (
@@ -265,7 +219,7 @@ export default function ProductPage({ handleOpenCart }) {
                 </div>
               </button>
             )}
-            <button onClick={buyNow} className="w-full">
+            <button className="w-full">
               <Link to={"/product/buynow/" + productID}>
                 <div className="text-lg text-White gap-2 px-5 py-2 rounded-md bg-Purple text-center">
                   <span>Buy</span>

@@ -14,15 +14,23 @@ import Button from "../../../GS-Libs/Buttons/Button";
 export default function SellerAccount() {
   const navigate = useNavigate();
   const becomeSeller = () => {
+    const authToken = localStorage.getItem("authToken");
     axios
-      .post(`${SERVER_URL}/become-seller`, {
-        sellerEmail: sellerDetails.email,
-        sellerPhoneNumber: sellerDetails.phoneNumber,
-        sellerPANCardNumber: sellerDetails.panCardNumber,
-        sellerGSTNumber: sellerDetails.gstNumber,
-        authToken: localStorage.getItem("authToken"),
-        "Content-type": "application/json; charset=UTF-8",
-      })
+      .post(
+        `${SERVER_URL}/become-seller`,
+        {
+          sellerEmail: sellerDetails.email,
+          sellerPhoneNumber: sellerDetails.phoneNumber,
+          sellerPANCardNumber: sellerDetails.panCardNumber,
+          sellerGSTNumber: sellerDetails.gstNumber,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            authorization: `Bearer ${authToken}`,
+          },
+        }
+      )
       .then(() => {
         setSellerDetails({
           email: "",

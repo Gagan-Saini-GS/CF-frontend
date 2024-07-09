@@ -20,11 +20,18 @@ export default function Navbar({
   const [userDetails, setUserDetails] = useState(profileInitailValues);
 
   useEffect(() => {
+    const authToken = localStorage.getItem("authToken");
     axios
-      .post(`${SERVER_URL}/user-details`, {
-        "Content-type": "application/json; charset=UTF-8",
-        authToken: localStorage.getItem("authToken"),
-      })
+      .post(
+        `${SERVER_URL}/user-details`,
+        {},
+        {
+          headers: {
+            "Content-Type": "application/json",
+            authorization: `Bearer ${authToken}`,
+          },
+        }
+      )
       .then((response) => {
         setUserDetails(response.data.userDetails);
       })

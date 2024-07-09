@@ -45,11 +45,20 @@ const ProfileSlider = ({
   const [isEditing, setIsEditing] = useState(false);
 
   const updateProfile = () => {
+    const authToken = localStorage.getItem("authToken");
     axios
-      .post(`${SERVER_URL}/update-profile`, {
-        user: user,
-        authToken: localStorage.getItem("authToken"),
-      })
+      .post(
+        `${SERVER_URL}/update-profile`,
+        {
+          user: user,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            authorization: `Bearer ${authToken}`,
+          },
+        }
+      )
       .then((response) => {
         if (response.status === 200) {
           console.log(response);

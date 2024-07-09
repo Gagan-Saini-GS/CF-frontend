@@ -27,11 +27,20 @@ export default function UploadProduct() {
   const [imageIndex, setImageIndex] = useState(0);
 
   const uploadProduct = () => {
+    const authToken = localStorage.getItem("authToken");
     axios
-      .post(`${SERVER_URL}/upload-product`, {
-        authToken: localStorage.getItem("authToken"),
-        productDetails: productDetails,
-      })
+      .post(
+        `${SERVER_URL}/upload-product`,
+        {
+          productDetails: productDetails,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            authorization: `Bearer ${authToken}`,
+          },
+        }
+      )
       .then(() => {
         swal("Thanks", "Your Product is submitted!", "success").then(() => {
           setProductDetails(initailProductValues);

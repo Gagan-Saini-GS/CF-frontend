@@ -6,12 +6,21 @@ import { SERVER_URL } from "../../config";
 import swal from "sweetalert";
 
 const CartCard = ({ product }) => {
+  const authToken = localStorage.getItem("authToken");
   const removeFromCart = () => {
     axios
-      .post(`${SERVER_URL}/remove-from-cart`, {
-        productId: product._id,
-        authToken: localStorage.getItem("authToken"),
-      })
+      .post(
+        `${SERVER_URL}/remove-from-cart`,
+        {
+          productId: product._id,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            authorization: `Bearer ${authToken}`,
+          },
+        }
+      )
       .then((res) => {
         swal("Removed", "Product is removed", "info");
       })

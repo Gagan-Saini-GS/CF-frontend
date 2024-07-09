@@ -28,12 +28,21 @@ export default function ProductPage({ handleOpenCart }) {
   const [isProductFetched, setIsProductFetched] = useState(false);
 
   useEffect(() => {
+    const authToken = localStorage.getItem("authToken");
     setIsProductFetched(false);
     axios
-      .post(`${SERVER_URL}/get-product-with-id`, {
-        productID: productID,
-        authToken: localStorage.getItem("authToken"),
-      })
+      .post(
+        `${SERVER_URL}/get-product-with-id`,
+        {
+          productID: productID,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            authorization: `Bearer ${authToken}`,
+          },
+        }
+      )
       .then((response) => {
         setProduct(response.data.foundProduct);
         setSellerDetails(response.data.sellerDetails);
@@ -45,66 +54,21 @@ export default function ProductPage({ handleOpenCart }) {
       });
   }, [productID]);
 
-  // function submitReview() {
-  //   const reviewContent = document.querySelector(".review-form textarea").value;
-
-  //   axios
-  //     .post(`${SERVER_URL}/set-product-review`, {
-  //       productID: productID,
-  //       reviewContent: reviewContent,
-  //       starCount: stars,
-  //       authToken: localStorage.getItem("authToken"),
-  //     })
-  //     .then((response) => {
-  //       // console.log(response.data);
-  //       setReviews(response.data);
-  //       swal("Thanks", "Your review added successfully", "success");
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //       swal("Oops!", "Look's like something is wrong", "error");
-  //     });
-
-  //   setWriteReview(false);
-  // }
-
-  // function submitQuestion() {
-  //   const question = document.querySelector(".faq-question").value;
-  //   const answer = document.querySelector(".faq-answer").value;
-  //   // console.log(reivewContent);
-
-  //   axios
-  //     .post(`${SERVER_URL}/ask-product-question`, {
-  //       productID: productID,
-  //       question: question,
-  //       answer: answer,
-  //       authToken: localStorage.getItem("authToken"),
-  //     })
-  //     .then((response) => {
-  //       swal(
-  //         "Thanks",
-  //         "Your question is added successfully you will get your answer soon",
-  //         "success"
-  //       );
-  //       setFAQs(response.data);
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //       swal("Oops!", "Look's like something is wrong", "error");
-  //     });
-  //   setAskQuestion(false);
-  // }
-
-  // function setStarCount(index) {
-  //   setStars(index + 1);
-  // }
-
   const addToCart = () => {
+    const authToken = localStorage.getItem("authToken");
     axios
-      .post(`${SERVER_URL}/add-to-cart`, {
-        productID: productID,
-        authToken: localStorage.getItem("authToken"),
-      })
+      .post(
+        `${SERVER_URL}/add-to-cart`,
+        {
+          productID: productID,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            authorization: `Bearer ${authToken}`,
+          },
+        }
+      )
       .then((response) => {
         swal("Congrats!", "Item added into your cart", "success").then(() =>
           setIsProductAlreadyInCart(true)

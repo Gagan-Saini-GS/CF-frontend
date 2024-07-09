@@ -18,12 +18,21 @@ const Cart = ({ showCartSlider }) => {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
+    const authToken = localStorage.getItem("authToken");
+
     if (showCartSlider) {
       setIsLoading(true);
       axios
-        .post(`${SERVER_URL}/access-cart-items`, {
-          authToken: localStorage.getItem("authToken"),
-        })
+        .post(
+          `${SERVER_URL}/access-cart-items`,
+          {},
+          {
+            headers: {
+              "Content-Type": "application/json",
+              authorization: `Bearer ${authToken}`,
+            },
+          }
+        )
         .then((response) => {
           setCartProducts(response.data.products);
           setIsLoading(false);

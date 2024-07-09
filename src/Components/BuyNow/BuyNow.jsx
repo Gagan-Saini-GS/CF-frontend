@@ -53,11 +53,20 @@ export default function BuyNow() {
   const [quantity, setQuantity] = useState(1);
 
   useEffect(() => {
+    const authToken = localStorage.getItem("authToken");
     axios
-      .post(`${SERVER_URL}/buy-product`, {
-        authToken: localStorage.getItem("authToken"),
-        productID: params.productID,
-      })
+      .post(
+        `${SERVER_URL}/buy-product`,
+        {
+          productID: params.productID,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            authorization: `Bearer ${authToken}`,
+          },
+        }
+      )
       .then((response) => {
         setUser(response.data.userDetails);
         setPhoneNumber((prev) => ({

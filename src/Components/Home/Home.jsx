@@ -103,7 +103,11 @@ const Home = ({ openCart, setShowCartSlider }) => {
                       </div>
                     );
                   })}
-                  {isLoading && <div>Loading...</div>}
+                  {isLoading && (
+                    <div className="pt-4 w-full text-xl font-medium text-Gray text-center col-span-full">
+                      More Products Loading...
+                    </div>
+                  )}
                 </div>
               </>
             ) : (

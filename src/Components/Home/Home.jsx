@@ -42,7 +42,19 @@ const Home = ({ openCart, setShowCartSlider }) => {
 
   useEffect(() => {
     if (data?.products) {
-      setAllProducts((prev) => [...prev, ...data?.products]);
+      // If filter exist then save all products.
+      if (
+        selectedFilters.brands.length > 0 ||
+        selectedFilters.colors.length > 0 ||
+        selectedFilters.sizes.length > 0 ||
+        selectedFilters.materials.length > 0 ||
+        selectedFilters.genders.length > 0
+      ) {
+        setAllProducts([...data?.products]);
+      } else {
+        // For Pagination Records.
+        setAllProducts((prev) => [...prev, ...data?.products]);
+      }
       setTotalPages(data?.totalPages);
       setIsLoading(false);
     }

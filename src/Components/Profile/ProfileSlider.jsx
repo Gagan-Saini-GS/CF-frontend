@@ -40,7 +40,6 @@ const ProfileSlider = ({
   showProfileSlider,
   setShowProfileSlider,
 }) => {
-  // const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("user");
   const [isEditing, setIsEditing] = useState(false);
 
@@ -61,7 +60,6 @@ const ProfileSlider = ({
       )
       .then((response) => {
         if (response.status === 200) {
-          console.log(response);
           swal("Done!", "Your profile has been updated", "success");
           setIsEditing(false);
         } else {

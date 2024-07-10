@@ -61,6 +61,20 @@ const Home = ({ openCart, setShowCartSlider }) => {
   }, [data?.products]);
 
   useEffect(() => {
+    if (
+      selectedFilters.brands.length === 0 &&
+      selectedFilters.colors.length === 0 &&
+      selectedFilters.sizes.length === 0 &&
+      selectedFilters.materials.length === 0 &&
+      selectedFilters.genders.length === 0 &&
+      page !== 1
+    ) {
+      setAllProducts([]);
+      setPage(1);
+    }
+  }, [selectedFilters]);
+
+  useEffect(() => {
     if (openCart) {
       setShowCartSlider(true);
     }

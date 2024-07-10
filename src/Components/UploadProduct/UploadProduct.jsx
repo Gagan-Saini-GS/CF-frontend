@@ -175,7 +175,7 @@ export default function UploadProduct() {
                       },
                     });
                   }}
-                  value={productDetails.brand.label}
+                  value={productDetails.brand.name}
                   options={Brands.map((brand) => ({
                     label: brand.name,
                     value: brand.id,
@@ -197,7 +197,7 @@ export default function UploadProduct() {
                       },
                     });
                   }}
-                  value={productDetails.category.value}
+                  value={productDetails.category.name}
                   options={Categories.map((category) => ({
                     label: category.name,
                     value: category.id,

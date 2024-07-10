@@ -74,9 +74,15 @@ export const uploadProductValidation = {
 export const initailProductValues = {
   name: "",
   price: 0,
-  brand: "",
+  brand: {
+    name: "",
+    value: "",
+  },
   gender: "",
-  category: "",
+  category: {
+    name: "",
+    value: "",
+  },
   materials: "",
   description: "",
   sizes: [],

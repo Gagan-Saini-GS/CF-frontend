@@ -13,7 +13,7 @@ const Home = ({ openCart, setShowCartSlider }) => {
   const [isLoading, setIsLoading] = useState(false);
   const observer = useRef();
 
-  const limit = 8;
+  const limit = 12;
   const { searchQuery } = useSearchContext();
   const [allProducts, setAllProducts] = useState([]);
   const [page, setPage] = useState(1);
@@ -78,7 +78,7 @@ const Home = ({ openCart, setShowCartSlider }) => {
       });
       if (node) observer.current.observe(node);
     },
-    [isLoading, page, totalPages]
+    [isLoading, totalPages]
   );
 
   return (

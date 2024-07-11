@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import axios from "axios";
-import { SERVER_URL } from "../../config";
 import NavbarRightOptions from "./NavbarRightOptions";
 import ProfileSlider from "../Profile/ProfileSlider";
 import CartSlider from "../Cart/CartSlider";
 import { profileInitailValues } from "../../validations/profile-form";
 import CFLogoImage from "../../Assets/images/closet fashion-logos.jpeg";
+import useAPI from "../../hooks/useAPI";
 
 export default function Navbar({
   showProfileSlider,
@@ -18,27 +17,23 @@ export default function Navbar({
 }) {
   const [searchFlag, setSearchFlag] = useState(false);
   const [userDetails, setUserDetails] = useState(profileInitailValues);
+  const authToken = localStorage.getItem("authToken");
+
+  const { data } = useAPI(
+    "post",
+    "/user-details",
+    {},
+    {
+      "Content-Type": "application/json",
+      authorization: `Bearer ${authToken}`,
+    }
+  );
 
   useEffect(() => {
-    const authToken = localStorage.getItem("authToken");
-    axios
-      .post(
-        `${SERVER_URL}/user-details`,
-        {},
-        {
-          headers: {
-            "Content-Type": "application/json",
-            authorization: `Bearer ${authToken}`,
-          },
-        }
-      )
-      .then((response) => {
-        setUserDetails(response.data.userDetails);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
+    if (data) {
+      setUserDetails(data.userDetails);
+    }
+  }, [data]);
 
   return (
     <div className="flex items-center bg-White shadow shadow-Light px-4 py-2 md:py-4 sticky top-0 z-50">

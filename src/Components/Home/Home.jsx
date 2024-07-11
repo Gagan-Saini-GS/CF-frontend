@@ -3,14 +3,12 @@ import { MAX_PRICE, MIN_PRICE } from "../../config";
 import Filters from "../Filters/Filters";
 import { Link } from "react-router-dom";
 import ProductCard1 from "../ProductCards/ProductCard1";
-import useDebounce from "../../hooks/useDebounce";
 import NoResultsFound from "../../GS-Libs/MultiUse/NoResultsFound";
-import { fetchAllProducts } from "../../API/fetchAllProducts";
 import { useSearchContext } from "../../context/searchContext";
+import useDebouncedAPI from "../../hooks/useDebounceAPI";
 
 const Home = ({ openCart, setShowCartSlider }) => {
   const [totalPages, setTotalPages] = useState(1);
-  const [isLoading, setIsLoading] = useState(false);
   const observer = useRef();
 
   const limit = 12;
@@ -31,13 +29,23 @@ const Home = ({ openCart, setShowCartSlider }) => {
     genders: [],
   });
 
-  const { data } = useDebounce(
-    () => {
-      setIsLoading(true);
-      return fetchAllProducts(selectedFilters, searchQuery, page, limit);
+  const authToken = localStorage.getItem("authToken");
+
+  const { data, loading } = useDebouncedAPI(
+    "post",
+    "/get-all-products",
+    {
+      selectedFilters,
+      searchQuery,
+      page,
+      limit,
     },
-    250,
-    [selectedFilters, searchQuery, page]
+    {
+      "Content-Type": "application/json",
+      authorization: `Bearer ${authToken}`,
+    },
+    [page],
+    250
   );
 
   useEffect(() => {
@@ -56,7 +64,6 @@ const Home = ({ openCart, setShowCartSlider }) => {
         setAllProducts((prev) => [...prev, ...data?.products]);
       }
       setTotalPages(data?.totalPages);
-      setIsLoading(false);
     }
   }, [data?.products]);
 
@@ -83,7 +90,7 @@ const Home = ({ openCart, setShowCartSlider }) => {
   // Intersection Observer callback to detect when the sentinel div is visible
   const lastProductElementRef = useCallback(
     (node) => {
-      if (isLoading) return;
+      if (loading) return;
       if (observer.current) observer.current.disconnect();
       observer.current = new IntersectionObserver((entries) => {
         if (entries[0].isIntersecting && page < totalPages) {
@@ -92,7 +99,7 @@ const Home = ({ openCart, setShowCartSlider }) => {
       });
       if (node) observer.current.observe(node);
     },
-    [isLoading, totalPages]
+    [loading, page, totalPages]
   );
 
   return (
@@ -129,7 +136,7 @@ const Home = ({ openCart, setShowCartSlider }) => {
                       </div>
                     );
                   })}
-                  {isLoading && (
+                  {loading && (
                     <div className="pt-4 w-full text-xl font-medium text-Gray text-center col-span-full">
                       More Products Loading...
                     </div>
@@ -138,7 +145,7 @@ const Home = ({ openCart, setShowCartSlider }) => {
               </>
             ) : (
               <>
-                {isLoading ? (
+                {loading ? (
                   <div className="pt-4 w-full text-xl font-medium text-Gray text-center col-span-full">
                     Loading...
                   </div>

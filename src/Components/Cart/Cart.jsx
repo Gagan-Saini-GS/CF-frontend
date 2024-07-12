@@ -1,12 +1,11 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
 import CartCard from "./CartCard";
-import { SERVER_URL } from "../../config";
 import Button from "../../GS-Libs/Buttons/Button";
 import LabelValue from "../../GS-Libs/MultiUse/LabelValue";
 import CheckoutCard from "../ProductCards/CheckoutCard";
 import swal from "sweetalert";
 import NotFoundImage from "../../Assets/images/not found.jpg";
+import { apiCaller } from "../../GS-Libs/utils/apiCaller";
 
 const Cart = ({ showCartSlider }) => {
   const [cartProducts, setCartProducts] = useState([]);
@@ -17,29 +16,17 @@ const Cart = ({ showCartSlider }) => {
   });
   const [isLoading, setIsLoading] = useState(false);
 
-  useEffect(() => {
-    const authToken = localStorage.getItem("authToken");
+  const fetchCartItems = async () => {
+    const data = await apiCaller("/access-cart-items", "post", {});
 
+    setCartProducts(data.products);
+    setIsLoading(false);
+  };
+
+  useEffect(() => {
     if (showCartSlider) {
       setIsLoading(true);
-      axios
-        .post(
-          `${SERVER_URL}/access-cart-items`,
-          {},
-          {
-            headers: {
-              "Content-Type": "application/json",
-              authorization: `Bearer ${authToken}`,
-            },
-          }
-        )
-        .then((response) => {
-          setCartProducts(response.data.products);
-          setIsLoading(false);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+      fetchCartItems();
     }
   }, [showCartSlider]);
 
@@ -66,29 +53,24 @@ const Cart = ({ showCartSlider }) => {
   }, [cartProducts]);
 
   const checkout = async () => {
-    const authToken = localStorage.getItem("authToken");
+    if (cartProducts.length === 0) return;
 
-    try {
-      const res = await axios.post(
-        `${SERVER_URL}/checkout-product`,
-        {
-          products: cartProducts.map((product) => ({
-            _id: product._id,
-            quantity: product.quantity,
-          })),
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-            authorization: `Bearer ${authToken}`,
-          },
-        }
-      );
-      await swal("Done", "Order placed successfully", "success");
-    } catch (error) {
-      console.log(error);
-      await swal("Oops", "Something went wrong", "error");
-    }
+    await apiCaller("/checkout-product", "post", {
+      products: cartProducts.map((product) => ({
+        _id: product._id,
+        quantity: product.quantity,
+      })),
+    })
+      .then(() => swal("Done", "Order placed successfully", "success"))
+      .catch(() => swal("Oops", "Something went wrong", "error"));
+  };
+
+  const removeFromCart = async (productId) => {
+    setIsLoading(true);
+    await apiCaller("/remove-from-cart", "post", {
+      productId: productId,
+    });
+    await fetchCartItems();
   };
 
   if (isLoading) {
@@ -112,7 +94,13 @@ const Cart = ({ showCartSlider }) => {
         ) : (
           <div className="grid grid-cols-3 gap-4 overflow-y-scroll">
             {cartProducts?.reverse().map((product) => {
-              return <CartCard product={product} key={product._id} />;
+              return (
+                <CartCard
+                  product={product}
+                  key={product._id}
+                  removeFromCart={removeFromCart}
+                />
+              );
             })}
           </div>
         )}
@@ -156,7 +144,11 @@ const Cart = ({ showCartSlider }) => {
               value={`$${productPriceDetails.totalPrice}`}
             />
           </div>
-          <Button text="Checkout" onClick={checkout} />
+          <Button
+            text="Checkout"
+            onClick={checkout}
+            disabled={cartProducts.length === 0}
+          />
         </div>
       </div>
     </div>

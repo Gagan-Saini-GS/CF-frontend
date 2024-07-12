@@ -6,6 +6,7 @@ const Button = ({
   onClick,
   size = "medium",
   primaryColor = true,
+  disabled = false,
 }) => {
   const [buttonSize, setButtonSize] = useState("p-0 text-base");
 
@@ -35,9 +36,12 @@ const Button = ({
     <button
       type={type}
       onClick={onClick}
-      className={`w-full text-center cursor-pointer rounded shadow ${
+      className={`w-full text-center rounded shadow ${
         primaryColor ? "bg-Purple text-White" : "bg-Purple/30 text-Black"
-      } ${buttonSize}`}
+      } ${buttonSize} ${
+        disabled ? "opacity-80 cursor-not-allowed" : "cursor-pointer"
+      }`}
+      disabled={disabled}
     >
       {text}
     </button>

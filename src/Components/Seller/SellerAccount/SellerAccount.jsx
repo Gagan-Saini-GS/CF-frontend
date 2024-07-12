@@ -1,7 +1,5 @@
 import React from "react";
-import axios from "axios";
 import swal from "sweetalert";
-import { SERVER_URL } from "../../../config";
 import { useNavigate } from "react-router-dom";
 import { Input } from "../../../GS-Libs/Input/input";
 import useForm from "../../../hooks/useForm";
@@ -10,45 +8,33 @@ import {
   sellerValidation,
 } from "../../../validations/seller-form";
 import Button from "../../../GS-Libs/Buttons/Button";
+import { apiCaller } from "../../../GS-Libs/utils/apiCaller";
 
 export default function SellerAccount() {
   const navigate = useNavigate();
-  const becomeSeller = () => {
-    const authToken = localStorage.getItem("authToken");
-    axios
-      .post(
-        `${SERVER_URL}/become-seller`,
-        {
-          sellerEmail: sellerDetails.email,
-          sellerPhoneNumber: sellerDetails.phoneNumber,
-          sellerPANCardNumber: sellerDetails.panCardNumber,
-          sellerGSTNumber: sellerDetails.gstNumber,
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-            authorization: `Bearer ${authToken}`,
-          },
-        }
-      )
-      .then(() => {
-        setSellerDetails({
-          email: "",
-          phoneNumber: "",
-          panCardNumber: "",
-          gstNumber: "",
-          terms: false,
-        });
-        swal("Thanks!", "You become a seller now", "success").then(() => {
-          navigate("/home");
-        });
-      })
-      .catch((err) => {
-        console.log(err);
-        swal("Oops!", "Something is wrong", "error").then(() => {
-          navigate("/home");
-        });
+  const becomeSeller = async () => {
+    try {
+      await apiCaller("/become-seller", "post", {
+        sellerEmail: sellerDetails.email,
+        sellerPhoneNumber: sellerDetails.phoneNumber,
+        sellerPANCardNumber: sellerDetails.panCardNumber,
+        sellerGSTNumber: sellerDetails.gstNumber,
       });
+
+      setSellerDetails({
+        email: "",
+        phoneNumber: "",
+        panCardNumber: "",
+        gstNumber: "",
+        terms: false,
+      });
+      swal("Thanks!", "You become a seller now", "success").then(() => {
+        navigate("/home");
+      });
+    } catch (error) {
+      console.log(error);
+      swal("Oops!", "Something is wrong", "error");
+    }
   };
 
   const {

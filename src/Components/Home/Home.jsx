@@ -56,7 +56,8 @@ const Home = ({ openCart, setShowCartSlider }) => {
         selectedFilters.colors.length > 0 ||
         selectedFilters.sizes.length > 0 ||
         selectedFilters.materials.length > 0 ||
-        selectedFilters.genders.length > 0
+        selectedFilters.genders.length > 0 ||
+        searchQuery?.length > 0
       ) {
         setAllProducts([...data?.products]);
       } else {
@@ -74,7 +75,7 @@ const Home = ({ openCart, setShowCartSlider }) => {
       selectedFilters.sizes.length === 0 &&
       selectedFilters.materials.length === 0 &&
       selectedFilters.genders.length === 0 &&
-      page !== 1
+      searchQuery?.length === 0
     ) {
       setAllProducts([]);
       setPage(1);

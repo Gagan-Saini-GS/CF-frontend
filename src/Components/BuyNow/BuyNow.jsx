@@ -1,8 +1,7 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import swal from "sweetalert";
-import { Colors, PaymentMethods, SERVER_URL, Sizes } from "../../config";
+import { Colors, PaymentMethods, Sizes } from "../../config";
 import { Input } from "../../GS-Libs";
 import Button from "../../GS-Libs/Buttons/Button";
 import { Textarea } from "../../GS-Libs/Input/Textarea";
@@ -15,6 +14,7 @@ import {
   buyProductPageUserInitailValues,
   buyProductPageUserValidations,
 } from "../../validations/buy-product-page-validations";
+import { apiCaller } from "../../GS-Libs/utils/apiCaller";
 
 const PaymentItem = ({ name, value, isSelected, setPaymentMethod }) => {
   return (
@@ -34,15 +34,6 @@ const PaymentItem = ({ name, value, isSelected, setPaymentMethod }) => {
 export default function BuyNow() {
   const navigate = useNavigate();
   const params = useParams();
-  // const [user, setUser] = useState();
-  const [phoneNumber, setPhoneNumber] = useState({
-    phoneNumber: "",
-    isValid: true,
-  });
-  const [address, setAddress] = useState({
-    address: "",
-    isValid: true,
-  });
 
   const [paymentMethod, setPaymentMethod] = useState({
     paymentMethod: "",
@@ -55,62 +46,35 @@ export default function BuyNow() {
   const [selectedColor, setSelectedColor] = useState("");
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [quantity, setQuantity] = useState(1);
-  const [upiIdValue, setUpiIdValue] = useState("");
-  const [cardDetails, setCardDetails] = useState({
-    cardNumber: "",
-    validDate: "",
-    cvc: "",
-  });
 
-  const placeOrder = () => {
-    setIsSubmitted(true);
-    if (
-      phoneNumber.phoneNumber === undefined ||
-      phoneNumber.phoneNumber.length !== 10
-    ) {
-      setPhoneNumber((prev) => ({ ...prev, isValid: false }));
-    }
-
-    if (address.address === undefined || address.address.length === 0) {
-      setAddress((prev) => ({ ...prev, isValid: false }));
-    }
-
-    if (paymentMethod.paymentMethod === "") {
-      setPaymentMethod((prev) => ({ ...prev, isValid: false }));
-    }
-
-    const authToken = localStorage.getItem("authToken");
-    axios
-      .post(
-        `${SERVER_URL}/checkout-product`,
-        {
-          products: [{ _id: params.productID, quantity: quantity }],
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-            authorization: `Bearer ${authToken}`,
+  const placeOrder = async () => {
+    try {
+      await apiCaller("/checkout-product", "post", {
+        products: [
+          {
+            _id: params.productID,
+            quantity: quantity,
+            size: selectedSize,
+            color: selectedColor,
+            paymentMethod: paymentMethod.paymentMethod,
           },
-        }
-      )
-      .then(() => {
-        swal(
-          "Congrats!",
-          "The item is added into your order list and delivered soon when we start delivering the products.",
-          "success"
-        ).then(() => {
-          setIsSubmitted(false);
-          navigate("/home");
-        });
-      })
-      .catch((err) => {
-        swal("Sorry!", "We don't start delivering products yet!", "info").then(
-          () => {
-            setIsSubmitted(false);
-          }
-        );
-        console.log(err);
+        ],
       });
+
+      await swal(
+        "Congrats!",
+        "The item is added into your order list and delivered soon when we start delivering the products.",
+        "success"
+      ).then(() => {
+        setIsSubmitted(false);
+        navigate("/home");
+      });
+    } catch (error) {
+      swal("Sorry!", "We don't start delivering products yet!", "info").then(
+        () => setIsSubmitted(false)
+      );
+      console.log(err);
+    }
   };
 
   const {
@@ -125,34 +89,27 @@ export default function BuyNow() {
     placeOrder
   );
 
-  useEffect(() => {
-    const authToken = localStorage.getItem("authToken");
-    axios
-      .post(
-        `${SERVER_URL}/buy-product`,
-        {
-          productID: params.productID,
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-            authorization: `Bearer ${authToken}`,
-          },
-        }
-      )
-      .then((response) => {
-        setFormData((prev) => ({
-          ...prev,
-          name: response.data.userDetails.name,
-          email: response.data.userDetails.email,
-          phoneNumber: response.data.userDetails.phoneNumber,
-          address: response.data.userDetails.address,
-        }));
-        setProduct(response.data.productDetails);
-      })
-      .catch((err) => {
-        console.log(err);
+  const buyProductDetails = async () => {
+    try {
+      const data = await apiCaller("/buy-product", "post", {
+        productID: params.productID,
       });
+
+      setFormData((prev) => ({
+        ...prev,
+        name: response.data.userDetails.name,
+        email: response.data.userDetails.email,
+        phoneNumber: response.data.userDetails.phoneNumber,
+        address: response.data.userDetails.address,
+      }));
+      setProduct(data.productDetails);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    buyProductDetails();
   }, [params.productID]);
 
   if (!product || !user) {
@@ -163,7 +120,19 @@ export default function BuyNow() {
     );
   }
 
-  // TODO: Store varient in backend like which color, size, payment method user choosed
+  const submitForm = (e) => {
+    setIsSubmitted(true);
+    if (
+      paymentMethod.paymentMethod === "" ||
+      selectedSize === "" ||
+      selectedColor === ""
+    ) {
+      setPaymentMethod((prev) => ({ ...prev, isValid: false }));
+      return;
+    }
+
+    handleSubmit(e);
+  };
 
   return (
     <div className="w-screen flex justify-center bg-White">
@@ -278,7 +247,7 @@ export default function BuyNow() {
                     type="number"
                     name="phoneNumber"
                     placeholder="Enter Phone Number"
-                    value={phoneNumber.phoneNumber}
+                    value={user.phoneNumber}
                     onChange={handleChange}
                     errorMessage={errors.phoneNumber}
                   />
@@ -294,7 +263,7 @@ export default function BuyNow() {
                   <Textarea
                     name="address"
                     placeholder="Enter Address"
-                    value={address.address}
+                    value={user.address}
                     onChange={handleChange}
                     errorMessage={errors.address}
                   />
@@ -437,7 +406,7 @@ export default function BuyNow() {
           </div>
         </div>
         <div className="w-full mt-4">
-          <Button text="Place Order" size="medium" onClick={handleSubmit} />
+          <Button text="Place Order" size="medium" onClick={submitForm} />
         </div>
       </div>
     </div>

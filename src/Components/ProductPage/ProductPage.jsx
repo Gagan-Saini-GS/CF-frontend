@@ -1,15 +1,13 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import { Link, useParams } from "react-router-dom";
 import swal from "sweetalert";
-import { SERVER_URL, Sizes } from "../../config";
+import { Sizes } from "../../config";
 import MobileProductPage from "./MobileProductPage";
 import Checkbox from "../../GS-Libs/Input/Checkbox";
 import { getDeliveryDate } from "../../GS-Libs/utils/getDeliveryDate";
-import { Input } from "../../GS-Libs/Input/input";
-import { FaMinus, FaPlus } from "react-icons/fa";
 import ColorFilterCard from "../Filters/ColorFilterCard";
 import LabelValue from "../../GS-Libs/MultiUse/LabelValue";
+import { apiCaller } from "../../GS-Libs/utils/apiCaller";
 
 export default function ProductPage({ handleOpenCart }) {
   const params = useParams();
@@ -25,57 +23,39 @@ export default function ProductPage({ handleOpenCart }) {
   const [imgIndex, setImgIndex] = useState(0);
   const [isProductFetched, setIsProductFetched] = useState(false);
 
-  useEffect(() => {
-    const authToken = localStorage.getItem("authToken");
+  const getProductById = async () => {
     setIsProductFetched(false);
-    axios
-      .post(
-        `${SERVER_URL}/get-product-with-id`,
-        {
-          productID: productID,
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-            authorization: `Bearer ${authToken}`,
-          },
-        }
-      )
-      .then((response) => {
-        setProduct(response.data.foundProduct);
-        setSellerDetails(response.data.sellerDetails);
-        setIsProductAlreadyInCart(response.data.isProductAlreadyInCart);
-        setIsProductFetched(true);
-      })
-      .catch((err) => {
-        console.log(err);
+    try {
+      const data = await apiCaller("get-product-with-id", "post", {
+        productID: productID,
       });
+
+      setProduct(data.foundProduct);
+      setSellerDetails(data.sellerDetails);
+      setIsProductAlreadyInCart(data.isProductAlreadyInCart);
+      setIsProductFetched(true);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getProductById();
   }, [productID]);
 
-  const addToCart = () => {
-    const authToken = localStorage.getItem("authToken");
-    axios
-      .post(
-        `${SERVER_URL}/add-to-cart`,
-        {
-          productID: productID,
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-            authorization: `Bearer ${authToken}`,
-          },
-        }
-      )
-      .then(() => {
-        swal("Congrats!", "Item added into your cart", "success").then(() =>
-          setIsProductAlreadyInCart(true)
-        );
-      })
-      .catch((err) => {
-        console.log(err);
-        swal("Oops!", err, "error");
+  const addToCart = async () => {
+    try {
+      await apiCaller("/add-to-cart", "post", {
+        productID: productID,
       });
+
+      swal("Congrats!", "Item added into your cart", "success").then(() =>
+        setIsProductAlreadyInCart(true)
+      );
+    } catch (error) {
+      console.log(error);
+      swal("Oops!", err, "error");
+    }
   };
 
   const windowWidth = window.innerWidth;

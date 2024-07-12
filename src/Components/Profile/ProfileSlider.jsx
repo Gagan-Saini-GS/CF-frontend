@@ -5,8 +5,6 @@ import { HiShoppingBag } from "react-icons/hi2";
 import { FiLogOut } from "react-icons/fi";
 import Profile from "./Profile";
 import MyOrders from "./MyOrders";
-import axios from "axios";
-import { SERVER_URL } from "../../config";
 import SellerAccount from "../Seller/SellerAccount/SellerAccount";
 import useForm from "../../hooks/useForm";
 import {
@@ -15,6 +13,7 @@ import {
 } from "../../validations/profile-form";
 import swal from "sweetalert";
 import UploadProduct from "../UploadProduct/UploadProduct";
+import { apiCaller } from "../../GS-Libs/utils/apiCaller";
 
 const TabOptions = [
   {
@@ -43,33 +42,20 @@ const ProfileSlider = ({
   const [activeTab, setActiveTab] = useState("user");
   const [isEditing, setIsEditing] = useState(false);
 
-  const updateProfile = () => {
-    const authToken = localStorage.getItem("authToken");
-    axios
-      .post(
-        `${SERVER_URL}/update-profile`,
-        {
-          user: user,
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-            authorization: `Bearer ${authToken}`,
-          },
-        }
-      )
-      .then((response) => {
-        if (response.status === 200) {
-          swal("Done!", "Your profile has been updated", "success");
-          setIsEditing(false);
-        } else {
-          swal("Oops!", "Something went wrong, try again", "error");
-        }
-      })
-      .catch((err) => {
+  const updateProfile = async () => {
+    try {
+      const data = await apiCaller("/update-profile", "post", { user });
+
+      if (data.status === 200) {
+        swal("Done!", "Your profile has been updated", "success");
+        setIsEditing(false);
+      } else {
         swal("Oops!", "Something went wrong, try again", "error");
-        console.log(err);
-      });
+      }
+    } catch (error) {
+      swal("Oops!", "Something went wrong, try again", "error");
+      console.log(error);
+    }
   };
 
   const {

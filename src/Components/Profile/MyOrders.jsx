@@ -1,30 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import OrderCard from "../ProductCards/OrderCard";
-import axios from "axios";
-import { SERVER_URL } from "../../config";
 import NotFoundImage from "../../Assets/images/not found.jpg";
+import { apiCaller } from "../../GS-Libs/utils/apiCaller";
 
 const MyOrders = ({ orders, showProfileSlider }) => {
   const [userOrders, setUserOrders] = useState([]);
 
   const fetchProductData = async () => {
-    const authToken = localStorage.getItem("authToken");
     try {
-      const res = await axios.post(
-        `${SERVER_URL}/ordered-products`,
-        {
-          orders: orders,
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-            authorization: `Bearer ${authToken}`,
-          },
-        }
-      );
+      const data = await apiCaller("/ordered-products", "post", {
+        orders: orders,
+      });
 
-      setUserOrders(res.data.products);
+      setUserOrders(data.products);
     } catch (error) {
       console.log(error);
     }

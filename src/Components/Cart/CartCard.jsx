@@ -1,35 +1,8 @@
 import React from "react";
 import Button from "../../GS-Libs/Buttons/Button";
 import { Link } from "react-router-dom";
-import axios from "axios";
-import { SERVER_URL } from "../../config";
-import swal from "sweetalert";
 
-const CartCard = ({ product }) => {
-  const authToken = localStorage.getItem("authToken");
-  const removeFromCart = () => {
-    axios
-      .post(
-        `${SERVER_URL}/remove-from-cart`,
-        {
-          productId: product._id,
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-            authorization: `Bearer ${authToken}`,
-          },
-        }
-      )
-      .then((res) => {
-        swal("Removed", "Product is removed", "info");
-      })
-      .catch((err) => {
-        swal("OOPs", "Product is not removed", "error");
-        console.log(err);
-      });
-  };
-
+const CartCard = ({ product, removeFromCart }) => {
   return (
     <div className="w-full h-fit p-2 rounded-md shadow-md flex flex-col justify-between border border-dashed border-Gray cursor-pointer hover:border-solid hover:border-Purple hover:shadow-lg">
       <div className="h-64">
@@ -60,7 +33,7 @@ const CartCard = ({ product }) => {
           text="Remove"
           size="small"
           primaryColor={false}
-          onClick={() => removeFromCart()}
+          onClick={() => removeFromCart(product._id)}
         />
         <Link to={"/product/buynow/" + product._id}>
           <Button

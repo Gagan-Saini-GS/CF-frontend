@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import uploadImage from "../../Assets/imgChange";
-import axios from "axios";
 import swal from "sweetalert";
 import {
   Brands,
@@ -8,7 +7,6 @@ import {
   Colors,
   Genders,
   Materials,
-  SERVER_URL,
   Sizes,
 } from "../../config";
 import Checkbox from "../../GS-Libs/Input/Checkbox";
@@ -22,38 +20,27 @@ import {
 import { Input } from "../../GS-Libs/Input/input";
 import Select from "../../GS-Libs/Input/Select";
 import { Textarea } from "../../GS-Libs/Input/Textarea";
+import { apiCaller } from "../../GS-Libs/utils/apiCaller";
 
 export default function UploadProduct() {
   const [imageIndex, setImageIndex] = useState(0);
 
-  const uploadProduct = () => {
-    const authToken = localStorage.getItem("authToken");
-    axios
-      .post(
-        `${SERVER_URL}/upload-product`,
-        {
-          productDetails: productDetails,
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-            authorization: `Bearer ${authToken}`,
-          },
-        }
-      )
-      .then(() => {
-        swal("Thanks", "Your Product is submitted!", "success").then(() => {
-          setProductDetails(initailProductValues);
-          setImageIndex(0);
-        });
-      })
-      .catch((err) => {
-        console.log(err);
-        swal("Oops", "Something went wrong", "error").then(() => {
-          setProductDetails(initailProductValues);
-          setImageIndex(0);
-        });
+  const uploadProduct = async () => {
+    try {
+      await apiCaller("/upload-product", "post", {
+        productDetails: productDetails,
       });
+
+      swal("Thanks", "Your Product is uploaded!", "success");
+      setProductDetails(initailProductValues);
+      setImageIndex(0);
+    } catch (error) {
+      console.log(error);
+      swal("Oops", "Something went wrong", "error").then(() => {
+        setProductDetails(initailProductValues);
+        setImageIndex(0);
+      });
+    }
   };
 
   const {

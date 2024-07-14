@@ -21,7 +21,7 @@ export const uploadProductValidation = {
     }
   },
   brand: (value) => {
-    if (!value) {
+    if (!value.value) {
       return "Brand is required";
     }
   },
@@ -31,7 +31,7 @@ export const uploadProductValidation = {
     }
   },
   category: (value) => {
-    if (!value) {
+    if (!value.value) {
       return "Category is required";
     }
   },
@@ -65,7 +65,7 @@ export const uploadProductValidation = {
     if (!Array.isArray(value) || value.length === 0) {
       return "At least one product image is required";
     }
-    if (value.length === 1 && value.includes("images/not found.jpg")) {
+    if (value.length === 1 && value.includes(NotFoundImage)) {
       return "At least one product image is required";
     }
   },

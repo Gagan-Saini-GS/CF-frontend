@@ -6,6 +6,8 @@ import CartSlider from "../Cart/CartSlider";
 import { profileInitailValues } from "../../validations/profile-form";
 import CFLogoImage from "../../Assets/images/closet fashion-logos.jpeg";
 import useAPI from "../../hooks/useAPI";
+import { FiMenu } from "react-icons/fi";
+import { RxCross1 } from "react-icons/rx";
 
 export default function Navbar({
   showProfileSlider,
@@ -14,6 +16,8 @@ export default function Navbar({
   setShowCartSlider,
   userAuthToken,
   setUserAuthToken,
+  showFilterSection,
+  setShowFilterSection,
 }) {
   const [searchFlag, setSearchFlag] = useState(false);
   const [userDetails, setUserDetails] = useState(profileInitailValues);
@@ -40,6 +44,16 @@ export default function Navbar({
       {searchFlag !== undefined && !searchFlag && (
         <div className="flex items-center justify-between w-full">
           <div className="flex items-center gap-2">
+            <div
+              className="md:hidden"
+              onClick={() => setShowFilterSection((prev) => !prev)}
+            >
+              {showFilterSection ? (
+                <RxCross1 className="w-6 h-6 font-semibold" />
+              ) : (
+                <FiMenu className="w-6 h-6 font-semibold" />
+              )}
+            </div>
             <Link to="/home">
               <img
                 src={CFLogoImage}

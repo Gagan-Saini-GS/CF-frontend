@@ -82,8 +82,8 @@ const Cart = ({ showCartSlider }) => {
   }
 
   return (
-    <div className="w-full h-full flex">
-      <div className="w-2/3 h-full px-4 pt-8 pb-4">
+    <div className="w-full min-h-fit md:h-full md:flex overflow-y-scroll">
+      <div className="w-full md:w-2/3 md:h-full p-2 md:px-4 md:pt-8 md:pb-4">
         {cartProducts?.length === 0 ? (
           <div className="w-full h-full">
             <div className="text-lg font-medium text-Gray">Empty Cart</div>
@@ -92,7 +92,7 @@ const Cart = ({ showCartSlider }) => {
             </div>
           </div>
         ) : (
-          <div className="grid grid-cols-3 gap-4 overflow-y-scroll">
+          <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 gap-2 md:gap-4 md:h-full overflow-y-scroll">
             {cartProducts?.reverse().map((product) => {
               return (
                 <CartCard
@@ -105,7 +105,7 @@ const Cart = ({ showCartSlider }) => {
           </div>
         )}
       </div>
-      <div className="w-1/3 h-full px-4 pt-8 pb-4 bg-Gray/20 relative flex flex-col justify-between">
+      <div className="w-full md:w-1/3 md:h-full p-2 md:px-4 md:pt-8 md:pb-4 bg-Gray/20 relative flex flex-col justify-between">
         <div className="w-full">
           <div className="pb-5 uppercase text-lg text-Black font-medium">
             Checkout

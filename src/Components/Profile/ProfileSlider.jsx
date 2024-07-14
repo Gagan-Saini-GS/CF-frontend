@@ -88,7 +88,7 @@ const ProfileSlider = ({
 
   return (
     <div
-      className={`w-1/3 h-full bg-Light shadow shadow-Gray flex text-Black fixed overflow-hidden transition-all duration-300 ease-in-out top-0 ${
+      className={`w-full xs:w-3/4 md:w-1/3 h-full bg-Light shadow shadow-Gray flex text-Black fixed overflow-hidden transition-all duration-300 ease-in-out top-0 ${
         showProfileSlider ? "right-0" : "-right-full"
       }`}
     >
@@ -127,7 +127,7 @@ const ProfileSlider = ({
         </div>
         <div className="flex items-center h-[95%] relative">
           <div
-            className={`w-full h-full absolute p-2 rounded transition-all duration-300 ease-in-out overflow-y-scroll ${
+            className={`w-full h-full absolute md:p-2 rounded transition-all duration-300 ease-in-out overflow-y-scroll ${
               activeTab === "user" ? "right-0" : "-right-[120%]"
             }`}
           >
@@ -142,7 +142,7 @@ const ProfileSlider = ({
             />
           </div>
           <div
-            className={`w-full h-full absolute p-2 rounded transition-all duration-300 ease-in-out overflow-y-scroll ${
+            className={`w-full h-full absolute md:p-2 rounded transition-all duration-300 ease-in-out overflow-y-scroll ${
               activeTab === "orders" ? "right-0" : "-right-[120%]"
             }`}
           >
@@ -152,7 +152,7 @@ const ProfileSlider = ({
             />
           </div>
           <div
-            className={`w-full h-full absolute p-2 rounded transition-all duration-300 ease-in-out overflow-y-scroll ${
+            className={`w-full h-full absolute md:p-2 rounded transition-all duration-300 ease-in-out overflow-y-scroll ${
               activeTab === "seller" ? "right-0" : "-right-[120%]"
             }`}
           >

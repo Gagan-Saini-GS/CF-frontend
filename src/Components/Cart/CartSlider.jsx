@@ -5,7 +5,7 @@ import { ImCross } from "react-icons/im";
 const CartSlider = ({ showCartSlider, setShowCartSlider }) => {
   return (
     <div
-      className={`w-3/4 h-full bg-Light shadow shadow-Gray flex text-Black fixed overflow-hidden transition-all duration-300 ease-in-out top-0 ${
+      className={`w-full md:w-3/4 h-full bg-Light shadow shadow-Gray flex text-Black fixed overflow-hidden transition-all duration-300 ease-in-out top-0 ${
         showCartSlider ? "right-0" : "-right-full"
       }`}
     >

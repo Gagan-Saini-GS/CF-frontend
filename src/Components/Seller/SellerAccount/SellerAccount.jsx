@@ -124,15 +124,9 @@ export default function SellerAccount() {
               <div>Accept T&C to continue</div>
             </div>
           </div>
-          <div className="w-1/3">
+          <div className="w-full md:w-1/3 absolute bottom-0 right-0">
             <Button text="Become Seller" type="submit" />
           </div>
-          {/* <button
-            type="submit"
-            className="w-1/3 absolute bottom-0 right-0 bg-Purple p-2 text-White font-semibold text-center cursor-pointer rounded"
-          >
-            Become Seller
-          </button> */}
         </form>
       </div>
     </div>

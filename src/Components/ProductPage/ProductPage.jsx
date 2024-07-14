@@ -26,7 +26,7 @@ export default function ProductPage({ handleOpenCart }) {
   const getProductById = async () => {
     setIsProductFetched(false);
     try {
-      const data = await apiCaller("get-product-with-id", "post", {
+      const data = await apiCaller("/get-product-with-id", "post", {
         productID: productID,
       });
 
@@ -54,14 +54,14 @@ export default function ProductPage({ handleOpenCart }) {
       );
     } catch (error) {
       console.log(error);
-      swal("Oops!", err, "error");
+      swal("Oops!", error, "error");
     }
   };
 
-  const windowWidth = window.innerWidth;
-  if (windowWidth <= 425) {
-    return <MobileProductPage productID={productID} />;
-  }
+  // const windowWidth = window.innerWidth;
+  // if (windowWidth <= 425) {
+  //   return <MobileProductPage productID={productID} />;
+  // }
 
   if (!isProductFetched) {
     return (

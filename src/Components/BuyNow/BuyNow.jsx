@@ -73,7 +73,7 @@ export default function BuyNow() {
       swal("Sorry!", "We don't start delivering products yet!", "info").then(
         () => setIsSubmitted(false)
       );
-      console.log(err);
+      console.log(error);
     }
   };
 
@@ -97,10 +97,10 @@ export default function BuyNow() {
 
       setFormData((prev) => ({
         ...prev,
-        name: response.data.userDetails.name,
-        email: response.data.userDetails.email,
-        phoneNumber: response.data.userDetails.phoneNumber,
-        address: response.data.userDetails.address,
+        name: data.userDetails.name,
+        email: data.userDetails.email,
+        phoneNumber: data.userDetails.phoneNumber,
+        address: data.userDetails.address,
       }));
       setProduct(data.productDetails);
     } catch (error) {

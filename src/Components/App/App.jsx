@@ -14,7 +14,7 @@ import Navbar from "../Navbar/Navbar.jsx";
 import Footer from "../Footer/Footer.jsx";
 import { SearchContextProvider } from "../../context/searchContext.jsx";
 
-const AppLayout = () => {
+const AppLayout = ({ showFilterSection, setShowFilterSection }) => {
   const [showProfileSlider, setShowProfileSlider] = useState(false);
   const [showCartSlider, setShowCartSlider] = useState(false);
   const [authToken, setAuthToken] = useState(
@@ -26,9 +26,11 @@ const AppLayout = () => {
   };
 
   return (
-    <div className="h-screen bg-White flex flex-col justify-between">
+    <div className="h-screen bg-White ">
       <SearchContextProvider>
         <Navbar
+          showFilterSection={showFilterSection}
+          setShowFilterSection={setShowFilterSection}
           showProfileSlider={showProfileSlider}
           setShowProfileSlider={setShowProfileSlider}
           showCartSlider={showCartSlider}
@@ -37,7 +39,7 @@ const AppLayout = () => {
           setUserAuthToken={setUserAuthToken}
         />
         <Outlet />
-        <Footer />
+        {/* <Footer /> */}
       </SearchContextProvider>
     </div>
   );
@@ -64,6 +66,7 @@ const App = () => {
     setOpenCart(true);
   };
 
+  const [showFilterSection, setShowFilterSection] = useState(false);
   const [showCartSlider, setShowCartSlider] = useState(false);
 
   const appRouter = createBrowserRouter([
@@ -73,12 +76,19 @@ const App = () => {
     },
     {
       path: "/",
-      element: <AppLayout />,
+      element: (
+        <AppLayout
+          showFilterSection={showFilterSection}
+          setShowFilterSection={setShowFilterSection}
+        />
+      ),
       children: [
         {
           path: "/home",
           element: (
             <Home
+              showFilterSection={showFilterSection}
+              setShowFilterSection={setShowFilterSection}
               openCart={openCart}
               setOpenCart={setOpenCart}
               userAuthToken={authToken}

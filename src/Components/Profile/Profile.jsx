@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { toTitleCase } from "../../GS-Libs/utils/toTitleCase";
 import { Input } from "../../GS-Libs/Input/input";
 import { MdEdit } from "react-icons/md";
 import uploadImage from "../../GS-Libs/utils/uploadImage";
 import Button from "../../GS-Libs/Buttons/Button";
 import ManProfileImage from "../../Assets/images/man.png";
+import ProfileCard from "./ProfileCard";
 
 export default function Profile({
   user,
@@ -55,7 +55,7 @@ export default function Profile({
           )}
           <div className="relative w-full h-full">
             <img
-              className="rounded-full absolute top-0 w-full h-full max-w-60 max-h-60"
+              className="rounded-lg absolute top-0 w-full h-full max-w-60 max-h-60"
               src={
                 user.profileImage !== "" ? user.profileImage : ManProfileImage
               }
@@ -66,207 +66,75 @@ export default function Profile({
           </div>
         </div>
         <div className="flex flex-col gap-2 pt-10">
-          <div className="flex items-center gap-2 w-full">
-            <p className="text-Gray w-1/3 max-w-32">Name</p>
-            <div className="text-Black w-2/3">
-              {isEditing ? (
-                <div>
-                  <Input
-                    className="p-2 border-2 border-Black/20 bg-Gray/10 rounded text-Black w-full"
-                    type={"text"}
-                    placeholder={"Enter Name"}
-                    value={user.name}
-                    name={"name"}
-                    errorMessage={errors.name}
-                    onChange={(e) => handleChange(e)}
-                  />
-                </div>
-              ) : (
-                <div className="font-semibold">
-                  {user.name === "" ? "Not available" : user.name}
-                </div>
-              )}
-            </div>
-          </div>
-          <div className="flex items-center gap-2 w-full">
-            <p className="text-Gray w-1/3 max-w-32">Email</p>
-            <div className="text-Black w-2/3">
-              {isEditing ? (
-                <div>
-                  <Input
-                    className="p-2 border-2 border-Black/20 bg-Gray/10 rounded text-Black w-full"
-                    type={"text"}
-                    placeholder={"Enter Email"}
-                    value={user.email}
-                    name={"email"}
-                    errorMessage={errors.email}
-                    onChange={(e) => handleChange(e)}
-                  />
-                </div>
-              ) : (
-                <div className="font-semibold">
-                  {user.email === "" ? "Not available" : user.email}
-                </div>
-              )}
-            </div>
-          </div>
-          <div className="flex items-center gap-2 w-full">
-            <p className="text-Gray w-1/3 max-w-32">Phone Number</p>
-            <div className="text-Black w-2/3">
-              {isEditing ? (
-                <div>
-                  <Input
-                    className="p-2 border-2 border-Black/20 bg-Gray/10 rounded text-Black w-full"
-                    type={"text"}
-                    placeholder={"Enter Phone Number"}
-                    value={user.phoneNumber}
-                    name={"phoneNumber"}
-                    errorMessage={errors.phoneNumber}
-                    onChange={(e) => handleChange(e)}
-                  />
-                </div>
-              ) : (
-                <div className="font-semibold">
-                  {user.phoneNumber === "" ? "Not available" : user.phoneNumber}
-                </div>
-              )}
-            </div>
-          </div>
-          <div className="flex items-center gap-2 w-full">
-            <p className="text-Gray w-1/3 max-w-32">Address</p>
-            <div className="text-Black w-2/3">
-              {isEditing ? (
-                <div>
-                  <Input
-                    className="p-2 border-2 border-Black/20 bg-Gray/10 rounded text-Black w-full"
-                    type={"text"}
-                    placeholder={"Enter Address"}
-                    value={user.address}
-                    name={"address"}
-                    errorMessage={errors.address}
-                    onChange={(e) => handleChange(e)}
-                  />
-                </div>
-              ) : (
-                <div className="font-semibold">
-                  {user.address === "" ? "Not available" : user.address}
-                </div>
-              )}
-            </div>
-          </div>
-          <div className="flex items-center gap-2 w-full">
-            <p className="text-Gray w-1/3 max-w-32">Website</p>
-            <div className="text-Black w-2/3">
-              {isEditing ? (
-                <Input
-                  className="p-2 border-2 border-Black/20 bg-Gray/10 rounded text-Black w-full"
-                  type="text"
-                  name={"website"}
-                  placeholder={"Enter website link"}
-                  value={user.website}
-                  errorMessage={errors.website}
-                  onChange={handleChange}
-                />
-              ) : (
-                <div className="font-semibold">
-                  {user.website === "" ? (
-                    "Not available"
-                  ) : (
-                    <a
-                      href={user.website}
-                      target="_blank"
-                      className="underline text-Blue"
-                    >
-                      Live
-                    </a>
-                  )}
-                </div>
-              )}
-            </div>
-          </div>
-          {/* {Object.keys(user).map((item) => {
-            return (
-              <div key={item}>
-                {item === "website" && (
-                  <div
-                    className="flex items-center gap-2 w-full"
-                    key={user[item]}
-                  >
-                    <p className="text-Gray w-1/3 max-w-32">
-                      {toTitleCase(item)}
-                    </p>
-                    <div className="text-Black w-2/3">
-                      {isEditing ? (
-                        <Input
-                          className="p-2 border-2 border-Black/20 bg-Gray/10 rounded text-Black w-full"
-                          type="text"
-                          name={item}
-                          placeholder={"Enter" + user[item]}
-                          value={user[item]}
-                          errorMessage={errors[item]}
-                          onChange={handleChange}
-                        />
-                      ) : (
-                        <div className="font-semibold">
-                          {user[item] === "" ? (
-                            "Not available"
-                          ) : (
-                            <a
-                              href={user[item]}
-                              target="_blank"
-                              className="underline text-Blue"
-                            >
-                              Live
-                            </a>
-                          )}
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                )}
-                {(item === "name" ||
-                  item === "email" ||
-                  item === "phoneNumber" ||
-                  item === "address") && (
-                  <div
-                    className="flex items-center gap-2 w-full"
-                    key={user[item]}
-                  >
-                    <p className="text-Gray w-1/3 max-w-32">
-                      {toTitleCase(item)}
-                    </p>
-                    <div className="text-Black w-2/3">
-                      {isEditing ? (
-                        <div>
-                          <Input
-                            className="p-2 border-2 border-Black/20 bg-Gray/10 rounded text-Black w-full"
-                            type={item === "phoneNumber" ? "number" : "text"}
-                            placeholder={"Enter" + user[item]}
-                            value={user[item]}
-                            name={item}
-                            errorMessage={errors[item]}
-                            onChange={handleChange}
-                          />
-                        </div>
-                      ) : (
-                        <div className="font-semibold">
-                          {user[item] === "" ? "Not available" : user[item]}
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                )}
-              </div>
-            );
-          })} */}
+          <ProfileCard
+            label="Name"
+            value={user.name}
+            type="text"
+            placeholder="Enter Name"
+            name="name"
+            isEditing={isEditing}
+            onChange={(e) => handleChange(e)}
+            errorMessage={errors.name}
+          />
+          <ProfileCard
+            label="Email"
+            value={user.email}
+            type="text"
+            placeholder="Enter Email"
+            name="email"
+            isEditing={isEditing}
+            onChange={(e) => handleChange(e)}
+            errorMessage={errors.email}
+          />
+          <ProfileCard
+            label="Phone Number"
+            value={user.phoneNumber}
+            type="number"
+            placeholder="Enter Phone Number"
+            name="phoneNumber"
+            isEditing={isEditing}
+            onChange={(e) => handleChange(e)}
+            errorMessage={errors.phoneNumber}
+          />
+          <ProfileCard
+            label="Address"
+            value={user.address}
+            type="text"
+            placeholder="Enter Address"
+            name="address"
+            isEditing={isEditing}
+            onChange={(e) => handleChange(e)}
+            errorMessage={errors.address}
+          />
+          <ProfileCard
+            label="Website"
+            value={user.website}
+            type="text"
+            placeholder="Enter Website URL"
+            name="website"
+            isEditing={isEditing}
+            onChange={(e) => handleChange(e)}
+            errorMessage={errors.website}
+            isLink={true}
+          />
         </div>
 
         {isEditing ? (
-          <div className="absolute bottom-0 right-0 w-1/5">
-            <Button text="Save" type="button" onClick={handleSubmit} />
+          <div className="absolute bottom-0 right-0 w-full flex gap-2 items-center justify-end">
+            <div className="w-2/5 md:w-1/3">
+              <Button
+                text="Cancel"
+                type="button"
+                primaryColor={false}
+                onClick={() => setIsEditing(false)}
+              />
+            </div>
+            <div className="w-2/5 md:w-1/3">
+              <Button text="Save" type="button" onClick={handleSubmit} />
+            </div>
           </div>
         ) : (
-          <div className="absolute bottom-0 right-0 w-1/5">
+          <div className="absolute bottom-0 right-0 w-1/3 md:w-1/5">
             <Button
               text="Edit"
               type="button"

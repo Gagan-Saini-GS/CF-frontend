@@ -7,7 +7,12 @@ import NoResultsFound from "../../GS-Libs/MultiUse/NoResultsFound";
 import { useSearchContext } from "../../context/searchContext";
 import useDebouncedAPI from "../../hooks/useDebounceAPI";
 
-const Home = ({ openCart, setShowCartSlider }) => {
+const Home = ({
+  openCart,
+  setShowCartSlider,
+  showFilterSection,
+  setShowFilterSection,
+}) => {
   const [totalPages, setTotalPages] = useState(1);
   const observer = useRef();
 
@@ -104,8 +109,12 @@ const Home = ({ openCart, setShowCartSlider }) => {
   );
 
   return (
-    <div className="flex bg-White">
-      <div className="w-1/5 h-full hidden md:block">
+    <div className="flex bg-White relative">
+      <div
+        className={`w-full xs:w-3/5 md:w-1/4 xl:w-1/5 h-full transition-all duration-300 absolute md:relative z-10 ${
+          showFilterSection ? "left-0" : "-left-full md:left-0"
+        }`}
+      >
         <div className="w-full h-full">
           <Filters
             selectedFilters={selectedFilters}
@@ -113,13 +122,13 @@ const Home = ({ openCart, setShowCartSlider }) => {
           />
         </div>
       </div>
-      <div className="w-full h-full md:w-4/5">
-        <div className="flex flex-col bg-White px-4 py-2 w-full md:w-4/5 h-full fixed">
+      <div className="w-full md:w-3/4 xl:w-4/5 h-full">
+        <div className="flex flex-col bg-White px-4 py-2 fixed w-full md:w-3/4 xl:w-4/5 h-full">
           <div className="w-full h-full overflow-y-scroll">
             {allProducts.length > 0 ? (
               <>
                 <div className="text-2xl pb-2 font-normal">All products</div>
-                <div className="w-full min-h-fit h-fit grid grid-cols-2 md:grid-cols-4 gap-2 pb-28">
+                <div className="w-full min-h-fit h-fit grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 md:grid-cols-3 xl:grid-cols-4 gap-2 pb-28">
                   {allProducts.map((product, index) => {
                     return (
                       <div

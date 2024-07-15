@@ -2,17 +2,23 @@ import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import swal from "sweetalert";
 import { Sizes } from "../../config";
-import MobileProductPage from "./MobileProductPage";
 import Checkbox from "../../GS-Libs/Input/Checkbox";
 import { getDeliveryDate } from "../../GS-Libs/utils/getDeliveryDate";
 import ColorFilterCard from "../Filters/ColorFilterCard";
 import LabelValue from "../../GS-Libs/MultiUse/LabelValue";
 import { apiCaller } from "../../GS-Libs/utils/apiCaller";
+import Button from "../../GS-Libs/Buttons/Button";
+import {
+  getDeliveryChagres,
+  getDiscountedPrice,
+  limitText,
+} from "../../GS-Libs/utils/productUtils";
 
 export default function ProductPage({ handleOpenCart }) {
   const params = useParams();
   const productID = params.productID;
 
+  const [showTextLimit, setShowTextLimit] = useState(16);
   const [sellerDetails, setSellerDetails] = useState({});
   const [product, setProduct] = useState({});
   const [isProductAlreadyInCart, setIsProductAlreadyInCart] = useState(false);
@@ -72,20 +78,20 @@ export default function ProductPage({ handleOpenCart }) {
   }
 
   return (
-    <div className="bg-White p-12">
-      <div className="grid grid-cols-12 gap-16 h-full">
-        <div className="flex gap-2 col-span-4">
+    <div className="bg-White p-4 lg:p-12 w-full">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-4 sm:gap-6 lg:gap-16 h-full">
+        <div className="flex flex-col xs:flex-row sm:flex-col lg:flex-row gap-2 lg:col-span-4">
           {product?.productImages && (
             <div className="rounded-md">
               <img
-                className="max-w-[350px] max-h-[432px] rounded-md border-dashed border border-Gray p-2 shadow-md"
+                className="w-full h-full xs:w-[330px] xs:h-[412px] lg:max-w-[350px] lg:max-h-[432px] rounded-md border-dashed border border-Gray p-2 shadow-md"
                 src={product?.productImages[imgIndex]}
                 alt=""
               />
             </div>
           )}
           {
-            <div className="flex flex-col gap-2 max-h-[432px] overflow-y-scroll">
+            <div className="flex flex-row xs:flex-col sm:flex-row lg:flex-col gap-2 max-h-[432px] overflow-y-scroll">
               {product?.productImages?.map((productImage, index) => {
                 return (
                   <img
@@ -103,13 +109,28 @@ export default function ProductPage({ handleOpenCart }) {
             </div>
           }
         </div>
-        <div className="col-span-5">
+        <div className="lg:col-span-5">
           <div className="h-full flex flex-col justify-between">
             <div>
-              <div className="flex flex-col gap-4 max-w-[500px]">
-                <div className="text-5xl font-light">{product?.name}</div>
-                <div className="text-lg font-medium">
-                  {product?.description}
+              <div className="flex flex-col gap-2 lg:gap-4 w-full max-w-[500px]">
+                <div className="text-2xl sm:text-3xl lg:text-5xl font-medium">
+                  {product?.name}
+                </div>
+                <div className="text-sm sm:text-base lg:text-lg font-semibold lg:font-medium text-Black/80">
+                  <p className="hidden xs:block">{product?.description}</p>
+                  <p className="xs:hidden">
+                    {limitText(product?.description, showTextLimit)}
+                    <span
+                      className="text-Purple/80"
+                      onClick={
+                        showTextLimit <= 16
+                          ? () => setShowTextLimit(1000)
+                          : () => setShowTextLimit(16)
+                      }
+                    >
+                      {showTextLimit <= 16 ? "...show more" : "...show less"}
+                    </span>
+                  </p>
                 </div>
                 <div className="">
                   <div className="bg-Red/70 text-White font-medium px-2 py-1 rounded inline-block">
@@ -117,17 +138,17 @@ export default function ProductPage({ handleOpenCart }) {
                   </div>
                   <div className="text-3xl font-semibold text-Purple mt-2">
                     <span className="text-Red/70 font-normal">–28%</span> $
-                    {product?.price}
+                    {getDiscountedPrice(product?.price)}
                   </div>
                   <div className="text-lg text-Gray">
                     MRP{" "}
                     <span className="line-through font-light">
-                      ${(product?.price * 1.4).toFixed(0)}
+                      ${product?.price}
                     </span>
                   </div>
                 </div>
               </div>
-              <div className="mt-2">
+              <div className="mt-1 lg:mt-2">
                 <div className="text-xl font-semibold">Sizes</div>
                 <div className="flex gap-2">
                   {Sizes.map((size) => {
@@ -136,7 +157,8 @@ export default function ProductPage({ handleOpenCart }) {
                         label={size.name}
                         key={size.id}
                         isSelected={
-                          product?.sizes?.includes(size.name) || false
+                          product?.sizes?.includes(size.name.toLowerCase()) ||
+                          false
                         }
                         readOnly={true}
                       />
@@ -144,9 +166,9 @@ export default function ProductPage({ handleOpenCart }) {
                   })}
                 </div>
               </div>
-              <div className="mt-2">
+              <div className="mt-1 lg:mt-2">
                 <div className="text-xl font-semibold">Colors</div>
-                <div className="grid grid-cols-5 gap-1">
+                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-1">
                   {product?.colors.map((color) => {
                     return (
                       <ColorFilterCard
@@ -161,16 +183,18 @@ export default function ProductPage({ handleOpenCart }) {
             </div>
           </div>
         </div>
-        <div className="border border-dashed border-Gray p-2 rounded-md flex flex-col justify-between col-span-3 shadow-md">
+        <div className="border border-dashed border-Gray p-2 rounded-md flex flex-col justify-between md:col-span-2 lg:col-span-3 shadow-md">
           <div className="flex flex-col gap-4">
             <div>
               <div>
                 <div className="text-2xl font-semibold text-Purple">
-                  ${product?.price}
+                  ${getDiscountedPrice(product?.price)}
                 </div>
               </div>
-              <div className="text-lg">
-                Free delivery{" "}
+              <div className="text-sm lg:text-lg">
+                {product?.price > 1000
+                  ? "Free delivery "
+                  : `$${getDeliveryChagres(product?.price)} delivery chagres `}
                 <span className="font-semibold">{getDeliveryDate()}</span>.
               </div>
             </div>
@@ -183,29 +207,25 @@ export default function ProductPage({ handleOpenCart }) {
               </div>
             </div>
           </div>
-          <div className="grid grid-cols-2 gap-2 w-full">
+          <div className="grid grid-cols-2 gap-2 w-full mt-4 lg:mt-0">
             {isProductAlreadyInCart ? (
               <Link to={"/home"}>
-                <button className="w-full" onClick={() => handleOpenCart()}>
-                  <div className="text-lg gap-2 px-5 py-2 rounded-md bg-Purple/30 text-center">
-                    Go to Cart
-                  </div>
-                </button>
+                <Button
+                  onClick={() => handleOpenCart()}
+                  text="Go to Cart"
+                  primaryColor={false}
+                />
               </Link>
             ) : (
-              <button onClick={addToCart} className="w-full">
-                <div className="text-lg gap-2 px-5 py-2 rounded-md bg-Purple/30 text-center">
-                  Add to Cart
-                </div>
-              </button>
+              <Button
+                onClick={() => addToCart()}
+                text="Add to Cart"
+                primaryColor={false}
+              />
             )}
-            <button className="w-full">
-              <Link to={"/product/buynow/" + productID}>
-                <div className="text-lg text-White gap-2 px-5 py-2 rounded-md bg-Purple text-center">
-                  <span>Buy</span>
-                </div>
-              </Link>
-            </button>
+            <Link to={"/product/buynow/" + productID}>
+              <Button text="Buy" />
+            </Link>
           </div>
         </div>
       </div>

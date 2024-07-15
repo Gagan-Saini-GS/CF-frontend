@@ -20,7 +20,7 @@ const ColorFilterCard = ({ color, onClick, isSelected, readOnly }) => {
         } ${readOnly ? "cursor-default" : "cursor-pointer"}`}
       >
         <div
-          className={`${color} w-6 h-6 mr-1 rounded border border-Black/20`}
+          className={`${color} min-w-6 min-h-6 mr-1 rounded border border-Black/20`}
         ></div>
         <div>
           {color.slice(0, 1).toUpperCase()}

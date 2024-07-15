@@ -7,12 +7,7 @@ import NoResultsFound from "../../GS-Libs/MultiUse/NoResultsFound";
 import { useSearchContext } from "../../context/searchContext";
 import useDebouncedAPI from "../../hooks/useDebounceAPI";
 
-const Home = ({
-  openCart,
-  setShowCartSlider,
-  showFilterSection,
-  setShowFilterSection,
-}) => {
+const Home = ({ openCart, setShowCartSlider, showFilterSection }) => {
   const [totalPages, setTotalPages] = useState(1);
   const observer = useRef();
 
@@ -128,7 +123,7 @@ const Home = ({
             {allProducts.length > 0 ? (
               <>
                 <div className="text-2xl pb-2 font-normal">All products</div>
-                <div className="w-full min-h-fit h-fit grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 md:grid-cols-3 xl:grid-cols-4 gap-2 pb-28">
+                <div className="w-full min-h-fit h-fit grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 xl:grid-cols-4 gap-2 pb-28">
                   {allProducts.map((product, index) => {
                     return (
                       <div

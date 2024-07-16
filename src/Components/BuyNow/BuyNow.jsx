@@ -15,6 +15,8 @@ import {
   buyProductPageUserValidations,
 } from "../../validations/buy-product-page-validations";
 import { apiCaller } from "../../GS-Libs/utils/apiCaller";
+import ProductImages from "../../GS-Libs/MultiUse/ProductImages";
+import { getDiscountedPrice } from "../../GS-Libs/utils/productUtils";
 
 const PaymentItem = ({ name, value, isSelected, setPaymentMethod }) => {
   return (
@@ -135,38 +137,10 @@ export default function BuyNow() {
   };
 
   return (
-    <div className="w-screen flex justify-center bg-White">
-      <div className="w-3/4 flex gap-4 h-full px-4 py-5 items-center">
-        <div className="flex gap-4 w-full">
-          <div className="flex gap-2 col-span-4">
-            {product?.productImages && (
-              <div className="rounded-md">
-                <img
-                  className="max-w-[350px] max-h-[432px] rounded-md border-dashed border border-Gray p-2 shadow-md"
-                  src={product?.productImages[imgIndex]}
-                  alt=""
-                />
-              </div>
-            )}
-            {
-              <div className="flex flex-col gap-2 max-h-[432px] overflow-y-scroll">
-                {product?.productImages?.map((productImage, index) => {
-                  return (
-                    <img
-                      className={`w-20 h-20 max-w-20 max-h-20 border ${
-                        imgIndex === index
-                          ? "border-solid border-Purple shadow-Purple/30"
-                          : "border-dashed border-Gray"
-                      } p-1 shadow rounded`}
-                      src={productImage}
-                      alt=""
-                      onClick={() => setImgIndex(index)}
-                    />
-                  );
-                })}
-              </div>
-            }
-          </div>
+    <div className="w-screen flex flex-col md:flex-row justify-center bg-White">
+      <div className="w-full md:w-3/4 flex flex-col md:flex-row gap-4 h-full px-4 py-5 items-center">
+        <div className="flex flex-col md:flex-row gap-4 w-full">
+          <ProductImages product={product} />
           <div className="w-full max-w-[500px]">
             <div className="text-xl font-semibold text-Black">
               {product.name}
@@ -184,13 +158,11 @@ export default function BuyNow() {
             </div>
             <div className="text-3xl font-semibold text-Purple mt-4">
               <span className="text-Red/70 font-normal">–28%</span> $
-              {product?.price}
+              {getDiscountedPrice(product?.price)}
             </div>
             <div className="text-lg text-Gray">
               MRP{" "}
-              <span className="line-through font-light">
-                ${(product?.price * 1.4).toFixed(0)}
-              </span>
+              <span className="line-through font-light">${product?.price}</span>
             </div>
             <div className="mt-4">
               <div className="text-xl font-semibold">Available Sizes</div>
@@ -212,13 +184,15 @@ export default function BuyNow() {
             </div>
             <div className="mt-4">
               <div className="text-xl font-semibold">Available Colors</div>
-              <div className="grid grid-cols-4 gap-1">
+              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-1">
                 {Colors.map((color) => {
                   return (
                     <ColorFilterCard
                       color={color.color}
                       key={color}
-                      isSelected={product.colors.includes(color.color)}
+                      isSelected={product.colors.includes(
+                        color.color.toLowerCase()
+                      )}
                       readOnly={true}
                     />
                   );
@@ -228,7 +202,7 @@ export default function BuyNow() {
           </div>
         </div>
       </div>
-      <div className="w-1/4 flex flex-col overflow-y-scroll justify-between gap-4 bg-Light p-4 shadow h-[87vh]">
+      <div className="w-full md:w-1/4 flex flex-col overflow-y-scroll justify-between gap-4 bg-Light p-4 shadow h-full md:h-[87vh]">
         <div className="w-full flex flex-col gap-2">
           <div className="w-full flex flex-col gap-1">
             <div className="text-lg font-medium">

@@ -110,7 +110,7 @@ const Home = ({ openCart, setShowCartSlider, showFilterSection }) => {
           showFilterSection ? "left-0" : "-left-full md:left-0"
         }`}
       >
-        <div className="w-full h-full">
+        <div className="w-full h-full z-50">
           <Filters
             selectedFilters={selectedFilters}
             setSelectedFilters={setSelectedFilters}

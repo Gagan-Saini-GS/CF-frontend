@@ -61,7 +61,7 @@ export default function Navbar({
                 className="w-6 h-6 md:w-8 md:h-8 rounded"
               />
             </Link>
-            <div className="font-medium md:font-semibold text-base md:text-2xl">
+            <div className="font-medium md:font-semibold text-sm sm:text-lg md:text-2xl">
               Closet Fashion
             </div>
           </div>

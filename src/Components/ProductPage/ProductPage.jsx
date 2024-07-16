@@ -13,6 +13,7 @@ import {
   getDiscountedPrice,
   limitText,
 } from "../../GS-Libs/utils/productUtils";
+import ProductImages from "../../GS-Libs/MultiUse/ProductImages";
 
 export default function ProductPage({ handleOpenCart }) {
   const params = useParams();
@@ -64,11 +65,6 @@ export default function ProductPage({ handleOpenCart }) {
     }
   };
 
-  // const windowWidth = window.innerWidth;
-  // if (windowWidth <= 425) {
-  //   return <MobileProductPage productID={productID} />;
-  // }
-
   if (!isProductFetched) {
     return (
       <div className="fullscreen-loader">
@@ -80,35 +76,7 @@ export default function ProductPage({ handleOpenCart }) {
   return (
     <div className="bg-White p-4 lg:p-12 w-full">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-4 sm:gap-6 lg:gap-16 h-full">
-        <div className="flex flex-col xs:flex-row sm:flex-col lg:flex-row gap-2 lg:col-span-4">
-          {product?.productImages && (
-            <div className="rounded-md">
-              <img
-                className="w-full h-full xs:w-[330px] xs:h-[412px] lg:max-w-[350px] lg:max-h-[432px] rounded-md border-dashed border border-Gray p-2 shadow-md"
-                src={product?.productImages[imgIndex]}
-                alt=""
-              />
-            </div>
-          )}
-          {
-            <div className="flex flex-row xs:flex-col sm:flex-row lg:flex-col gap-2 max-h-[432px] overflow-y-scroll">
-              {product?.productImages?.map((productImage, index) => {
-                return (
-                  <img
-                    className={`w-20 h-20 max-w-20 max-h-20 border ${
-                      imgIndex === index
-                        ? "border-solid border-Purple shadow-Purple/30"
-                        : "border-dashed border-Gray"
-                    } p-1 shadow rounded`}
-                    src={productImage}
-                    alt=""
-                    onClick={() => setImgIndex(index)}
-                  />
-                );
-              })}
-            </div>
-          }
-        </div>
+        <ProductImages product={product} />
         <div className="lg:col-span-5">
           <div className="h-full flex flex-col justify-between">
             <div>

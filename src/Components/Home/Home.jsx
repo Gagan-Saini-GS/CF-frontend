@@ -1,10 +1,4 @@
-import React, {
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { MAX_PRICE, MIN_PRICE } from "../../config";
 import Filters from "../Filters/Filters";
 import { Link } from "react-router-dom";
@@ -54,9 +48,6 @@ const Home = ({ openCart, setShowCartSlider, showFilterSection }) => {
     [page],
     250
   );
-
-  // const cachedProductData = useMemo(() => data?.products, [data, page]);
-  // console.log(cachedProductData);
 
   useEffect(() => {
     if (data?.products) {

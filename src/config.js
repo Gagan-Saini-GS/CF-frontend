@@ -319,5 +319,5 @@ export const AllFilters = [
   //   },
 ];
 
-export const MIN_PRICE = 500;
+export const MIN_PRICE = 100;
 export const MAX_PRICE = 100000;

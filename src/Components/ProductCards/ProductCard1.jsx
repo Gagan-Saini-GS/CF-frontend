@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { toTitleCase } from "../../GS-Libs/utils/toTitleCase";
+import { getDiscountedPrice } from "../../GS-Libs/utils/productUtils";
 
 export default function ProductCard1(props) {
   const [product, setProduct] = useState(props.product);
@@ -22,11 +23,9 @@ export default function ProductCard1(props) {
           <div className="flex flex-col md:flex-row md:items-center md:justify-between">
             <div className="flex items-center gap-0.5 md:gap-1">
               <p className="text-sm sm:text-base md:text-xl font-semibold">
-                ${product.price}
+                ${getDiscountedPrice(product.price)}
               </p>
-              <p className="text-sm line-through text-Gray">
-                ${(product.price * 1.4).toFixed(0)}
-              </p>
+              <p className="text-sm line-through text-Gray">${product.price}</p>
             </div>
             <div className="bg-Purple text-white text-base px-2 py-1 rounded items-center justify-center hidden md:flex">
               {toTitleCase(product.brand)}

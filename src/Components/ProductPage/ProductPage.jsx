@@ -14,26 +14,23 @@ import {
   limitText,
 } from "../../GS-Libs/utils/productUtils";
 import ProductImages from "../../GS-Libs/MultiUse/ProductImages";
+import FullScreenLoader from "../../GS-Libs/MultiUse/FullScreenLoader";
 
 export default function ProductPage({ handleOpenCart }) {
   const params = useParams();
   const productID = params.productID;
 
+  const authToken = localStorage.getItem("authToken");
   const [showTextLimit, setShowTextLimit] = useState(16);
   const [sellerDetails, setSellerDetails] = useState({});
   const [product, setProduct] = useState({});
   const [isProductAlreadyInCart, setIsProductAlreadyInCart] = useState(false);
-
-  // const [writeReview, setWriteReview] = useState(false);
-  // const [askQuestion, setAskQuestion] = useState(false);
-  // const [stars, setStars] = useState(0);
-  const [imgIndex, setImgIndex] = useState(0);
   const [isProductFetched, setIsProductFetched] = useState(false);
 
   const getProductById = async () => {
     setIsProductFetched(false);
     try {
-      const data = await apiCaller("/get-product-with-id", "post", {
+      const data = await apiCaller("/get-product-with-id", "post", false, {
         productID: productID,
       });
 
@@ -66,11 +63,7 @@ export default function ProductPage({ handleOpenCart }) {
   };
 
   if (!isProductFetched) {
-    return (
-      <div className="fullscreen-loader">
-        <div className="spinner"></div>
-      </div>
-    );
+    return <FullScreenLoader />;
   }
 
   return (
@@ -176,24 +169,40 @@ export default function ProductPage({ handleOpenCart }) {
             </div>
           </div>
           <div className="grid grid-cols-2 gap-2 w-full mt-4 lg:mt-0">
-            {isProductAlreadyInCart ? (
-              <Link to={"/home"}>
-                <Button
-                  onClick={() => handleOpenCart()}
-                  text="Go to Cart"
-                  primaryColor={false}
-                />
-              </Link>
-            ) : (
-              <Button
-                onClick={() => addToCart()}
-                text="Add to Cart"
-                primaryColor={false}
-              />
-            )}
-            <Link to={"/product/buynow/" + productID}>
-              <Button text="Buy" />
-            </Link>
+            {
+              <>
+                {authToken === undefined ||
+                authToken === null ||
+                authToken === "" ? (
+                  <div className="col-span-2">
+                    <Link to={"/login"}>
+                      <Button text="Login to Buy" />
+                    </Link>
+                  </div>
+                ) : (
+                  <>
+                    {isProductAlreadyInCart ? (
+                      <Link to={"/home"}>
+                        <Button
+                          onClick={() => handleOpenCart()}
+                          text="Go to Cart"
+                          primaryColor={false}
+                        />
+                      </Link>
+                    ) : (
+                      <Button
+                        onClick={() => addToCart()}
+                        text="Add to Cart"
+                        primaryColor={false}
+                      />
+                    )}
+                    <Link to={"/product/buynow/" + productID}>
+                      <Button text="Buy" />
+                    </Link>
+                  </>
+                )}
+              </>
+            }
           </div>
         </div>
       </div>

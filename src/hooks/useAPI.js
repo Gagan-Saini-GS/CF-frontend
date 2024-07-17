@@ -5,6 +5,7 @@ import { SERVER_URL } from "../config";
 const useAPI = (
   method,
   path,
+  includeAuthToken = true,
   variables = {},
   headers = {},
   dependencies = []
@@ -34,7 +35,9 @@ const useAPI = (
   }, [method, path, JSON.stringify(variables), JSON.stringify(headers)]);
 
   useEffect(() => {
-    fetchData();
+    if (includeAuthToken) {
+      fetchData();
+    }
   }, [fetchData, ...dependencies]);
 
   return { data, loading, error };

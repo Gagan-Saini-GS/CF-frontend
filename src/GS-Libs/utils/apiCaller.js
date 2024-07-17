@@ -1,13 +1,19 @@
 import axios from "axios";
 import { SERVER_URL } from "../../config";
 
-export const apiCaller = async (url, method, data = {}, headers = {}) => {
+export const apiCaller = async (
+  url,
+  method,
+  includeAuthToken = true,
+  data = {},
+  headers = {}
+) => {
   const authToken = localStorage.getItem("authToken");
   try {
     const response = await axios({
       url: `${SERVER_URL}${url}`,
       method: method,
-      data: data,
+      data: { ...data, includeAuthToken },
       headers: {
         ...headers,
         "Content-Type": "application/json",

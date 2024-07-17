@@ -1,4 +1,10 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { MAX_PRICE, MIN_PRICE } from "../../config";
 import Filters from "../Filters/Filters";
 import { Link } from "react-router-dom";
@@ -6,6 +12,7 @@ import ProductCard1 from "../ProductCards/ProductCard1";
 import NoResultsFound from "../../GS-Libs/MultiUse/NoResultsFound";
 import { useSearchContext } from "../../context/searchContext";
 import useDebouncedAPI from "../../hooks/useDebounceAPI";
+import FullScreenLoader from "../../GS-Libs/MultiUse/FullScreenLoader";
 
 const Home = ({ openCart, setShowCartSlider, showFilterSection }) => {
   const [totalPages, setTotalPages] = useState(1);
@@ -47,6 +54,9 @@ const Home = ({ openCart, setShowCartSlider, showFilterSection }) => {
     [page],
     250
   );
+
+  // const cachedProductData = useMemo(() => data?.products, [data, page]);
+  // console.log(cachedProductData);
 
   useEffect(() => {
     if (data?.products) {
@@ -152,7 +162,7 @@ const Home = ({ openCart, setShowCartSlider, showFilterSection }) => {
               <>
                 {loading ? (
                   <div className="pt-4 w-full text-xl font-medium text-Gray text-center col-span-full">
-                    Loading...
+                    <FullScreenLoader />
                   </div>
                 ) : (
                   <div className="w-full h-full">

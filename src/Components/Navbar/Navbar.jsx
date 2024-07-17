@@ -21,15 +21,15 @@ export default function Navbar({
 }) {
   const [searchFlag, setSearchFlag] = useState(false);
   const [userDetails, setUserDetails] = useState(profileInitailValues);
-  const authToken = localStorage.getItem("authToken");
 
   const { data } = useAPI(
     "post",
     "/user-details",
+    userAuthToken ? true : false,
     {},
     {
       "Content-Type": "application/json",
-      authorization: `Bearer ${authToken}`,
+      authorization: `Bearer ${userAuthToken}`,
     }
   );
 
@@ -69,8 +69,8 @@ export default function Navbar({
           <div className="flex items-center gap-2">
             <NavbarRightOptions
               userAuthToken={userAuthToken}
-              profileImage={userDetails.profileImage}
-              name={userDetails.name}
+              profileImage={userDetails?.profileImage}
+              name={userDetails?.name}
               setShowCartSlider={setShowCartSlider}
               setShowProfileSlider={setShowProfileSlider}
             />

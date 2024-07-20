@@ -1,13 +1,16 @@
 import React from "react";
 import Cart from "./Cart";
 import { ImCross } from "react-icons/im";
+import { useTheme } from "../../context/themeContext";
 
 const CartSlider = ({ showCartSlider, setShowCartSlider }) => {
+  const { theme } = useTheme();
+
   return (
     <div
-      className={`w-full md:w-3/4 h-full bg-Light shadow shadow-Gray flex text-Black fixed overflow-hidden transition-all duration-300 ease-in-out top-0 ${
+      className={`w-full md:w-3/4 h-full shadow shadow-Gray flex text-Black fixed overflow-hidden transition-all duration-300 ease-in-out top-0 ${
         showCartSlider ? "right-0" : "-right-full"
-      }`}
+      } ${theme === "light" ? "bg-White text-Black" : "bg-Black text-White"}`}
     >
       <div className="bg-Purple w-12 h-full flex flex-col items-center justify-between pt-12 pb-4 px-2"></div>
       <div className="w-full h-full flex relative">

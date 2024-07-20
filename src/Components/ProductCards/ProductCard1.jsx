@@ -14,12 +14,12 @@ export default function ProductCard1(props) {
           className="w-full h-full object-fill rounded-md"
         />
       </div>
-      <div className="text-Black pt-1 flex flex-col gap-1">
+      <div className="pt-1 flex flex-col gap-1">
         <div className="text-sm sm:text-base md:text-xl font-semibold whitespace-nowrap text-ellipsis overflow-hidden">
           {product.name}
         </div>
         <div>
-          <p className="relative top-1 text-Black hidden md:block">Price</p>
+          <p className="relative top-1 hidden md:block">Price</p>
           <div className="flex flex-col md:flex-row md:items-center md:justify-between">
             <div className="flex items-center gap-0.5 md:gap-1">
               <p className="text-sm sm:text-base md:text-xl font-semibold">
@@ -27,7 +27,7 @@ export default function ProductCard1(props) {
               </p>
               <p className="text-sm line-through text-Gray">${product.price}</p>
             </div>
-            <div className="bg-Purple text-white text-base px-2 py-1 rounded items-center justify-center hidden md:flex">
+            <div className="bg-Purple text-White text-base px-2 py-1 rounded items-center justify-center hidden md:flex">
               {toTitleCase(product.brand)}
             </div>
           </div>

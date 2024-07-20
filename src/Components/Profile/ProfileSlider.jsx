@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { ImCross } from "react-icons/im";
 import { FaUser, FaShopify } from "react-icons/fa";
 import { HiShoppingBag } from "react-icons/hi2";
+import { IoSettingsSharp } from "react-icons/io5";
 import { FiLogOut } from "react-icons/fi";
 import Profile from "./Profile";
 import MyOrders from "./MyOrders";
@@ -14,6 +15,8 @@ import {
 import swal from "sweetalert";
 import UploadProduct from "../UploadProduct/UploadProduct";
 import { apiCaller } from "../../GS-Libs/utils/apiCaller";
+import Settings from "./Settings";
+import { useTheme } from "../../context/themeContext";
 
 const TabOptions = [
   {
@@ -31,6 +34,11 @@ const TabOptions = [
     name: "Seller",
     icon: <FaShopify className="w-5 h-5" />,
   },
+  // {
+  //   id: "setting",
+  //   name: "Setting",
+  //   icon: <IoSettingsSharp className="w-5 h-5" />,
+  // },
 ];
 
 const ProfileSlider = ({
@@ -39,6 +47,7 @@ const ProfileSlider = ({
   showProfileSlider,
   setShowProfileSlider,
 }) => {
+  const { theme } = useTheme();
   const [activeTab, setActiveTab] = useState("user");
   const [isEditing, setIsEditing] = useState(false);
 
@@ -88,8 +97,10 @@ const ProfileSlider = ({
 
   return (
     <div
-      className={`w-full xs:w-3/4 md:w-1/3 h-full bg-Light shadow shadow-Gray flex text-Black fixed overflow-hidden transition-all duration-300 ease-in-out top-0 ${
+      className={`w-full xs:w-3/4 md:w-1/3 h-full shadow shadow-Gray flex text-Black fixed overflow-hidden transition-all duration-300 ease-in-out top-0 ${
         showProfileSlider ? "right-0" : "-right-full"
+      } ${
+        theme === "light" ? "bg-White text-Black/80" : "bg-Black text-White/80"
       }`}
     >
       {/* Slider Navigation */}
@@ -112,7 +123,7 @@ const ProfileSlider = ({
           })}
         </div>
         <div
-          className="rounded-full p-2 text-White hover:bg-White hover:text-Purple flex justify-center items-center cursor-pointer"
+          className="rounded-full p-2 text-White hover:bg-White hover:text-Purple flex justify-center items-center content-end cursor-pointer"
           onClick={logout}
         >
           <FiLogOut className="w-5 h-5 rotate-180" />
@@ -157,6 +168,13 @@ const ProfileSlider = ({
             }`}
           >
             {user.isSeller ? <UploadProduct /> : <SellerAccount />}
+          </div>
+          <div
+            className={`w-full h-full absolute md:p-2 rounded transition-all duration-300 ease-in-out overflow-y-scroll ${
+              activeTab === "setting" ? "right-0" : "-right-[120%]"
+            }`}
+          >
+            <Settings />
           </div>
         </div>
       </div>

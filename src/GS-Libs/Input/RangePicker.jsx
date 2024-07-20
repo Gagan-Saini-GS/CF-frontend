@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import ReactSlider from "react-slider";
 import { Input } from "./input";
+import { useTheme } from "../../context/themeContext";
 
 const RangePicker = ({
   label,
@@ -10,6 +11,7 @@ const RangePicker = ({
   maxRangeValue,
   setSelectedFilters,
 }) => {
+  const { theme } = useTheme();
   const [values, setValues] = useState([minRangeValue, maxRangeValue]);
 
   useEffect(() => {
@@ -25,7 +27,7 @@ const RangePicker = ({
   }, [values]);
 
   return (
-    <div className="bg-white p-2 pb-4 rounded-md shadow-md w-full max-w-md mx-auto">
+    <div className="p-2 pb-4 rounded-md shadow-md w-full max-w-md mx-auto border border-Gray border-dashed">
       <div className="text-xl font-semibold pb-2">{label}</div>
       <div className="flex gap-2">
         <div className="flex-1">
@@ -37,7 +39,9 @@ const RangePicker = ({
           </label>
           <Input
             type="number"
-            className="block w-full rounded border border-dashed border-Gray focus:border-Purple focus:Purple sm:text-sm px-2 py-1"
+            className={`block w-full rounded border border-dashed border-Gray focus:border-Purple focus:Purple sm:text-sm px-2 py-1 ${
+              theme === "light" ? "bg-White text-Black" : "bg-Black text-White"
+            }`}
             value={values[0]}
             onChange={(e) => setValues((prev) => [e.target.value, prev[1]])}
           />
@@ -51,7 +55,9 @@ const RangePicker = ({
           </label>
           <Input
             type="number"
-            className="block w-full rounded border border-dashed border-Gray focus:border-Purple focus:Purple sm:text-sm px-2 py-1"
+            className={`block w-full rounded border border-dashed border-Gray focus:border-Purple focus:Purple sm:text-sm px-2 py-1 ${
+              theme === "light" ? "bg-White text-Black" : "bg-Black text-White"
+            }`}
             value={values[1]}
             onChange={(e) => setValues((prev) => [prev[0], e.target.value])}
           />

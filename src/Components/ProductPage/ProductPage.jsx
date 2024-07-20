@@ -15,8 +15,10 @@ import {
 } from "../../GS-Libs/utils/productUtils";
 import ProductImages from "../../GS-Libs/MultiUse/ProductImages";
 import FullScreenLoader from "../../GS-Libs/MultiUse/FullScreenLoader";
+import { useTheme } from "../../context/themeContext";
 
 export default function ProductPage({ handleOpenCart }) {
+  const { theme } = useTheme();
   const params = useParams();
   const productID = params.productID;
 
@@ -30,9 +32,15 @@ export default function ProductPage({ handleOpenCart }) {
   const getProductById = async () => {
     setIsProductFetched(false);
     try {
-      const data = await apiCaller("/get-product-with-id", "post", false, {
-        productID: productID,
-      });
+      const data = await apiCaller(
+        "/get-product-with-id",
+        "post",
+        {
+          productID: productID,
+        },
+        {},
+        false
+      );
 
       setProduct(data.foundProduct);
       setSellerDetails(data.sellerDetails);
@@ -67,7 +75,11 @@ export default function ProductPage({ handleOpenCart }) {
   }
 
   return (
-    <div className="bg-White p-4 lg:p-12 w-full">
+    <div
+      className={`p-4 lg:p-12 w-full ${
+        theme === "light" ? "bg-White text-Black/80" : "bg-Black text-White/80"
+      }`}
+    >
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-4 sm:gap-6 lg:gap-16 h-full">
         <ProductImages product={product} />
         <div className="lg:col-span-5">
@@ -77,7 +89,7 @@ export default function ProductPage({ handleOpenCart }) {
                 <div className="text-2xl sm:text-3xl lg:text-5xl font-medium">
                   {product?.name}
                 </div>
-                <div className="text-sm sm:text-base lg:text-lg font-semibold lg:font-medium text-Black/80">
+                <div className="text-sm sm:text-base lg:text-lg font-semibold lg:font-medium">
                   <p className="hidden xs:block">{product?.description}</p>
                   <p className="xs:hidden">
                     {limitText(product?.description, showTextLimit)}

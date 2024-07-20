@@ -6,7 +6,7 @@ const QuantityInput = ({ quantity, setQuantity }) => {
   return (
     <div className="flex items-end gap-1">
       <div
-        className="text-sm bg-Gray/20 rounded text-Black w-6 h-6 flex items-center justify-center"
+        className="text-sm bg-Gray/20 rounded w-6 h-6 flex items-center justify-center"
         onClick={() => setQuantity((prev) => (prev > 1 ? prev - 1 : 1))}
       >
         <FaMinus
@@ -23,7 +23,7 @@ const QuantityInput = ({ quantity, setQuantity }) => {
         className="border border-Purple bg-Purple text-White rounded text-sm font-medium w-6 h-6 text-center"
       />
       <div
-        className="text-sm bg-Gray/20 rounded text-Black w-6 h-6 flex items-center justify-center"
+        className="text-sm bg-Gray/20 rounded w-6 h-6 flex items-center justify-center"
         onClick={() => setQuantity((prev) => (prev < 10 ? prev + 1 : 10))}
       >
         <FaPlus

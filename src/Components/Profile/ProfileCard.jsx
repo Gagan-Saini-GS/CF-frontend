@@ -15,7 +15,7 @@ const ProfileCard = ({
   return (
     <div className="flex flex-col md:flex-row md:items-center md:gap-2 w-full">
       <p className="text-Gray w-full md:w-1/3 max-w-32">{label}</p>
-      <div className="text-Black w-full md:w-2/3">
+      <div className="w-full md:w-2/3">
         {isEditing ? (
           <>
             <Input
@@ -37,7 +37,7 @@ const ProfileCard = ({
                 Live
               </a>
             ) : (
-              value
+              <span>{value}</span>
             )}
           </div>
         )}

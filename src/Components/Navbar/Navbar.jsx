@@ -8,6 +8,7 @@ import CFLogoImage from "../../Assets/images/closet fashion-logos.jpeg";
 import useAPI from "../../hooks/useAPI";
 import { FiMenu } from "react-icons/fi";
 import { RxCross1 } from "react-icons/rx";
+import { useTheme } from "../../context/themeContext";
 
 export default function Navbar({
   showProfileSlider,
@@ -19,6 +20,7 @@ export default function Navbar({
   showFilterSection,
   setShowFilterSection,
 }) {
+  const { theme } = useTheme();
   const [searchFlag, setSearchFlag] = useState(false);
   const [userDetails, setUserDetails] = useState(profileInitailValues);
 
@@ -40,7 +42,13 @@ export default function Navbar({
   }, [data]);
 
   return (
-    <div className="flex items-center bg-White shadow shadow-Light px-4 py-2 md:py-4 sticky top-0 z-50">
+    <div
+      className={`flex items-center shadow px-4 py-2 md:py-4 sticky top-0 z-50 ${
+        theme === "light"
+          ? "bg-White text-Black shadow-Black/10"
+          : "bg-Black text-White shadow-Light/30"
+      }`}
+    >
       {searchFlag !== undefined && !searchFlag && (
         <div className="flex items-center justify-between w-full">
           <div className="flex items-center gap-2">

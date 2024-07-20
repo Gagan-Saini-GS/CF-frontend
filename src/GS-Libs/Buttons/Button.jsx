@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useTheme } from "../../context/themeContext";
 
 const Button = ({
   type,
@@ -8,6 +9,7 @@ const Button = ({
   primaryColor = true,
   disabled = false,
 }) => {
+  const { theme } = useTheme();
   const [buttonSize, setButtonSize] = useState("p-0 text-base");
 
   useEffect(() => {
@@ -37,7 +39,11 @@ const Button = ({
       type={type}
       onClick={onClick}
       className={`w-full text-center rounded shadow ${
-        primaryColor ? "bg-Purple text-White" : "bg-Purple/30 text-Black"
+        primaryColor
+          ? "bg-Purple text-White/80"
+          : `${
+              theme === "light" ? "bg-Purple/30 text-Black/80" : "bg-Purple/70"
+            }`
       } ${buttonSize} ${
         disabled ? "opacity-80 cursor-not-allowed" : "cursor-pointer"
       }`}

@@ -7,8 +7,10 @@ import NoResultsFound from "../../GS-Libs/MultiUse/NoResultsFound";
 import { useSearchContext } from "../../context/searchContext";
 import useDebouncedAPI from "../../hooks/useDebounceAPI";
 import FullScreenLoader from "../../GS-Libs/MultiUse/FullScreenLoader";
+import { useTheme } from "../../context/themeContext";
 
 const Home = ({ openCart, setShowCartSlider, showFilterSection }) => {
+  const { theme } = useTheme();
   const [totalPages, setTotalPages] = useState(1);
   const observer = useRef();
 
@@ -105,7 +107,11 @@ const Home = ({ openCart, setShowCartSlider, showFilterSection }) => {
   );
 
   return (
-    <div className="flex bg-White relative">
+    <div
+      className={`flex relative ${
+        theme === "light" ? "bg-White text-Black/80" : "bg-Black text-White/80"
+      }`}
+    >
       <div
         className={`w-full xs:w-3/5 md:w-1/4 xl:w-1/5 h-full transition-all duration-300 absolute md:relative z-10 ${
           showFilterSection ? "left-0" : "-left-full md:left-0"
@@ -119,7 +125,7 @@ const Home = ({ openCart, setShowCartSlider, showFilterSection }) => {
         </div>
       </div>
       <div className="w-full md:w-3/4 xl:w-4/5 h-full">
-        <div className="flex flex-col bg-White px-4 py-2 fixed w-full md:w-3/4 xl:w-4/5 h-full">
+        <div className="flex flex-col px-4 py-2 fixed w-full md:w-3/4 xl:w-4/5 h-full">
           <div className="w-full h-full overflow-y-scroll">
             {allProducts.length > 0 ? (
               <>

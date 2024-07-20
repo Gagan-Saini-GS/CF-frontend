@@ -13,8 +13,10 @@ import BuyNow from "../BuyNow/BuyNow.jsx";
 import Navbar from "../Navbar/Navbar.jsx";
 import Footer from "../Footer/Footer.jsx";
 import { SearchContextProvider } from "../../context/searchContext.jsx";
+import { ThemeProvider, useTheme } from "../../context/themeContext.jsx";
 
 const AppLayout = ({ showFilterSection, setShowFilterSection }) => {
+  const { theme } = useTheme();
   const [showProfileSlider, setShowProfileSlider] = useState(false);
   const [showCartSlider, setShowCartSlider] = useState(false);
   const [authToken, setAuthToken] = useState(
@@ -26,22 +28,28 @@ const AppLayout = ({ showFilterSection, setShowFilterSection }) => {
   };
 
   return (
-    <div className="h-screen bg-White ">
-      <SearchContextProvider>
-        <Navbar
-          showFilterSection={showFilterSection}
-          setShowFilterSection={setShowFilterSection}
-          showProfileSlider={showProfileSlider}
-          setShowProfileSlider={setShowProfileSlider}
-          showCartSlider={showCartSlider}
-          setShowCartSlider={setShowCartSlider}
-          userAuthToken={authToken}
-          setUserAuthToken={setUserAuthToken}
-        />
-        <Outlet />
-        {/* <Footer /> */}
-      </SearchContextProvider>
-    </div>
+    <>
+      <div
+        className={`h-screen ${
+          theme === "light" ? "bg-White text-Black" : "bg-Black text-White"
+        }`}
+      >
+        <SearchContextProvider>
+          <Navbar
+            showFilterSection={showFilterSection}
+            setShowFilterSection={setShowFilterSection}
+            showProfileSlider={showProfileSlider}
+            setShowProfileSlider={setShowProfileSlider}
+            showCartSlider={showCartSlider}
+            setShowCartSlider={setShowCartSlider}
+            userAuthToken={authToken}
+            setUserAuthToken={setUserAuthToken}
+          />
+          <Outlet />
+          {/* <Footer /> */}
+        </SearchContextProvider>
+      </div>
+    </>
   );
 };
 
@@ -77,10 +85,12 @@ const App = () => {
     {
       path: "/",
       element: (
-        <AppLayout
-          showFilterSection={showFilterSection}
-          setShowFilterSection={setShowFilterSection}
-        />
+        <ThemeProvider>
+          <AppLayout
+            showFilterSection={showFilterSection}
+            setShowFilterSection={setShowFilterSection}
+          />
+        </ThemeProvider>
       ),
       children: [
         {

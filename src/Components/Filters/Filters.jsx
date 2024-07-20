@@ -4,10 +4,11 @@ import { AllFilters, MAX_PRICE, MIN_PRICE } from "../../config";
 import FilterCard from "./FilterCard";
 import RangePicker from "../../GS-Libs/Input/RangePicker";
 import ColorFilter from "./ColorFilter";
+import { useTheme } from "../../context/themeContext";
 
 const Filters = ({ selectedFilters, setSelectedFilters }) => {
   const [numberOfFilters, setNumberOfFilters] = useState(0);
-
+  const { theme } = useTheme();
   const selectFilters = (filterName, optionName) => {
     const alreadySelected = selectedFilters[filterName].includes(
       optionName.toLowerCase()
@@ -41,8 +42,18 @@ const Filters = ({ selectedFilters, setSelectedFilters }) => {
   }, [selectedFilters]);
 
   return (
-    <div className="w-full px-4 py-2 bg-White border-r border-Black/40">
-      <div className="flex items-center justify-between bg-White border-b border-Black/40 pb-1">
+    <div
+      className={`w-full px-4 py-2 border-r ${
+        theme === "light"
+          ? "border-Black/40 bg-White text-Black"
+          : "border-White/40 bg-Black text-White"
+      }`}
+    >
+      <div
+        className={`flex items-center justify-between pb-1 border-b ${
+          theme === "light" ? "border-Black/40" : "border-White/40"
+        }`}
+      >
         <div className="flex gap-1 items-center">
           <IoFilter className="w-4 h-4" />
           <div className="text-lg font-semibold">Filters</div>

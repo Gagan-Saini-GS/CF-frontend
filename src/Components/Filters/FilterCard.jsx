@@ -3,7 +3,7 @@ import Checkbox from "../../GS-Libs/Input/Checkbox";
 
 const FilterCard = ({ filter, selectedFilters, onClick }) => {
   return (
-    <div className="bg-white p-2 rounded-md shadow-md w-full max-w-md mx-auto">
+    <div className="p-2 rounded-md shadow-md w-full max-w-md mx-auto border border-Gray border-dashed">
       <div className="text-xl font-semibold pb-2">{filter.name}</div>
       <div className="flex flex-wrap gap-2">
         {filter.options.map((option) => {

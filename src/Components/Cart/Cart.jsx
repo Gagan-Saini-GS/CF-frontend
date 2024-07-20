@@ -107,9 +107,7 @@ const Cart = ({ showCartSlider }) => {
       </div>
       <div className="w-full md:w-1/3 md:h-full p-2 md:px-4 md:pt-8 md:pb-4 bg-Gray/20 relative flex flex-col justify-between">
         <div className="w-full">
-          <div className="pb-5 uppercase text-lg text-Black font-medium">
-            Checkout
-          </div>
+          <div className="pb-5 uppercase text-lg font-medium">Checkout</div>
 
           <div className="grid grid-cols-1 gap-2 overflow-y-scroll">
             {cartProducts?.reverse().map((product) => {

@@ -82,16 +82,16 @@ const Cart = ({ showCartSlider }) => {
   }
 
   return (
-    <div className="w-full min-h-fit md:h-full md:flex overflow-y-scroll">
+    <div className="w-full h-full flex flex-col md:flex-row justify-between overflow-y-scroll">
       <div className="w-full md:w-2/3 md:h-full p-2 md:px-4 md:pt-8 md:pb-4">
         {cartProducts?.length === 0 ? (
-          <div className="w-full h-full">
+          <div className="w-full h-full pt-10">
             <div className="text-lg font-medium text-Gray">Empty Cart</div>
             <div className="">
               <img
                 src={NotFoundImage}
                 alt=""
-                className="rounded-md max-w-96 max-h-96 "
+                className="rounded-md max-w-64 max-h-64 md:max-w-96 md:max-h-96 "
               />
             </div>
           </div>

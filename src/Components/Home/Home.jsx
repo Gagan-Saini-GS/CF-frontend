@@ -108,7 +108,7 @@ const Home = ({ openCart, setShowCartSlider, showFilterSection }) => {
 
   return (
     <div
-      className={`flex relative ${
+      className={`flex relative h-full ${
         theme === "light" ? "bg-White text-Black/80" : "bg-Black text-White/80"
       }`}
     >
@@ -125,7 +125,7 @@ const Home = ({ openCart, setShowCartSlider, showFilterSection }) => {
         </div>
       </div>
       <div className="w-full md:w-3/4 xl:w-4/5 h-full">
-        <div className="flex flex-col px-4 py-2 fixed w-full md:w-3/4 xl:w-4/5 h-full">
+        <div className="flex flex-col px-4 py-2 w-full h-full md:fixed md:w-3/4 xl:w-4/5">
           <div className="w-full h-full overflow-y-scroll">
             {allProducts.length > 0 ? (
               <>

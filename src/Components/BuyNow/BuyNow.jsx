@@ -151,11 +151,11 @@ export default function BuyNow() {
 
   return (
     <div
-      className={`w-screen h-full flex flex-col md:flex-row justify-center ${
+      className={`h-full flex flex-col md:flex-row justify-center ${
         theme === "light" ? "bg-White" : "bg-Black"
       }`}
     >
-      <div className="w-full md:w-3/4 flex flex-col md:flex-row gap-4 h-full px-4 py-5 items-center">
+      <div className="w-full md:w-3/4 flex flex-col md:flex-row gap-4 px-4 py-5">
         <div className="flex flex-col md:flex-row gap-4 w-full">
           <ProductImages product={product} />
           <div className="w-full max-w-[500px]">
@@ -216,7 +216,7 @@ export default function BuyNow() {
         </div>
       </div>
       <div
-        className={`w-full md:w-1/4 flex flex-col overflow-y-scroll justify-between gap-4 p-4 shadow md:h-[87vh] ${
+        className={`w-full md:w-1/4 flex flex-col overflow-y-scroll justify-between gap-4 p-4 shadow ${
           theme === "light" ? "bg-Light" : "bg-Light/10"
         }`}
       >

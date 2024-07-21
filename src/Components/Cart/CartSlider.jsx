@@ -12,8 +12,8 @@ const CartSlider = ({ showCartSlider, setShowCartSlider }) => {
         showCartSlider ? "right-0" : "-right-full"
       } ${theme === "light" ? "bg-White text-Black" : "bg-Black text-White"}`}
     >
-      <div className="bg-Purple w-12 h-full flex flex-col items-center justify-between pt-12 pb-4 px-2"></div>
-      <div className="w-full h-full flex relative">
+      <div className="bg-Purple w-12 flex flex-col items-center justify-between pt-12 pb-4 px-2"></div>
+      <div className="w-full flex relative">
         <div
           className="w-7 h-7 bg-White p-2 rounded-full flex justify-center items-center cursor-pointer absolute top-2 -left-[15px] shadow-lg"
           onClick={() => setShowCartSlider(false)}

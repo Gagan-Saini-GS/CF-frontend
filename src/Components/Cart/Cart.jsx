@@ -87,8 +87,12 @@ const Cart = ({ showCartSlider }) => {
         {cartProducts?.length === 0 ? (
           <div className="w-full h-full">
             <div className="text-lg font-medium text-Gray">Empty Cart</div>
-            <div className="w-full h-full flex items-center justify-center">
-              <img src={NotFoundImage} alt="" className="rounded-md" />
+            <div className="">
+              <img
+                src={NotFoundImage}
+                alt=""
+                className="rounded-md max-w-96 max-h-96 "
+              />
             </div>
           </div>
         ) : (

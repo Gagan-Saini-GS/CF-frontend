@@ -1,4 +1,5 @@
 import React from "react";
+import { useTheme } from "../../context/themeContext";
 
 export const Input = ({
   type,
@@ -18,10 +19,16 @@ export const Input = ({
    * but inline style will always be preferred so no need to worry.
    */
 
+  const { theme } = useTheme();
+
   return (
     <div>
       <input
-        className={className}
+        className={`${className} ${
+          theme === "light"
+            ? "bg-White text-Black/80"
+            : "bg-Black text-White/80"
+        }`}
         style={
           errorMessage
             ? {

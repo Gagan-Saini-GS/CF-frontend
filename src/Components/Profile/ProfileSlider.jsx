@@ -34,11 +34,11 @@ const TabOptions = [
     name: "Seller",
     icon: <FaShopify className="w-5 h-5" />,
   },
-  // {
-  //   id: "setting",
-  //   name: "Setting",
-  //   icon: <IoSettingsSharp className="w-5 h-5" />,
-  // },
+  {
+    id: "setting",
+    name: "Setting",
+    icon: <IoSettingsSharp className="w-5 h-5" />,
+  },
 ];
 
 const ProfileSlider = ({

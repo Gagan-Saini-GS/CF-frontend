@@ -10,12 +10,12 @@ const OrderCard = ({ product }) => {
           className="w-full h-full object-fill rounded-md"
         />
       </div>
-      <div className="text-Black pt-1 flex flex-col gap-1">
+      <div className="pt-1 flex flex-col gap-1">
         <div className="text-xl font-semibold text-ellipsis overflow-hidden whitespace-nowrap">
           {product.name}
         </div>
         <div className="w-full flex items-center justify-between pt-2">
-          <p className="text-Black">Price</p>
+          <p className="">Price</p>
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-1">
               <p className="font-semibold">${product.price}</p>

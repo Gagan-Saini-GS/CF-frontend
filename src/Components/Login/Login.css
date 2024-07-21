@@ -1,7 +1,6 @@
 .login-container {
   height: 100vh;
   width: 100%;
-  background-color: var(--White);
   display: flex;
   overflow: hidden;
 }
@@ -17,7 +16,7 @@
   width: 700px;
   height: 700px;
   border-radius: 100%;
-  background-color: var(--Blue);
+  /* background-color: var(--Blue); */
   position: absolute;
   left: -12%;
   top: -20%;
@@ -82,8 +81,6 @@
 
 .form-btn button {
   width: 100%;
-  background-color: var(--Blue);
-  color: var(--White);
   padding: 10px 0px;
   margin: 50px 0px 10px;
   font-size: 2rem;
@@ -97,7 +94,6 @@
 }
 
 .signup-info span {
-  color: var(--Blue);
   font-weight: 600;
 }
 
@@ -118,7 +114,7 @@
 }
 
 .bottom-logo-circle {
-  background-color: var(--Yellow);
+  /* background-color: var(--Yellow); */
   border-radius: 100% 0px 0px 0px;
   width: 125px;
   height: 100px;
@@ -154,8 +150,6 @@
   font-weight: 600;
   text-align: center;
   padding: 4px 8px;
-  background-color: var(--Light);
-  border: 1px solid var(--Black);
   border-radius: 4px;
   width: 40%;
   margin: 20px auto;

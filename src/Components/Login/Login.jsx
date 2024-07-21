@@ -11,6 +11,7 @@ import swal from "sweetalert";
 import OnlineShoppingImage from "../../Assets/images/online-shopping.png";
 import DeliveryTruckImage from "../../Assets/images/delivery-truck.png";
 import ManProfileImage from "../../Assets/images/man.png";
+import { useTheme } from "../../context/themeContext";
 
 export default function Login(props) {
   const [showLogin, setShowLogin] = useState(true);
@@ -48,11 +49,17 @@ export default function Login(props) {
       });
   };
 
+  const { theme } = useTheme();
+
   return (
-    <div className="login-container">
+    <div
+      className={`login-container ${
+        theme === "light" ? "bg-White text-Black" : "bg-Black text-White"
+      }`}
+    >
       <div className="login-item">
         <div className="logo-container">
-          <div className="circle">
+          <div className="circle bg-Blue">
             <div className="shopping-logo-img">
               <img src={OnlineShoppingImage} alt="Online-shopping" />
             </div>
@@ -89,13 +96,17 @@ export default function Login(props) {
           )}
           <div
             onClick={guestUserLogin}
-            className="w-full bg-Light rounded p-2 text-center cursor-pointer border-2 border-Black/20"
+            className={`w-full rounded p-2 text-center cursor-pointer border-2 ${
+              theme === "light"
+                ? "bg-Light border-Black/20"
+                : "bg-White/10 border-Light/50"
+            }`}
           >
             Login as a Guest User
           </div>
         </div>
 
-        <div className="bottom-logo-circle">
+        <div className="bottom-logo-circle bg-Yellow text-Black/80">
           <div>
             <p className="company-name">CF</p>
             <p className="company-full-name">Closet Fashion</p>

@@ -30,7 +30,7 @@ const AppLayout = ({ showFilterSection, setShowFilterSection }) => {
   return (
     <>
       <div
-        className={`h-screen ${
+        className={`h-screen flex flex-col justify-between items-stretch ${
           theme === "light" ? "bg-White text-Black" : "bg-Black text-White"
         }`}
       >
@@ -80,7 +80,11 @@ const App = () => {
   const appRouter = createBrowserRouter([
     {
       path: "/login",
-      element: <Login setUserAuthToken={setUserAuthToken} />,
+      element: (
+        <ThemeProvider>
+          <Login setUserAuthToken={setUserAuthToken} />
+        </ThemeProvider>
+      ),
     },
     {
       path: "/",

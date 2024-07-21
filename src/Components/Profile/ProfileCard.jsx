@@ -19,7 +19,7 @@ const ProfileCard = ({
         {isEditing ? (
           <>
             <Input
-              className="p-2 border-2 border-Black/20 bg-Gray/10 rounded text-Black w-full"
+              className="p-2 border-2 border-Black/20 rounded w-full"
               type={type}
               placeholder={placeholder}
               value={value}

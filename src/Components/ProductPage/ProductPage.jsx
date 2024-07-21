@@ -76,7 +76,7 @@ export default function ProductPage({ handleOpenCart }) {
 
   return (
     <div
-      className={`p-4 lg:p-8 w-full h-full ${
+      className={`p-4 lg:p-8 w-full lg:h-full ${
         theme === "light" ? "bg-White text-Black/80" : "bg-Black text-White/80"
       }`}
     >
@@ -101,7 +101,7 @@ export default function ProductPage({ handleOpenCart }) {
                           : () => setShowTextLimit(16)
                       }
                     >
-                      {showTextLimit <= 16 ? "...show more" : "...show less"}
+                      {showTextLimit <= 16 ? "...show more" : "...hide"}
                     </span>
                   </p>
                 </div>
@@ -156,7 +156,7 @@ export default function ProductPage({ handleOpenCart }) {
             </div>
           </div>
         </div>
-        <div className="h-full md:h-3/5 border border-dashed border-Gray p-2 rounded-md flex flex-col justify-between md:col-span-2 lg:col-span-3 shadow-md">
+        <div className="h-full lg:h-3/5 border border-dashed border-Gray p-2 rounded-md flex flex-col justify-between md:col-span-2 lg:col-span-3 shadow-md pb-4">
           <div className="flex flex-col gap-4">
             <div>
               <div>

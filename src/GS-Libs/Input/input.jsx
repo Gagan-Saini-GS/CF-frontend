@@ -26,7 +26,7 @@ export const Input = ({
       <input
         className={`${className} ${
           theme === "light"
-            ? "bg-White text-Black/80"
+            ? "bg-Gray/10 text-Black/80"
             : "bg-Black text-White/80"
         }`}
         style={
@@ -45,7 +45,9 @@ export const Input = ({
         onKeyUp={onKeyUp}
         readOnly={readOnly}
       />
-      {errorMessage && <span className="text-Red text-sm">{errorMessage}</span>}
+      {errorMessage && (
+        <span className="text-Red/80 text-sm">{errorMessage}</span>
+      )}
     </div>
   );
 };

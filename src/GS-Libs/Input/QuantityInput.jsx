@@ -20,7 +20,7 @@ const QuantityInput = ({ quantity, setQuantity }) => {
         name="quantity"
         value={quantity}
         readOnly={true}
-        className="border border-Purple bg-Purple text-White rounded text-sm font-medium w-6 h-6 text-center"
+        className="border border-Purple rounded text-sm font-medium w-6 h-6 text-center"
       />
       <div
         className="text-sm bg-Gray/20 rounded w-6 h-6 flex items-center justify-center"

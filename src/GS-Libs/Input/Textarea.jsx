@@ -1,4 +1,5 @@
 import React from "react";
+import { useTheme } from "../../context/themeContext";
 
 export const Textarea = ({
   name,
@@ -11,11 +12,17 @@ export const Textarea = ({
   onKeyUp,
   rows = 5,
 }) => {
+  const { theme } = useTheme();
+
   return (
     <div>
       <textarea
         rows={rows}
-        className={className}
+        className={`${className} ${
+          theme === "light"
+            ? "bg-Gray/10 text-Black/80"
+            : "bg-Black text-White/80"
+        }`}
         style={
           errorMessage
             ? {
@@ -30,7 +37,9 @@ export const Textarea = ({
         onKeyDown={onKeyDown}
         onKeyUp={onKeyUp}
       ></textarea>
-      {errorMessage && <span className="text-Red text-sm">{errorMessage}</span>}
+      {errorMessage && (
+        <span className="text-Red/80 text-sm">{errorMessage}</span>
+      )}
     </div>
   );
 };

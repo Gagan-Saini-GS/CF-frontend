@@ -16,18 +16,21 @@ import {
 } from "../../validations/buy-product-page-validations";
 import { apiCaller } from "../../GS-Libs/utils/apiCaller";
 import ProductImages from "../../GS-Libs/MultiUse/ProductImages";
-import { getDiscountedPrice } from "../../GS-Libs/utils/productUtils";
+import {
+  getDiscountedPrice,
+  limitText,
+} from "../../GS-Libs/utils/productUtils";
 import { useTheme } from "../../context/themeContext";
 
-const PaymentItem = ({ name, value, isSelected, setPaymentMethod }) => {
+const PaymentItem = ({ name, value, isSelected, setFormData }) => {
   return (
     <div
-      className={`border p-2 rounded  ${
+      className={`border border-dashed hover:border-solid p-2 rounded  ${
         isSelected
           ? "bg-Purple text-White border-Purple"
           : "border-Gray hover:border-Purple hover:text-Purple"
       }`}
-      onClick={() => setPaymentMethod({ isValid: true, paymentMethod: value })}
+      onClick={() => setFormData((prev) => ({ ...prev, paymentMethod: value }))}
     >
       <div>{name}</div>
     </div>
@@ -39,11 +42,7 @@ export default function BuyNow() {
   const navigate = useNavigate();
   const params = useParams();
 
-  const [paymentMethod, setPaymentMethod] = useState({
-    paymentMethod: "",
-    isValid: true,
-  });
-
+  const [showTextLimit, setShowTextLimit] = useState(16);
   const [product, setProduct] = useState();
   const [selectedSize, setSelectSize] = useState("");
   const [selectedColor, setSelectedColor] = useState("");
@@ -62,7 +61,7 @@ export default function BuyNow() {
               quantity: quantity,
               size: selectedSize,
               color: selectedColor,
-              paymentMethod: paymentMethod.paymentMethod,
+              paymentMethod: user.paymentMethod,
             },
           ],
         },
@@ -137,21 +136,16 @@ export default function BuyNow() {
 
   const submitForm = (e) => {
     setIsSubmitted(true);
-    if (
-      paymentMethod.paymentMethod === "" ||
-      selectedSize === "" ||
-      selectedColor === ""
-    ) {
-      setPaymentMethod((prev) => ({ ...prev, isValid: false }));
+    handleSubmit(e);
+
+    if (selectedSize === "" || selectedColor === "") {
       return;
     }
-
-    handleSubmit(e);
   };
 
   return (
     <div
-      className={`h-full flex flex-col md:flex-row justify-center ${
+      className={`lg:h-full flex flex-col md:flex-row justify-center ${
         theme === "light" ? "bg-White" : "bg-Black"
       }`}
     >
@@ -160,7 +154,22 @@ export default function BuyNow() {
           <ProductImages product={product} />
           <div className="w-full max-w-[500px]">
             <div className="text-xl font-semibold">{product.name}</div>
-            <div className="font-medium w-full">{product.description}</div>
+            <div className="font-medium w-full">
+              <p className="hidden xs:block">{product?.description}</p>
+              <p className="xs:hidden">
+                {limitText(product?.description, showTextLimit)}
+                <span
+                  className="text-Purple/80"
+                  onClick={
+                    showTextLimit <= 16
+                      ? () => setShowTextLimit(1000)
+                      : () => setShowTextLimit(16)
+                  }
+                >
+                  {showTextLimit <= 16 ? "...show more" : "...hide"}
+                </span>
+              </p>
+            </div>
             <div className="flex items-center gap-2 text-lg mt-4">
               <div className="font-medium inline-block text-center border border-dashed border-Gray px-2 py-1 rounded hover:border-Purple hover:border-solid hover:bg-Purple hover:text-White transition-all duration-200">
                 {toTitleCase(product.brand)}
@@ -241,6 +250,7 @@ export default function BuyNow() {
                     value={user.phoneNumber}
                     onChange={handleChange}
                     errorMessage={errors.phoneNumber}
+                    className="p-2 border-2 border-Black/20 rounded w-full"
                   />
                 </>
               )}
@@ -257,6 +267,7 @@ export default function BuyNow() {
                     value={user.address}
                     onChange={handleChange}
                     errorMessage={errors.address}
+                    className="p-2 border-2 border-Black/20 rounded w-full"
                   />
                 </>
               )}
@@ -319,21 +330,19 @@ export default function BuyNow() {
                     key={paymentItem.id}
                     name={paymentItem.name}
                     value={paymentItem.value}
-                    isSelected={
-                      paymentMethod.paymentMethod === paymentItem.value
-                    }
-                    setPaymentMethod={setPaymentMethod}
+                    isSelected={user.paymentMethod === paymentItem.value}
+                    setFormData={setFormData}
                   />
                 );
               })}
             </div>
-            {!paymentMethod.isValid && (
+            {user.paymentMethod === "" && isSubmitted && (
               <span className="validation-error-msg">
                 Please Select Payment Method
               </span>
             )}
 
-            {paymentMethod.paymentMethod === "upi" && (
+            {user.paymentMethod === "upi" && (
               <div className="mt-2">
                 <div className="text-xs font-semibold">UPI ID</div>
                 <div className="w-full mt-2">
@@ -349,8 +358,8 @@ export default function BuyNow() {
                 </div>
               </div>
             )}
-            {(paymentMethod.paymentMethod === "creditcard" ||
-              paymentMethod.paymentMethod === "debitcard") && (
+            {(user.paymentMethod === "creditcard" ||
+              user.paymentMethod === "debitcard") && (
               <div className="mt-2">
                 <div className="text-xs font-semibold">Card Details</div>
                 <div className="grid grid-cols-2 gap-2 mt-2">

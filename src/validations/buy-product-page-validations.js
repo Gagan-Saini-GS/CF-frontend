@@ -26,12 +26,13 @@ export const buyProductPageUserValidations = {
     }
   },
   address: (value) => {
+    console.log("Address", value);
     if (!value) {
       return "Address is required";
     }
   },
-  upiIdValue: (value, values) => {
-    if (!value && !values.cardNumber) {
+  upiIdValue: (value, formData) => {
+    if (!value && !formData.cardNumber && formData.paymentMethod !== "cod") {
       return "UPI ID is required";
     }
     if (value) {
@@ -42,7 +43,7 @@ export const buyProductPageUserValidations = {
     }
   },
   cardNumber: (value, formData) => {
-    if (!value && !formData.upiIdValue) {
+    if (!value && !formData.upiIdValue && formData.paymentMethod !== "cod") {
       return "Card Number is required";
     }
     if (value) {
@@ -53,7 +54,7 @@ export const buyProductPageUserValidations = {
     }
   },
   validDate: (value, formData) => {
-    if (!value && !formData.upiIdValue) {
+    if (!value && !formData.upiIdValue && formData.paymentMethod !== "cod") {
       return "Card valid date is required";
     }
     if (value) {
@@ -64,7 +65,7 @@ export const buyProductPageUserValidations = {
     }
   },
   cvc: (value, formData) => {
-    if (!value && !formData.upiIdValue) {
+    if (!value && !formData.upiIdValue && formData.paymentMethod !== "cod") {
       return "CVC is required";
     }
     if (value) {
@@ -81,6 +82,7 @@ export const buyProductPageUserInitailValues = {
   email: "",
   phoneNumber: "",
   address: "",
+  paymentMethod: "",
   upiIdValue: "",
   cardNumber: "",
   validDate: "",

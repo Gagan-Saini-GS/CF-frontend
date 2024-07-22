@@ -91,7 +91,7 @@ const SignupForm = ({ setUserAuthToken, setShowLogin }) => {
             }}
             className="text-Purple"
           >
-            Click here!
+            Sign-in here!
           </span>
         </div>
       </div>

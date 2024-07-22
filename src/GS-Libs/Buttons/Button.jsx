@@ -40,7 +40,7 @@ const Button = ({
       onClick={onClick}
       className={`w-full text-center rounded shadow ${
         primaryColor
-          ? "bg-Purple text-White/80"
+          ? "bg-Purple text-White"
           : `${
               theme === "light" ? "bg-Purple/30 text-Black/80" : "bg-Purple/70"
             }`

@@ -22,7 +22,7 @@ import {
 } from "../../GS-Libs/utils/productUtils";
 import { useTheme } from "../../context/themeContext";
 
-const PaymentItem = ({ name, value, isSelected, setFormData }) => {
+const PaymentItem = ({ name, value, isSelected, setUser }) => {
   return (
     <div
       className={`border border-dashed hover:border-solid p-2 rounded  ${
@@ -30,7 +30,7 @@ const PaymentItem = ({ name, value, isSelected, setFormData }) => {
           ? "bg-Purple text-White border-Purple"
           : "border-Gray hover:border-Purple hover:text-Purple"
       }`}
-      onClick={() => setFormData((prev) => ({ ...prev, paymentMethod: value }))}
+      onClick={() => setUser((prev) => ({ ...prev, paymentMethod: value }))}
     >
       <div>{name}</div>
     </div>
@@ -41,6 +41,9 @@ export default function BuyNow() {
   const { theme } = useTheme();
   const navigate = useNavigate();
   const params = useParams();
+
+  const [userPhoneNumber, setUserPhoneNumber] = useState("");
+  const [userAddress, setUserAddress] = useState("");
 
   const [showTextLimit, setShowTextLimit] = useState(16);
   const [product, setProduct] = useState();
@@ -87,7 +90,7 @@ export default function BuyNow() {
 
   const {
     formData: user,
-    setFormData,
+    setFormData: setUser,
     errors,
     handleChange,
     handleSubmit,
@@ -109,7 +112,7 @@ export default function BuyNow() {
         true
       );
 
-      setFormData((prev) => ({
+      setUser((prev) => ({
         ...prev,
         name: data.userDetails.name,
         email: data.userDetails.email,
@@ -126,6 +129,13 @@ export default function BuyNow() {
     if (params.productID) buyProductDetails();
   }, [params.productID]);
 
+  useEffect(() => {
+    if (user) {
+      setUserPhoneNumber(user.phoneNumber);
+      setUserAddress(user.address);
+    }
+  }, [user]);
+
   if (!product || !user) {
     return (
       <div className="fullscreen-loader">
@@ -141,6 +151,18 @@ export default function BuyNow() {
     if (selectedSize === "" || selectedColor === "") {
       return;
     }
+  };
+
+  const udpateUserAddress = () => {
+    setUser((prev) => ({ ...prev, address: userAddress }));
+    apiCaller("/update-address", "post", { address: userAddress });
+  };
+
+  const udpateUserPhoneNumber = () => {
+    setUser((prev) => ({ ...prev, phoneNumber: userPhoneNumber }));
+    apiCaller("/update-phonenumber", "post", {
+      phoneNumber: userPhoneNumber,
+    });
   };
 
   return (
@@ -247,11 +269,18 @@ export default function BuyNow() {
                     type="number"
                     name="phoneNumber"
                     placeholder="Enter Phone Number"
-                    value={user.phoneNumber}
-                    onChange={handleChange}
+                    value={userPhoneNumber}
+                    onChange={(e) => setUserPhoneNumber(e.target.value)}
                     errorMessage={errors.phoneNumber}
                     className="p-2 border-2 border-Black/20 rounded w-full"
                   />
+                  <div className="ml-auto w-fit mt-2">
+                    <Button
+                      text="Save Phone Number"
+                      disabled={userPhoneNumber === "" ? true : false}
+                      onClick={() => udpateUserPhoneNumber()}
+                    />
+                  </div>
                 </>
               )}
             </div>
@@ -264,11 +293,18 @@ export default function BuyNow() {
                   <Textarea
                     name="address"
                     placeholder="Enter Address"
-                    value={user.address}
-                    onChange={handleChange}
+                    value={userAddress}
+                    onChange={(e) => setUserAddress(e.target.value)}
                     errorMessage={errors.address}
                     className="p-2 border-2 border-Black/20 rounded w-full"
                   />
+                  <div className="ml-auto mt-2 w-fit">
+                    <Button
+                      text="Save Address"
+                      disabled={userAddress === "" ? true : false}
+                      onClick={() => udpateUserAddress()}
+                    />
+                  </div>
                 </>
               )}
             </div>
@@ -331,7 +367,7 @@ export default function BuyNow() {
                     name={paymentItem.name}
                     value={paymentItem.value}
                     isSelected={user.paymentMethod === paymentItem.value}
-                    setFormData={setFormData}
+                    setUser={setUser}
                   />
                 );
               })}

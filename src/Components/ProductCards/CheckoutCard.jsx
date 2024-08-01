@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import QuantityInput from "../../GS-Libs/Input/QuantityInput";
+import { getDiscountedPrice } from "../../GS-Libs/utils/productUtils";
 
 const CheckoutCard = ({ product, cartProducts, setCartProducts }) => {
   const [quantity, setQuantity] = useState(1);
@@ -32,7 +33,9 @@ const CheckoutCard = ({ product, cartProducts, setCartProducts }) => {
           </div>
           <div>
             <div className="font-medium text-xl">{product.name}</div>
-            <div className="text-Purple text-2xl">${product.price}</div>
+            <div className="text-Purple text-2xl">
+              ${getDiscountedPrice(product.price)}
+            </div>
           </div>
         </div>
         <QuantityInput quantity={quantity} setQuantity={setQuantity} />

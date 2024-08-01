@@ -1,4 +1,5 @@
 import React from "react";
+import { getDiscountedPrice } from "../../GS-Libs/utils/productUtils";
 
 const OrderCard = ({ product }) => {
   return (
@@ -18,10 +19,10 @@ const OrderCard = ({ product }) => {
           <p className="">Price</p>
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-1">
-              <p className="font-semibold">${product.price}</p>
-              <p className="line-through text-Gray">
-                ${(product.price * 1.4).toFixed(0)}
+              <p className="font-semibold">
+                ${getDiscountedPrice(product.price)}
               </p>
+              <p className="line-through text-Gray">${product.price}</p>
             </div>
           </div>
         </div>

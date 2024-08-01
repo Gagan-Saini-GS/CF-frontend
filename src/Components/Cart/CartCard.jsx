@@ -1,6 +1,7 @@
 import React from "react";
 import Button from "../../GS-Libs/Buttons/Button";
 import { Link } from "react-router-dom";
+import { getDiscountedPrice } from "../../GS-Libs/utils/productUtils";
 
 const CartCard = ({ product, removeFromCart }) => {
   return (
@@ -20,10 +21,10 @@ const CartCard = ({ product, removeFromCart }) => {
           <p className="text-Black">Price</p>
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-1">
-              <p className="font-semibold">${product.price}</p>
-              <p className="line-through text-Gray">
-                ${(product.price * 1.4).toFixed(0)}
+              <p className="font-semibold">
+                ${getDiscountedPrice(product.price)}
               </p>
+              <p className="line-through text-Gray">${product.price}</p>
             </div>
           </div>
         </div>

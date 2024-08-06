@@ -89,7 +89,7 @@ const ProfileSlider = ({
       },
     }).then((confirm) => {
       if (confirm) {
-        localStorage.removeItem("authToken");
+        localStorage.removeItem("CF_authToken");
         setUserAuthToken("");
       }
     });
@@ -174,7 +174,7 @@ const ProfileSlider = ({
               activeTab === "setting" ? "right-0" : "-right-[120%]"
             }`}
           >
-            <Settings />
+            <Settings user={user} />
           </div>
         </div>
       </div>

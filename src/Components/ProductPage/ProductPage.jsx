@@ -22,7 +22,7 @@ export default function ProductPage({ handleOpenCart }) {
   const params = useParams();
   const productID = params.productID;
 
-  const authToken = localStorage.getItem("authToken");
+  const authToken = localStorage.getItem("CF_authToken");
   const [showTextLimit, setShowTextLimit] = useState(16);
   const [sellerDetails, setSellerDetails] = useState({});
   const [product, setProduct] = useState({});

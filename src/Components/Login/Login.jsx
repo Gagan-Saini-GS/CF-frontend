@@ -39,7 +39,7 @@ export default function Login(props) {
       })
       .then((data) => {
         const authToken = data.authToken;
-        localStorage.setItem("authToken", authToken);
+        localStorage.setItem("CF_authToken", authToken);
         props.setUserAuthToken(authToken);
         navigate("/");
       })

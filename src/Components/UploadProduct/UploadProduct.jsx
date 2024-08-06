@@ -21,11 +21,14 @@ import { Input } from "../../GS-Libs/Input/input";
 import Select from "../../GS-Libs/Input/Select";
 import { Textarea } from "../../GS-Libs/Input/Textarea";
 import { apiCaller } from "../../GS-Libs/utils/apiCaller";
+import FullScreenLoader from "../../GS-Libs/MultiUse/FullScreenLoader";
 
 export default function UploadProduct() {
+  const [isProductUploading, setIsProductUploading] = useState(false);
   const [imageIndex, setImageIndex] = useState(0);
 
   const uploadProduct = async () => {
+    setIsProductUploading(true);
     try {
       await apiCaller("/upload-product", "post", {
         productDetails: productDetails,
@@ -34,11 +37,13 @@ export default function UploadProduct() {
       swal("Thanks", "Your Product is uploaded!", "success");
       setProductDetails(initailProductValues);
       setImageIndex(0);
+      setIsProductUploading(false);
     } catch (error) {
       console.log(error);
       swal("Oops", "Something went wrong", "error").then(() => {
         setProductDetails(initailProductValues);
         setImageIndex(0);
+        setIsProductUploading(false);
       });
     }
   };
@@ -51,6 +56,15 @@ export default function UploadProduct() {
     handleChange,
     handleSubmit,
   } = useForm(initailProductValues, uploadProductValidation, uploadProduct);
+
+  if (isProductUploading) {
+    return (
+      <div className="pb-4 p-2 h-full relative flex items-center justify-center">
+        <FullScreenLoader />
+        <div className="pt-20">Uploading Product...</div>
+      </div>
+    );
+  }
 
   return (
     <>

@@ -33,7 +33,7 @@ const LoginForm = ({ setUserAuthToken, setShowLogin }) => {
       })
       .then((data) => {
         const authToken = data.authToken;
-        localStorage.setItem("authToken", authToken);
+        localStorage.setItem("CF_authToken", authToken);
         setUserAuthToken(authToken);
         navigate("/home");
       })

@@ -8,7 +8,7 @@ export const apiCaller = async (
   headers,
   includeAuthToken
 ) => {
-  const authToken = localStorage.getItem("authToken");
+  const authToken = localStorage.getItem("CF_authToken");
   try {
     const response = await axios({
       url: `${SERVER_URL}${url}`,

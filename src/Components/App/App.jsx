@@ -20,7 +20,7 @@ const AppLayout = ({ showFilterSection, setShowFilterSection }) => {
   const [showProfileSlider, setShowProfileSlider] = useState(false);
   const [showCartSlider, setShowCartSlider] = useState(false);
   const [authToken, setAuthToken] = useState(
-    localStorage.getItem("authToken") || ""
+    localStorage.getItem("CF_authToken") || ""
   );
 
   const setUserAuthToken = (token) => {
@@ -56,11 +56,11 @@ const AppLayout = ({ showFilterSection, setShowFilterSection }) => {
 const App = () => {
   const [openCart, setOpenCart] = useState(false);
   const [authToken, setAuthToken] = useState(
-    localStorage.getItem("authToken") || ""
+    localStorage.getItem("CF_authToken") || ""
   );
 
   useEffect(() => {
-    const token = localStorage.getItem("authToken");
+    const token = localStorage.getItem("CF_authToken");
     if (token !== authToken) {
       setAuthToken(token);
     }

@@ -24,7 +24,7 @@ const SignupForm = ({ setUserAuthToken, setShowLogin }) => {
       .then((response) => response.json())
       .then((data) => {
         const authToken = data.authToken;
-        localStorage.setItem("authToken", authToken);
+        localStorage.setItem("CF_authToken", authToken);
         navigate("/home");
         setUserAuthToken(authToken);
         setUser(signupInitailValues);

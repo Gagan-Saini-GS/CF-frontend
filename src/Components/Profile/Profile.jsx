@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Input } from "../../GS-Libs/Input/input";
 import { MdEdit } from "react-icons/md";
 import uploadImage from "../../GS-Libs/utils/uploadImage";
 import Button from "../../GS-Libs/Buttons/Button";

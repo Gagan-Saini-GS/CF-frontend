@@ -32,7 +32,7 @@ const Home = ({ openCart, setShowCartSlider, showFilterSection }) => {
     genders: [],
   });
 
-  const authToken = localStorage.getItem("authToken");
+  const authToken = localStorage.getItem("CF_authToken");
 
   const { data, loading } = useDebouncedAPI(
     "post",

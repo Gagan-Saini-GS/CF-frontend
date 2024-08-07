@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Login.css";
 import { useNavigate } from "react-router-dom";
 import { SERVER_URL } from "../../config";
@@ -9,8 +9,10 @@ import {
   loginInitailValues,
   loginValidations,
 } from "../../validations/login-validations";
+import { IoMdEye, IoMdEyeOff } from "react-icons/io";
 
 const LoginForm = ({ setUserAuthToken, setShowLogin }) => {
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
   const handleLogin = () => {
@@ -64,15 +66,23 @@ const LoginForm = ({ setUserAuthToken, setShowLogin }) => {
             onChange={handleChange}
             errorMessage={errors.email}
           />
-          <Input
-            type="password"
-            name="password"
-            className="p-2 border-2 border-Black/20 bg-Gray/10 rounded text-Black w-full"
-            placeholder="Password"
-            value={user.password}
-            onChange={handleChange}
-            errorMessage={errors.password}
-          />
+          <div className="relative">
+            <Input
+              type={showPassword ? "text" : "password"}
+              name="password"
+              className="p-2 border-2 border-Black/20 bg-Gray/10 rounded text-Black w-full"
+              placeholder="Password"
+              value={user.password}
+              onChange={handleChange}
+              errorMessage={errors.password}
+            />
+            <div
+              className="absolute right-2 top-1/2 -translate-y-1/2 cursor-pointer"
+              onClick={() => setShowPassword((prev) => !prev)}
+            >
+              {showPassword ? <IoMdEye /> : <IoMdEyeOff />}
+            </div>
+          </div>
           <div className="extra-form-items">
             <div className="flex items-center gap-2">
               <input type="checkbox" name="" />

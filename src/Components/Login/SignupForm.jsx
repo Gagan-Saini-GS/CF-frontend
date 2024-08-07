@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import swal from "sweetalert";
 import { useNavigate } from "react-router-dom";
 import { SERVER_URL } from "../../config";
@@ -8,8 +8,10 @@ import {
   signupInitailValues,
   signupValidations,
 } from "../../validations/signup-validations";
+import { IoMdEye, IoMdEyeOff } from "react-icons/io";
 
 const SignupForm = ({ setUserAuthToken, setShowLogin }) => {
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
   const handleSignup = (event) => {
     fetch(`${SERVER_URL}/signup`, {
@@ -66,15 +68,23 @@ const SignupForm = ({ setUserAuthToken, setShowLogin }) => {
               errorMessage={errors.email}
               onChange={handleChange}
             />
-            <Input
-              type="password"
-              name="password"
-              placeholder="Password"
-              className="p-2 border-2 border-Black/20 bg-Gray/10 rounded text-Black w-full"
-              value={user.password}
-              onChange={handleChange}
-              errorMessage={errors.password}
-            />
+            <div className="relative">
+              <Input
+                type={showPassword ? "text" : "password"}
+                name="password"
+                placeholder="Password"
+                className="p-2 border-2 border-Black/20 bg-Gray/10 rounded text-Black w-full"
+                value={user.password}
+                onChange={handleChange}
+                errorMessage={errors.password}
+              />
+              <div
+                className="absolute right-2 top-1/2 -translate-y-1/2 cursor-pointer"
+                onClick={() => setShowPassword((prev) => !prev)}
+              >
+                {showPassword ? <IoMdEye /> : <IoMdEyeOff />}
+              </div>
+            </div>
           </div>
           <button
             type="submit"

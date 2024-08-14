@@ -1,6 +1,10 @@
 import axios from "axios";
 import { SERVER_URL } from "../../config";
 
+const isAuthTokenExist = (includeAuthToken) => {
+  return includeAuthToken !== undefined && includeAuthToken !== null;
+};
+
 export const apiCaller = async (
   url,
   method,
@@ -13,7 +17,12 @@ export const apiCaller = async (
     const response = await axios({
       url: `${SERVER_URL}${url}`,
       method: method,
-      data: { ...data, includeAuthToken: includeAuthToken || true },
+      data: {
+        ...data,
+        includeAuthToken: isAuthTokenExist(includeAuthToken)
+          ? includeAuthToken
+          : true,
+      },
       headers: {
         ...headers,
         "Content-Type": "application/json",

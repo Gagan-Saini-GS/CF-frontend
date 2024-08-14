@@ -71,7 +71,11 @@ export default function ProductPage({ handleOpenCart }) {
   };
 
   if (!isProductFetched) {
-    return <FullScreenLoader />;
+    return (
+      <div className="relative w-full h-full">
+        <FullScreenLoader />
+      </div>
+    );
   }
 
   return (

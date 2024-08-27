@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import SignupForm from "./SignupForm";
 import LoginForm from "./LoginForm";
 import {
@@ -48,6 +48,13 @@ export default function Login(props) {
         swal("Oops!", "Something went wrong", "error");
       });
   };
+
+  useEffect(() => {
+    const authToken = localStorage.getItem("CF_authToken");
+    if (authToken) {
+      navigate("/");
+    }
+  });
 
   const { theme } = useTheme();
 

@@ -1,11 +1,135 @@
 import LinkedInImage from "./Assets/images/linkedin.png";
 import GithubImage from "./Assets/images/github.png";
 
-// export const SERVER_URL = "http://localhost:5000";
-export const SERVER_URL = "https://cf-backend-ecru.vercel.app";
+export const SERVER_URL = "http://localhost:5000";
+// export const SERVER_URL = "https://cf-backend-ecru.vercel.app";
 
 export const GUEST_USER_EMAIL = "guestuser@closetfashion.com";
 export const GUEST_USER_PASSWORD = "guestuser";
+
+export const BrandValues = {
+  adidas: "Adidas",
+  nike: "Nike",
+  puma: "Puma",
+  gucci: "Gucci",
+  dior: "Dior",
+  zara: "Zara",
+  "h&b": "H&B",
+  "calvin klein": "Calvin Klein",
+  "louis vuitton": "Louis Vuitton",
+};
+
+export const CategoryValues = {
+  "t-shirt": "T-Shirt",
+  shirt: "Shirt",
+  sweatshirt: "Sweatshirt",
+  jacket: "Jacket",
+  hoodie: "Hoodie",
+  shoes: "Shoes",
+  trousers: "Trousers",
+};
+
+export const MaterialValues = {
+  cotton: "Cotton",
+  polyester: "Polyester",
+  leather: "Leather",
+  denim: "Denim",
+  wool: "Wool",
+  silk: "Silk",
+  linen: "Linen",
+};
+
+export const SizeValues = {
+  s: {
+    id: 1,
+    name: "S",
+  },
+  m: {
+    id: 2,
+    name: "M",
+  },
+  l: {
+    id: 3,
+    name: "L",
+  },
+  xl: {
+    id: 4,
+    name: "XL",
+  },
+  xxl: {
+    id: 5,
+    name: "XXL",
+  },
+};
+
+export const GenderValues = {
+  men: "Men",
+  women: "Women",
+  unisex: "Unisex",
+};
+
+export const ColorValues = {
+  white: {
+    id: "white",
+    name: "White",
+    color: "white",
+  },
+  black: {
+    id: "black",
+    name: "Black",
+    color: "black",
+  },
+  navy: {
+    id: "navy",
+    name: "Navy",
+    color: "navy",
+  },
+  skyblue: {
+    id: "skyBlue",
+    name: "Sky Blue",
+    color: "skyBlue",
+  },
+  green: {
+    id: "green",
+    name: "Green",
+    color: "green",
+  },
+  red: {
+    id: "red",
+    name: "Red",
+    color: "red",
+  },
+  mustard: {
+    id: "mustard",
+    name: "Mustard",
+    color: "mustard",
+  },
+  coral: {
+    id: "coral",
+    name: "Coral",
+    color: "coral",
+  },
+  lavender: {
+    id: "lavender",
+    name: "Lavender",
+    color: "lavender",
+  },
+  teal: {
+    id: "teal",
+    name: "Teal",
+    color: "teal",
+  },
+  olive: {
+    id: "olive",
+    name: "Olive",
+    color: "olive",
+  },
+  charcoal: {
+    id: "charcoal",
+    name: "Charcoal",
+    color: "charcoal",
+  },
+};
 
 export const Brands = [
   {

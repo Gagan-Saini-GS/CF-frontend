@@ -159,7 +159,7 @@ const Home = ({ openCart, setShowCartSlider, showFilterSection }) => {
               <>
                 {loading ? (
                   <div className="pt-4 w-full text-xl font-medium text-Gray text-center col-span-full">
-                    <FullScreenLoader />
+                    <FullScreenLoader message="Loading Products..." />
                   </div>
                 ) : (
                   <div className="w-full h-full">

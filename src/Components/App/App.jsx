@@ -3,6 +3,7 @@ import {
   createBrowserRouter,
   Outlet,
   RouterProvider,
+  useNavigate,
 } from "react-router-dom";
 
 import { useEffect, useState } from "react";
@@ -14,8 +15,16 @@ import Navbar from "../Navbar/Navbar.jsx";
 import Footer from "../Footer/Footer.jsx";
 import { SearchContextProvider } from "../../context/searchContext.jsx";
 import { ThemeProvider, useTheme } from "../../context/themeContext.jsx";
+import SellerDashboard from "../Seller/SellerAdminPanel/SellerDashboard.jsx";
+import Button from "../../GS-Libs/Buttons/Button.jsx";
+import useAPI from "../../hooks/useAPI.js";
+import { profileInitailValues } from "../../validations/profile-form.js";
 
-const AppLayout = ({ showFilterSection, setShowFilterSection }) => {
+const AppLayout = ({
+  userDetails,
+  showFilterSection,
+  setShowFilterSection,
+}) => {
   const { theme } = useTheme();
   const [showProfileSlider, setShowProfileSlider] = useState(false);
   const [showCartSlider, setShowCartSlider] = useState(false);
@@ -40,6 +49,7 @@ const AppLayout = ({ showFilterSection, setShowFilterSection }) => {
             setShowFilterSection={setShowFilterSection}
             showProfileSlider={showProfileSlider}
             setShowProfileSlider={setShowProfileSlider}
+            userDetails={userDetails}
             showCartSlider={showCartSlider}
             setShowCartSlider={setShowCartSlider}
             userAuthToken={authToken}
@@ -51,6 +61,31 @@ const AppLayout = ({ showFilterSection, setShowFilterSection }) => {
       </div>
     </>
   );
+};
+
+// RequireSeller Component
+const RequireSeller = ({ children, isSeller }) => {
+  const navigate = useNavigate();
+
+  if (!isSeller) {
+    return (
+      <div className="w-1/3 mx-auto h-full flex flex-col items-center justify-center">
+        <div className="text-xl font-medium pb-4 text-center">
+          Sorry, you are not seller. <br />
+          Become seller to access admin panel.
+        </div>
+        <div className="w-1/3">
+          <Button
+            onClick={() => navigate("/")}
+            text={"Go to Home Page"}
+            primaryColor={true}
+          />
+        </div>
+      </div>
+    );
+  }
+
+  return children;
 };
 
 const App = () => {
@@ -74,8 +109,26 @@ const App = () => {
     setOpenCart(true);
   };
 
+  const [userDetails, setUserDetails] = useState(profileInitailValues);
   const [showFilterSection, setShowFilterSection] = useState(false);
   const [showCartSlider, setShowCartSlider] = useState(false);
+
+  const { data } = useAPI(
+    "post",
+    "/user-details",
+    authToken ? true : false,
+    {},
+    {
+      "Content-Type": "application/json",
+      authorization: `Bearer ${authToken}`,
+    }
+  );
+
+  useEffect(() => {
+    if (data) {
+      setUserDetails(data.userDetails);
+    }
+  }, [data]);
 
   const appRouter = createBrowserRouter([
     {
@@ -91,6 +144,7 @@ const App = () => {
       element: (
         <ThemeProvider>
           <AppLayout
+            userDetails={userDetails}
             showFilterSection={showFilterSection}
             setShowFilterSection={setShowFilterSection}
           />
@@ -118,6 +172,14 @@ const App = () => {
         {
           path: "/product/buynow/:productID",
           element: <BuyNow />,
+        },
+        {
+          path: "/seller-admin-panel",
+          element: (
+            <RequireSeller isSeller={userDetails.isSeller}>
+              <SellerDashboard />
+            </RequireSeller>
+          ),
         },
         {
           path: "/",

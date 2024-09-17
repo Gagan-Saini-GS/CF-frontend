@@ -15,6 +15,7 @@ export default function Navbar({
   setShowProfileSlider,
   showCartSlider,
   setShowCartSlider,
+  userDetails,
   userAuthToken,
   setUserAuthToken,
   showFilterSection,
@@ -22,24 +23,6 @@ export default function Navbar({
 }) {
   const { theme } = useTheme();
   const [searchFlag, setSearchFlag] = useState(false);
-  const [userDetails, setUserDetails] = useState(profileInitailValues);
-
-  const { data } = useAPI(
-    "post",
-    "/user-details",
-    userAuthToken ? true : false,
-    {},
-    {
-      "Content-Type": "application/json",
-      authorization: `Bearer ${userAuthToken}`,
-    }
-  );
-
-  useEffect(() => {
-    if (data) {
-      setUserDetails(data.userDetails);
-    }
-  }, [data]);
 
   return (
     <div

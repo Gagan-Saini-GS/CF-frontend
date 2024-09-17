@@ -73,7 +73,7 @@ export default function ProductPage({ handleOpenCart }) {
   if (!isProductFetched) {
     return (
       <div className="relative w-full h-full">
-        <FullScreenLoader />
+        <FullScreenLoader message="Loading Product Details..." />
       </div>
     );
   }

@@ -4,6 +4,7 @@ import { FaUser, FaShopify } from "react-icons/fa";
 import { HiShoppingBag } from "react-icons/hi2";
 import { IoSettingsSharp } from "react-icons/io5";
 import { FiLogOut } from "react-icons/fi";
+import { MdSpaceDashboard } from "react-icons/md";
 import Profile from "./Profile";
 import MyOrders from "./MyOrders";
 import SellerAccount from "../Seller/SellerAccount/SellerAccount";
@@ -17,26 +18,38 @@ import UploadProduct from "../UploadProduct/UploadProduct";
 import { apiCaller } from "../../GS-Libs/utils/apiCaller";
 import Settings from "./Settings";
 import { useTheme } from "../../context/themeContext";
+import { useNavigate } from "react-router-dom";
 
 const TabOptions = [
   {
     id: "user",
     name: "User",
+    type: "tab",
     icon: <FaUser className="w-5 h-5" />,
   },
   {
     id: "orders",
     name: "Orders",
+    type: "tab",
     icon: <HiShoppingBag className="w-5 h-5" />,
   },
   {
     id: "seller",
     name: "Seller",
+    type: "tab",
     icon: <FaShopify className="w-5 h-5" />,
+  },
+  {
+    id: "seller-admin-panel",
+    name: "Seller Admin Panel",
+    type: "link",
+    link: "/seller-admin-panel",
+    icon: <MdSpaceDashboard className="w-5 h-5" />,
   },
   {
     id: "setting",
     name: "Setting",
+    type: "tab",
     icon: <IoSettingsSharp className="w-5 h-5" />,
   },
 ];
@@ -47,6 +60,7 @@ const ProfileSlider = ({
   showProfileSlider,
   setShowProfileSlider,
 }) => {
+  const navigate = useNavigate();
   const { theme } = useTheme();
   const [activeTab, setActiveTab] = useState("user");
   const [isEditing, setIsEditing] = useState(false);
@@ -87,17 +101,19 @@ const ProfileSlider = ({
         cancel: true,
         confirm: true,
       },
+      dangerMode: true,
     }).then((confirm) => {
       if (confirm) {
         localStorage.removeItem("CF_authToken");
         setUserAuthToken("");
+        navigate("/");
       }
     });
   };
 
   return (
     <div
-      className={`w-full xs:w-3/4 md:w-1/3 h-full shadow shadow-Gray flex text-Black fixed overflow-hidden transition-all duration-300 ease-in-out top-0 ${
+      className={`w-full xs:w-3/4 md:w-1/3 h-full shadow shadow-Gray flex text-Black fixed overflow-hidden transition-all duration-300 ease-in-out z-50 top-0 ${
         showProfileSlider ? "right-0" : "-right-full"
       } ${
         theme === "light" ? "bg-White text-Black/80" : "bg-Black text-White/80"
@@ -114,8 +130,18 @@ const ProfileSlider = ({
                   activeTab === option.id
                     ? "bg-White text-Purple"
                     : "text-White"
+                } ${
+                  !user.isSeller &&
+                  option.id === "seller-admin-panel" &&
+                  "hidden"
                 }`}
-                onClick={() => setActiveTab(option.id)}
+                onClick={() => {
+                  if (option.type === "tab") {
+                    setActiveTab(option.id);
+                  } else if (option.type === "link") {
+                    navigate(option.link);
+                  }
+                }}
               >
                 {option.icon}
               </div>

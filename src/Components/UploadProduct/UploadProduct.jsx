@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import uploadImage from "../../Assets/imgChange";
 import swal from "sweetalert";
 import {
   Brands,
@@ -22,6 +21,7 @@ import Select from "../../GS-Libs/Input/Select";
 import { Textarea } from "../../GS-Libs/Input/Textarea";
 import { apiCaller } from "../../GS-Libs/utils/apiCaller";
 import FullScreenLoader from "../../GS-Libs/MultiUse/FullScreenLoader";
+import uploadImage from "../../GS-Libs/utils/uploadImage";
 
 export default function UploadProduct() {
   const [isProductUploading, setIsProductUploading] = useState(false);
@@ -30,6 +30,7 @@ export default function UploadProduct() {
   const uploadProduct = async () => {
     setIsProductUploading(true);
     try {
+      console.log("Uploading", productDetails);
       await apiCaller("/upload-product", "post", {
         productDetails: productDetails,
       });
@@ -60,25 +61,24 @@ export default function UploadProduct() {
   if (isProductUploading) {
     return (
       <div className="pb-4 p-2 h-full relative flex items-center justify-center">
-        <FullScreenLoader />
-        <div className="pt-20">Uploading Product...</div>
+        <FullScreenLoader message="Uploading Product" />
       </div>
     );
   }
 
   return (
     <>
-      <div className="pb-4 p-2">
-        <label htmlFor="profile-image-upload">
+      <div className="pb-4 p-2 px-0.5">
+        <label htmlFor="product-image-upload">
           <div
-            className={`bg-Black/40 w-full h-64 xs:h-80 sm:h-96 rounded-xl absolute top-0 left-0 ${
+            className={`bg-Black/40 w-full h-64 xs:h-80 sm:h-96 rounded-xl absolute top-2 left-0 ${
               errors.productImages && "border border-Red"
             }`}
           >
             <input
               type="file"
               className="hidden"
-              id="profile-image-upload"
+              id="product-image-upload"
               multiple={true}
               onChange={(event) => {
                 uploadImage(event).then((res) => {
@@ -104,27 +104,6 @@ export default function UploadProduct() {
             alt=""
             className="w-full h-full rounded-lg block"
           />
-
-          {productDetails.productImages.length > 1 && (
-            <div className="flex items-center gap-2">
-              <Button
-                text="Prev"
-                onClick={() => {
-                  if (imageIndex >= 1) {
-                    setImageIndex(imageIndex - 1);
-                  }
-                }}
-              />
-              <Button
-                text="Next"
-                onClick={() => {
-                  if (imageIndex < productDetails.productImages.length - 1) {
-                    setImageIndex(imageIndex + 1);
-                  }
-                }}
-              />
-            </div>
-          )}
         </div>
         <div className="pt-1">
           {errors.productImages && (
@@ -134,6 +113,30 @@ export default function UploadProduct() {
           )}
         </div>
       </div>
+      {productDetails.productImages.length > 1 && (
+        <div className="flex items-center gap-2 mb-2">
+          <Button
+            text="Prev"
+            onClick={() => {
+              if (imageIndex >= 1) {
+                setImageIndex(imageIndex - 1);
+              } else {
+                setImageIndex(productDetails.productImages.length - 1);
+              }
+            }}
+          />
+          <Button
+            text="Next"
+            onClick={() => {
+              if (imageIndex < productDetails.productImages.length - 1) {
+                setImageIndex(imageIndex + 1);
+              } else {
+                setImageIndex(0);
+              }
+            }}
+          />
+        </div>
+      )}
       <>
         <div className="grid grid-cols-1 xs:grid-cols-2 gap-x-2 gap-y-4 items-center">
           <div>

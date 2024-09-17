@@ -1,8 +1,8 @@
 import LinkedInImage from "./Assets/images/linkedin.png";
 import GithubImage from "./Assets/images/github.png";
 
-export const SERVER_URL = "http://localhost:5000";
-// export const SERVER_URL = "https://cf-backend-ecru.vercel.app";
+// export const SERVER_URL = "http://localhost:5000";
+export const SERVER_URL = "https://cf-backend-ecru.vercel.app";
 
 export const GUEST_USER_EMAIL = "guestuser@closetfashion.com";
 export const GUEST_USER_PASSWORD = "guestuser";

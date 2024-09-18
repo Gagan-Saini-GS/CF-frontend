@@ -114,13 +114,13 @@ export default function ProductPage({ handleOpenCart }) {
                     Limited time deal
                   </div>
                   <div className="text-3xl font-semibold text-Purple mt-2">
-                    <span className="text-Red/70 font-normal">–28%</span> $
+                    <span className="text-Red/70 font-normal">–28%</span> ₹
                     {getDiscountedPrice(product?.price)}
                   </div>
                   <div className="text-lg text-Gray">
                     MRP{" "}
                     <span className="line-through font-light">
-                      ${product?.price}
+                      ₹{product?.price}
                     </span>
                   </div>
                 </div>
@@ -165,13 +165,13 @@ export default function ProductPage({ handleOpenCart }) {
             <div>
               <div>
                 <div className="text-2xl font-semibold text-Purple">
-                  ${getDiscountedPrice(product?.price)}
+                  ₹{getDiscountedPrice(product?.price)}
                 </div>
               </div>
               <div className="text-sm lg:text-lg">
                 {product?.price > 1000
                   ? "Free delivery "
-                  : `$${getDeliveryChagres(product?.price)} delivery chagres `}
+                  : `₹${getDeliveryChagres(product?.price)} delivery chagres `}
                 <span className="font-semibold">{getDeliveryDate()}</span>.
               </div>
             </div>

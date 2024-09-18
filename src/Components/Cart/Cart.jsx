@@ -6,6 +6,7 @@ import CheckoutCard from "../ProductCards/CheckoutCard";
 import swal from "sweetalert";
 import NotFoundImage from "../../Assets/images/not found.jpg";
 import { apiCaller } from "../../GS-Libs/utils/apiCaller";
+import FullScreenLoader from "../../GS-Libs/MultiUse/FullScreenLoader";
 
 const Cart = ({ showCartSlider }) => {
   const [cartProducts, setCartProducts] = useState([]);
@@ -75,8 +76,10 @@ const Cart = ({ showCartSlider }) => {
 
   if (isLoading) {
     return (
-      <div className="fullscreen-loader">
-        <div className="spinner"></div>
+      <div className="w-full h-full text-xl font-medium text-Gray text-center col-span-full flex flex-col justify-center">
+        <div className="relative w-full h-full rounded-md">
+          <FullScreenLoader message="Loading cart products..." />
+        </div>
       </div>
     );
   }
@@ -130,20 +133,20 @@ const Cart = ({ showCartSlider }) => {
           <div className="flex flex-col gap-1 font-medium pb-4">
             <LabelValue
               label="Discount"
-              value={`$${productPriceDetails.discount}`}
+              value={`₹${productPriceDetails.discount}`}
             />
             <LabelValue
               label="Delivery Charges"
               value={
                 productPriceDetails.deliveryCharges > 0
-                  ? `$${productPriceDetails.deliveryCharges}`
+                  ? `₹${productPriceDetails.deliveryCharges}`
                   : "Free Delivery"
               }
             />
             <hr className="bg-Black/40 text-Black/40 h-0.5 rounded" />
             <LabelValue
               label="Total Price"
-              value={`$${productPriceDetails.totalPrice}`}
+              value={`₹${productPriceDetails.totalPrice}`}
             />
           </div>
           <Button

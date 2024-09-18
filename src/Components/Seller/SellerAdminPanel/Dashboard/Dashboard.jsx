@@ -7,7 +7,7 @@ const DashboardCard = ({ heading }) => {
         {heading}
       </div>
       <div className="rounded-md bg-Yellow/80 flex items-center justify-center text-xl font-semibold w-1/3 mt-2">
-        $58243
+        ₹58243
       </div>
     </div>
   );

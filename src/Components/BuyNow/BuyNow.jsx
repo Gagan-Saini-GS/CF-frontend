@@ -201,12 +201,12 @@ export default function BuyNow() {
               </div>
             </div>
             <div className="text-3xl font-semibold text-Purple mt-4">
-              <span className="text-Red/70 font-normal">–28%</span> $
+              <span className="text-Red/70 font-normal">–28%</span> ₹
               {getDiscountedPrice(product?.price)}
             </div>
             <div className="text-lg text-Gray">
               MRP{" "}
-              <span className="line-through font-light">${product?.price}</span>
+              <span className="line-through font-light">₹{product?.price}</span>
             </div>
             <div className="mt-4">
               <div className="text-xl font-semibold">Available Sizes</div>

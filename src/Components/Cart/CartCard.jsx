@@ -22,9 +22,9 @@ const CartCard = ({ product, removeFromCart }) => {
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-1">
               <p className="font-semibold">
-                ${getDiscountedPrice(product.price)}
+                ₹{getDiscountedPrice(product.price)}
               </p>
-              <p className="line-through text-Gray">${product.price}</p>
+              <p className="line-through text-Gray">₹{product.price}</p>
             </div>
           </div>
         </div>

@@ -23,9 +23,9 @@ export default function ProductCard1(props) {
           <div className="flex flex-col md:flex-row md:items-center md:justify-between">
             <div className="flex items-center gap-0.5 md:gap-1">
               <p className="text-sm sm:text-base md:text-xl font-semibold">
-                ${getDiscountedPrice(product.price)}
+                ₹{getDiscountedPrice(product.price)}
               </p>
-              <p className="text-sm line-through text-Gray">${product.price}</p>
+              <p className="text-sm line-through text-Gray">₹{product.price}</p>
             </div>
             <div className="bg-Purple text-White text-base px-2 py-1 rounded items-center justify-center hidden md:flex">
               {toTitleCase(product.brand)}

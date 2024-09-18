@@ -34,7 +34,7 @@ const CheckoutCard = ({ product, cartProducts, setCartProducts }) => {
           <div>
             <div className="font-medium text-xl">{product.name}</div>
             <div className="text-Purple text-2xl">
-              ${getDiscountedPrice(product.price)}
+              ₹{getDiscountedPrice(product.price)}
             </div>
           </div>
         </div>

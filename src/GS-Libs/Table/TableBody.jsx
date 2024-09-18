@@ -7,6 +7,7 @@ import PopupModal from "../MultiUse/PopupModal";
 import swal from "sweetalert";
 import EditProduct from "../../Components/Seller/SellerAdminPanel/Products/EditProduct";
 import { apiCaller } from "../utils/apiCaller";
+import { getProductStatusByQuantity } from "../utils/getProductStatusByQuantity";
 
 const TableBody = ({ tableData }) => {
   const [currentProduct, setCurrentProduct] = useState(null);
@@ -63,6 +64,7 @@ const TableBody = ({ tableData }) => {
   return (
     <div className="overflow-y-scroll h-full">
       {allProducts?.map((product, index) => {
+        const productStatus = getProductStatusByQuantity(product.quantity);
         return (
           <div
             key={product._id}
@@ -88,21 +90,17 @@ const TableBody = ({ tableData }) => {
                 {toTitleCase(product.materials)}
               </div>
               <div className="w-20 text-center">₹{product.price}</div>
-              <div className="w-20 text-center">
-                {product.quantity ? product.quantity : 100}
-              </div>
+              <div className="w-20 text-center">{product.quantity}</div>
               <div
                 className={`w-24 flex items-center justify-center rounded-full border py-1 ${
-                  product.status === "Available"
+                  productStatus === "Available"
                     ? "bg-Green/30 border-Green/70"
-                    : product.status === "Out of Stock"
+                    : productStatus === "Out of Stock"
                     ? "bg-Red/30 border-Red/70"
                     : "bg-Yellow/30 border-Yellow/70"
                 }`}
               >
-                <div className="text-xs">
-                  {product.status ? product.status : "Available"}
-                </div>
+                <div className="text-xs">{productStatus}</div>
               </div>
             </div>
             <div className="invisible group-hover:visible flex gap-2 relative right-10 cursor-pointer">

@@ -35,6 +35,7 @@ const EditProduct = ({ product, closeModal, showUpdatedProduct }) => {
     brand: product.brand,
     category: product.category,
     gender: product.gender,
+    quantity: product.quantity,
     sizes: [...product.sizes.map((size) => SizeValues[size])],
     materials: product.materials,
     colors: [
@@ -243,6 +244,18 @@ const EditProduct = ({ product, closeModal, showUpdatedProduct }) => {
                 }))}
                 placeholder="Select a Category"
                 errorMessage={errors.category}
+              />
+            </div>
+            <div>
+              <div className="text-lg font-semibold">Quantity</div>
+              <Input
+                type="number"
+                name="quantity"
+                placeholder="Product quantity"
+                value={productDetails.quantity}
+                onChange={handleChange}
+                errorMessage={errors.quantity}
+                className="p-2 border-2 border-Black/20 bg-Gray/10 rounded text-Black w-full"
               />
             </div>
           </div>

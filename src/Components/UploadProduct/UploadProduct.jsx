@@ -30,7 +30,6 @@ export default function UploadProduct() {
   const uploadProduct = async () => {
     setIsProductUploading(true);
     try {
-      console.log("Uploading", productDetails);
       await apiCaller("/upload-product", "post", {
         productDetails: productDetails,
       });
@@ -40,7 +39,6 @@ export default function UploadProduct() {
       setImageIndex(0);
       setIsProductUploading(false);
     } catch (error) {
-      console.log(error);
       swal("Oops", "Something went wrong", "error").then(() => {
         setProductDetails(initailProductValues);
         setImageIndex(0);
@@ -358,6 +356,18 @@ export default function UploadProduct() {
               onChange={handleChange}
               value={productDetails.description}
               errorMessage={errors.description}
+              className="p-2 border-2 border-Black/20 bg-Gray/10 rounded text-Black w-full"
+            />
+          </div>
+          <div className="w-full flex flex-col">
+            <div className="text-lg font-semibold">Quantity</div>
+            <Input
+              type="number"
+              name="quantity"
+              placeholder="Product quantity"
+              value={productDetails.quantity}
+              onChange={handleChange}
+              errorMessage={errors.quantity}
               className="p-2 border-2 border-Black/20 bg-Gray/10 rounded text-Black w-full"
             />
           </div>

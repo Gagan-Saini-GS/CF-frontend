@@ -51,6 +51,14 @@ export const uploadProductValidation = {
       return "Description must be less 500 characters";
     }
   },
+  quantity: (value) => {
+    if (!value) {
+      return "Quantity is required";
+    }
+    if (value < 0) {
+      return "Quantity must be greater than zero";
+    }
+  },
   sizes: (value) => {
     if (!Array.isArray(value) || value.length === 0) {
       return "Size is required";
@@ -85,6 +93,7 @@ export const initailProductValues = {
   },
   materials: "",
   description: "",
+  quantity: 0,
   sizes: [],
   colors: [],
   productImages: [NotFoundImage],

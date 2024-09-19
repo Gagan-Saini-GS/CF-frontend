@@ -32,8 +32,8 @@ const EditProduct = ({ product, closeModal, showUpdatedProduct }) => {
     _id: product._id,
     name: product.name,
     price: product.price,
-    brand: product.brand,
-    category: product.category,
+    brand: { name: product.brand, value: product.brand },
+    category: { name: product.category, value: product.category },
     gender: product.gender,
     quantity: product.quantity,
     sizes: [...product.sizes.map((size) => SizeValues[size])],
@@ -204,14 +204,17 @@ const EditProduct = ({ product, closeModal, showUpdatedProduct }) => {
                   handleChange({
                     target: {
                       name: "brand",
-                      value: argument?.label?.toLowerCase(),
+                      value: {
+                        label: argument?.label?.toLowerCase(),
+                        value: argument?.label?.toLowerCase(),
+                      },
                       type: "select",
                     },
                   });
                 }}
                 value={{
-                  label: BrandValues[productDetails.brand],
-                  value: productDetails.brand,
+                  label: BrandValues[productDetails.brand.name],
+                  value: productDetails.brand.name,
                 }}
                 options={Brands.map((brand) => ({
                   label: brand.name,
@@ -229,14 +232,17 @@ const EditProduct = ({ product, closeModal, showUpdatedProduct }) => {
                   handleChange({
                     target: {
                       name: "category",
-                      value: argument?.label?.toLowerCase(),
+                      value: {
+                        label: argument?.label?.toLowerCase(),
+                        value: argument?.label?.toLowerCase(),
+                      },
                       type: "select",
                     },
                   });
                 }}
                 value={{
-                  label: CategoryValues[productDetails.category],
-                  value: productDetails.category,
+                  label: CategoryValues[productDetails.category.name],
+                  value: productDetails.category.name,
                 }}
                 options={Categories.map((category) => ({
                   label: category.name,

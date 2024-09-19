@@ -212,9 +212,15 @@ export default function ProductPage({ handleOpenCart }) {
                         primaryColor={false}
                       />
                     )}
-                    <Link to={"/product/buynow/" + productID}>
-                      <Button text="Buy" />
-                    </Link>
+                    {product.quantity === 0 ? (
+                      <div className="bg-Red/70 text-White rounded shadow font-medium flex justify-center items-center">
+                        <span>Out of Stock</span>
+                      </div>
+                    ) : (
+                      <Link to={"/product/buynow/" + productID}>
+                        <Button text="Buy" />
+                      </Link>
+                    )}
                   </>
                 )}
               </>

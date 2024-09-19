@@ -169,7 +169,10 @@ export default function UploadProduct() {
                 handleChange({
                   target: {
                     name: "brand",
-                    value: argument?.label?.toLowerCase(),
+                    value: {
+                      label: argument?.label?.toLowerCase(),
+                      value: argument?.label?.toLowerCase(),
+                    },
                     type: "select",
                   },
                 });
@@ -191,7 +194,10 @@ export default function UploadProduct() {
                 handleChange({
                   target: {
                     name: "category",
-                    value: argument?.label?.toLowerCase(),
+                    value: {
+                      label: argument?.label?.toLowerCase(),
+                      value: argument?.label?.toLowerCase(),
+                    },
                     type: "select",
                   },
                 });

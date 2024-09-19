@@ -6,8 +6,8 @@ export default function ProductCard1(props) {
   const [product, setProduct] = useState(props.product);
 
   return (
-    <div className="w-full h-56 md:h-96 p-2 rounded-md shadow-md border border-dashed border-Gray cursor-pointer hover:border-solid hover:border-Purple hover:shadow-lg">
-      <div className="h-3/4">
+    <div className="w-full h-80 md:h-96 p-2 rounded-md shadow-md border border-dashed border-Gray cursor-pointer hover:border-solid hover:border-Purple hover:shadow-lg">
+      <div className="h-5/6 md:h-3/4">
         <img
           src={product.productImages[0]}
           alt=""

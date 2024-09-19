@@ -38,10 +38,16 @@ const Select = ({
       backgroundColor: "#f0f3f6", // --White
       borderRadius: "4px",
     }),
-    placeholder: (provided) => ({
-      ...provided,
-      color: "#999999", // --Gray
-    }),
+    placeholder: (provided) =>
+      errorMessage
+        ? {
+            ...provided,
+            color: "#ff0000", // --Red
+          }
+        : {
+            ...provided,
+            color: "#999999", // --Gray
+          },
     singleValue: (provided) => ({
       ...provided,
       color: "#1e1e1e", // --Black

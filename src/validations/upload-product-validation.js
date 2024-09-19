@@ -21,7 +21,7 @@ export const uploadProductValidation = {
     }
   },
   brand: (value) => {
-    if (!value) {
+    if (!value.value) {
       return "Brand is required";
     }
   },
@@ -31,7 +31,7 @@ export const uploadProductValidation = {
     }
   },
   category: (value) => {
-    if (!value) {
+    if (!value.value) {
       return "Category is required";
     }
   },

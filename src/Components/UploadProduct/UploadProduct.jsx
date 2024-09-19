@@ -216,6 +216,7 @@ export default function UploadProduct() {
             </div>
             <div className="flex gap-2">
               {Genders.map((option) => {
+                const isGenderSelected = productDetails.gender === option.name;
                 return (
                   <div
                     key={option.id}
@@ -223,7 +224,7 @@ export default function UploadProduct() {
                       handleChange({
                         target: {
                           name: "gender",
-                          value: option.name,
+                          value: isGenderSelected ? "" : option.name,
                           type: "checkbox",
                         },
                       });
@@ -231,7 +232,7 @@ export default function UploadProduct() {
                   >
                     <Checkbox
                       label={option.name}
-                      isSelected={productDetails.gender === option.name}
+                      isSelected={isGenderSelected}
                     />
                   </div>
                 );
@@ -249,26 +250,31 @@ export default function UploadProduct() {
             </div>
             <div className="flex gap-2">
               {Sizes.map((option) => {
+                const isSizeSelected = productDetails.sizes
+                  .map((size) => size.name)
+                  .includes(option.name);
                 return (
-                  <div
-                    key={option.id}
-                    onClick={() => {
-                      handleChange({
-                        target: {
-                          name: "sizes",
-                          value: [...productDetails.sizes, { ...option }].sort(
-                            (a, b) => a.id - b.id
-                          ),
-                          type: "checkbox",
-                        },
-                      });
-                    }}
-                  >
+                  <div key={option.id}>
                     <Checkbox
                       label={option.name}
-                      isSelected={productDetails.sizes
-                        .map((size) => size.name)
-                        .includes(option.name)}
+                      isSelected={isSizeSelected}
+                      onClick={() => {
+                        handleChange({
+                          target: {
+                            name: "sizes",
+                            value: isSizeSelected
+                              ? [
+                                  ...productDetails.sizes.filter(
+                                    (size) => size.name !== option.name
+                                  ),
+                                ]
+                              : [...productDetails.sizes, { ...option }].sort(
+                                  (a, b) => a.id - b.id
+                                ),
+                            type: "checkbox",
+                          },
+                        });
+                      }}
                     />
                   </div>
                 );
@@ -288,22 +294,22 @@ export default function UploadProduct() {
             </div>
             <div className="flex flex-wrap gap-2 w-full">
               {Materials.map((option) => {
+                const isMaterialSelected =
+                  productDetails.materials === option.name;
                 return (
-                  <div
-                    key={option.id}
-                    onClick={() => {
-                      handleChange({
-                        target: {
-                          name: "materials",
-                          value: option.name,
-                          type: "checkbox",
-                        },
-                      });
-                    }}
-                  >
+                  <div key={option.id}>
                     <Checkbox
                       label={option.name}
-                      isSelected={productDetails.materials === option.name}
+                      isSelected={isMaterialSelected}
+                      onClick={() => {
+                        handleChange({
+                          target: {
+                            name: "materials",
+                            value: isMaterialSelected ? "" : option.name,
+                            type: "checkbox",
+                          },
+                        });
+                      }}
                     />
                   </div>
                 );
@@ -320,31 +326,42 @@ export default function UploadProduct() {
               )}
             </div>
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 w-full">
-              {Colors.map((color) => (
-                <ColorFilterCard
-                  key={color.id}
-                  color={color.color}
-                  onClick={() => {
-                    handleChange({
-                      target: {
-                        name: "colors",
-                        value: [
-                          ...productDetails.colors,
-                          {
-                            name: color.name.toLowerCase(),
-                            color: color.color,
-                            id: color.id,
-                          },
-                        ],
-                        type: "checkbox",
-                      },
-                    });
-                  }}
-                  isSelected={productDetails.colors
-                    .map((color) => color.name.toLowerCase())
-                    .includes(color.name.toLowerCase())}
-                />
-              ))}
+              {Colors.map((color) => {
+                const isColorSelected = productDetails.colors
+                  .map((color) => color.name.toLowerCase())
+                  .includes(color.name.toLowerCase());
+                return (
+                  <ColorFilterCard
+                    key={color.id}
+                    color={color.color}
+                    onClick={() => {
+                      handleChange({
+                        target: {
+                          name: "colors",
+                          value: isColorSelected
+                            ? [
+                                ...productDetails.colors.filter(
+                                  (productColor) =>
+                                    productColor.name.toLowerCase() !==
+                                    color.name.toLowerCase()
+                                ),
+                              ]
+                            : [
+                                ...productDetails.colors,
+                                {
+                                  name: color.name.toLowerCase(),
+                                  color: color.color,
+                                  id: color.id,
+                                },
+                              ],
+                          type: "checkbox",
+                        },
+                      });
+                    }}
+                    isSelected={isColorSelected}
+                  />
+                );
+              })}
             </div>
           </div>
           <div className="w-full flex flex-col">

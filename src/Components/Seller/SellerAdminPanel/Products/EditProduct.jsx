@@ -271,6 +271,10 @@ const EditProduct = ({ product, closeModal, showUpdatedProduct }) => {
               </div>
               <div className="flex gap-2">
                 {Genders.map((option) => {
+                  const isGenderSelected =
+                    productDetails.gender.toLowerCase() ===
+                    option.name.toLowerCase();
+
                   return (
                     <div
                       key={option.id}
@@ -278,7 +282,7 @@ const EditProduct = ({ product, closeModal, showUpdatedProduct }) => {
                         handleChange({
                           target: {
                             name: "gender",
-                            value: option.name,
+                            value: isGenderSelected ? "" : option.name,
                             type: "checkbox",
                           },
                         });
@@ -286,10 +290,7 @@ const EditProduct = ({ product, closeModal, showUpdatedProduct }) => {
                     >
                       <Checkbox
                         label={option.name}
-                        isSelected={
-                          productDetails.gender.toLowerCase() ===
-                          option.name.toLowerCase()
-                        }
+                        isSelected={isGenderSelected}
                       />
                     </div>
                   );
@@ -307,6 +308,10 @@ const EditProduct = ({ product, closeModal, showUpdatedProduct }) => {
               </div>
               <div className="flex gap-2">
                 {Sizes.map((option) => {
+                  const isSizeSelected = productDetails.sizes
+                    .map((size) => size.name?.toLowerCase())
+                    .includes(option.name?.toLowerCase());
+
                   return (
                     <div
                       key={option.id}
@@ -314,9 +319,15 @@ const EditProduct = ({ product, closeModal, showUpdatedProduct }) => {
                         handleChange({
                           target: {
                             name: "sizes",
-                            value: [...productDetails.sizes, option].sort(
-                              (a, b) => a.id - b.id
-                            ),
+                            value: isSizeSelected
+                              ? [
+                                  ...productDetails.sizes.filter(
+                                    (size) => size.name !== option.name
+                                  ),
+                                ]
+                              : [...productDetails.sizes, option].sort(
+                                  (a, b) => a.id - b.id
+                                ),
                             type: "checkbox",
                           },
                         });
@@ -324,9 +335,7 @@ const EditProduct = ({ product, closeModal, showUpdatedProduct }) => {
                     >
                       <Checkbox
                         label={option.name}
-                        isSelected={productDetails.sizes
-                          .map((size) => size.name?.toLowerCase())
-                          .includes(option.name?.toLowerCase())}
+                        isSelected={isSizeSelected}
                       />
                     </div>
                   );
@@ -344,6 +353,9 @@ const EditProduct = ({ product, closeModal, showUpdatedProduct }) => {
               </div>
               <div className="flex flex-wrap gap-2 w-full">
                 {Materials.map((option) => {
+                  const isMaterialSelected =
+                    productDetails.materials.toLowerCase() ===
+                    option.name.toLowerCase();
                   return (
                     <div
                       key={option.id}
@@ -351,7 +363,7 @@ const EditProduct = ({ product, closeModal, showUpdatedProduct }) => {
                         handleChange({
                           target: {
                             name: "materials",
-                            value: option.name,
+                            value: isMaterialSelected ? "" : option.name,
                             type: "checkbox",
                           },
                         });
@@ -359,10 +371,7 @@ const EditProduct = ({ product, closeModal, showUpdatedProduct }) => {
                     >
                       <Checkbox
                         label={option.name}
-                        isSelected={
-                          productDetails.materials.toLowerCase() ===
-                          option.name.toLowerCase()
-                        }
+                        isSelected={isMaterialSelected}
                       />
                     </div>
                   );
@@ -381,31 +390,42 @@ const EditProduct = ({ product, closeModal, showUpdatedProduct }) => {
               )}
             </div>
             <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-8 gap-2 w-full">
-              {Colors.map((color) => (
-                <ColorFilterCard
-                  key={color.id}
-                  color={color.color}
-                  onClick={() => {
-                    handleChange({
-                      target: {
-                        name: "colors",
-                        value: [
-                          ...productDetails.colors,
-                          {
-                            name: color.name,
-                            color: color.color,
-                            id: color.id,
-                          },
-                        ],
-                        type: "checkbox",
-                      },
-                    });
-                  }}
-                  isSelected={productDetails?.colors
-                    .map((color) => color?.color?.toLowerCase())
-                    .includes(color?.color.toLowerCase())}
-                />
-              ))}
+              {Colors.map((color) => {
+                const isColorSelected = productDetails?.colors
+                  .map((color) => color?.color?.toLowerCase())
+                  .includes(color?.color.toLowerCase());
+                return (
+                  <ColorFilterCard
+                    key={color.id}
+                    color={color.color}
+                    onClick={() => {
+                      handleChange({
+                        target: {
+                          name: "colors",
+                          value: isColorSelected
+                            ? [
+                                ...productDetails.colors.filter(
+                                  (productColor) =>
+                                    productColor.name.toLowerCase() !==
+                                    color.name.toLowerCase()
+                                ),
+                              ]
+                            : [
+                                ...productDetails.colors,
+                                {
+                                  name: color.name,
+                                  color: color.color,
+                                  id: color.id,
+                                },
+                              ],
+                          type: "checkbox",
+                        },
+                      });
+                    }}
+                    isSelected={isColorSelected}
+                  />
+                );
+              })}
             </div>
           </div>
         </div>

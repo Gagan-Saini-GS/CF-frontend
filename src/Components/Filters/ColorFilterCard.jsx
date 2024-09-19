@@ -1,6 +1,11 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 const ColorFilterCard = ({ color, onClick, isSelected, readOnly }) => {
+  const [isCheckboxSelected, setIsCheckboxSelected] = useState(false);
+
+  useEffect(() => {
+    setIsCheckboxSelected(isSelected);
+  }, [isSelected]);
   return (
     <div
       className="flex items-center w-full"
@@ -10,7 +15,7 @@ const ColorFilterCard = ({ color, onClick, isSelected, readOnly }) => {
     >
       <div
         className={`w-full flex items-center border ${
-          isSelected
+          isCheckboxSelected
             ? "border-solid border-Purple bg-Purple text-White font-semibold"
             : `border-dashed border-Gray font-medium ${
                 !readOnly && "hover:text-Purple"
@@ -18,6 +23,7 @@ const ColorFilterCard = ({ color, onClick, isSelected, readOnly }) => {
         } p-1 rounded text-Gray font-medium min-w-8 text-center transition-all duration-150 ${
           !readOnly && "hover:border-solid hover:border-Purple"
         } ${readOnly ? "cursor-default" : "cursor-pointer"}`}
+        onClick={() => setIsCheckboxSelected(isCheckboxSelected ? false : true)}
       >
         <div
           className={`${color} min-w-6 min-h-6 mr-1 rounded border border-Black/20`}
